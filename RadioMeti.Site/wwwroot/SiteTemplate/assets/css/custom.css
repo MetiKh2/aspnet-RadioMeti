@@ -1,0 +1,32 @@
+﻿@import url("font/primary-iran-yekan.css");
+@import url("font/secondary-iran-yekan.css");
+body {
+    font-family: "primary-font", "segoe ui", "tahoma";
+}
+
+.ltr-text {
+    display: inline-block;
+    direction: ltr;
+}
+
+.primary-font {
+    font-family: "primary-font", "segoe ui", "tahoma" !important;
+}
+
+.secondary-font {
+    font-family: "secondary-font", "primary-font", "segoe ui", "tahoma" !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+    margin-top: 0;
+    line-height: 1.85;
+    font-family: "secondary-font", "primary-font", "segoe ui", "tahoma";
+}
+.fs-14{
+    font-size:14px !important;
+}

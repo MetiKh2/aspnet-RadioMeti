@@ -1,0 +1,51 @@
+﻿@model RadioMeti.Application.DTOs.Account.Signup.SignupUserDto
+
+@{
+    ViewBag.Title = "Signup";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <partial name="_JqueryValidator"/>
+}
+<div class="mainContent" style="background: #fff">
+            <div class="flexContainer center">
+                <div class="formContainer1 forms">
+                    <div class="panels">
+                        <div class="leftPanel emptyState">
+                         <i class="fa bi bi-person"></i>
+                        </div>
+                        <div class="rightPanel">
+                            <div class="titleContainer" style="margin-bottom: 20px">
+                                <h2 class="title dark">Create your account on Radio Javan</h2>
+                            </div>
+                            <div id="rj_form_container">
+                                <div id="rj_form">
+                                    <form asp-area="" asp-controller="Account" asp-action="Signup" class="parsley-validate" method="post">
+                                        <input asp-for="UserName" type="text" placeholder="UserName"/>
+                                        <input asp-for="Email" type="email" placeholder="Email"/>
+                                        <input asp-for="Password" type="password" placeholder="Password"/>
+                                        <div asp-validation-summary="All" class="text-danger mb-3 fs-14 d-block"></div>
+                                        <div style="margin-bottom: 20px; margin-top: 10px;">
+                                            <span style="padding-right: 5px;">
+                                                <input type="checkbox" id="agree_terms" name="agree_terms" style="height: 15px" data-parsley-multiple="agree_terms">
+                                            </span>
+                                            By signing up, you agree to our
+                                            <a href="/terms" class="link_black">Terms of Use</a>
+                                            and
+                                            <a href="/privacy" class="link_black">Privacy Policy</a>.
+                                        </div>
+                                        <div style="margin-top: 10px">
+                                            <button type="submit" class=" button primaryButton inline">Sign Up</button>
+                                            <div class="alert-box alert form_error twelve columns" style="display: none"></div>
+                                        </div>
+                                </form></div>
+                                
+                            </div>
+                            <div class="alert-box success form_success" style="display: none" id="form_success">
+                                You're almost there. Check your email now for the confirmation and login details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

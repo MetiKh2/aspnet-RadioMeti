@@ -1,8 +1,431 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="collapsibleContainer" id="mobileMenu">
+        <input id="collapsibleMenu" class="toggle" type="checkbox">
+        <label for="collapsibleMenu" class="collapsibleToggle button textButton">MENU</label>
+        <div class="collapsibleContent">
+            <div class="contentInner">
+                <a href="/mp3s">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="icon">
+                        <path d="M8,22 C9.65685425,22 11,20.6568542 11,19 C11,17.3431458 9.65685425,16 8,16 C6.34314575,16 5,17.3431458 5,19 C5,20.6568542 6.34314575,22 8,22 Z M11,16.3541756 L11,9 L11,3.66666628 L20,1 L20,6.33333372 L12,8.70370375 L12,19 C12,21.209139 10.209139,23 8,23 C5.790861,23 4,21.209139 4,19 C4,16.790861 5.790861,15 8,15 C9.19469253,15 10.2670555,15.5237549 11,16.3541756 Z M12,7.66073133 L19,5.58665755 L19,2.33926867 L12,4.41334245 L12,7.66073133 Z" id="path-1"></path>
+                    </svg>
+                    Music
+                </a>
+                <a href="/playlists">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" class="icon">
+                        <path d="M8.5,4 L21.5,4 C21.7761424,4 22,4.22385763 22,4.5 C22,4.77614237 21.7761424,5 21.5,5 L8.5,5 C8.22385763,5 8,4.77614237 8,4.5 C8,4.22385763 8.22385763,4 8.5,4 Z M14.5,9 L21.5,9 C21.7761424,9 22,9.22385763 22,9.5 C22,9.77614237 21.7761424,10 21.5,10 L14.5,10 C14.2238576,10 14,9.77614237 14,9.5 C14,9.22385763 14.2238576,9 14.5,9 Z M14.5,14 L21.5,14 C21.7761424,14 22,14.2238576 22,14.5 C22,14.7761424 21.7761424,15 21.5,15 L14.5,15 C14.2238576,15 14,14.7761424 14,14.5 C14,14.2238576 14.2238576,14 14.5,14 Z M8.5,19 L21.5,19 C21.7761424,19 22,19.2238576 22,19.5 C22,19.7761424 21.7761424,20 21.5,20 L8.5,20 C8.22385763,20 8,19.7761424 8,19.5 C8,19.2238576 8.22385763,19 8.5,19 Z M4.87807772,6.15878999 L11.2071807,10.4747288 C12.1197632,11.0970366 12.3550773,12.341311 11.7327695,13.2538935 C11.5907598,13.4621434 11.4106643,13.6416723 11.2019679,13.783025 L4.9095831,18.0449365 C3.99504403,18.6643653 2.75151735,18.4251312 2.13208852,17.5105922 C1.90949482,17.1819497 1.78972538,16.794505 1.7880263,16.3975781 L1.75130809,7.81972783 C1.74657993,6.71516845 2.6381693,5.81591322 3.74272868,5.81118506 C4.14764032,5.8094518 4.54354136,5.93066312 4.87807772,6.15878999 Z" id="path-1">
+                        </path>
+                    </svg>
+                    Playlists
+                </a>
+                <a href="/videos">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" class="icon">
+                        <path d="M4.90909091,8 C4.40701386,8 4,8.50367966 4,9.125 L4,15.875 C4,16.4963203 4.40701386,17 4.90909091,17 L13.0909091,17 C13.5929861,17 14,16.4963203 14,15.875 L14,9.125 C14,8.50367966 13.5929861,8 13.0909091,8 L4.90909091,8 Z M15,10.2249188 C16.0885822,9.33603264 17.6490377,8 18.4614359,8 L18.6470588,8 C19.9465524,8 21,9.11928813 21,10.5 L21,14.5 C21,15.8807119 19.9465524,17 18.6470588,17 L18.4614359,17 C17.6490377,17 16.0885822,15.6639674 15,14.7750812 L15,15.8 C15,17.0150264 14.1734488,18 13.1538462,18 L4.84615385,18 C3.82655123,18 3,17.0150264 3,15.8 L3,9.2 C3,7.98497355 3.82655123,7 4.84615385,7 L13.1538462,7 C14.1734488,7 15,7.98497355 15,9.2 L15,10.2249188 Z M15,11.3832921 L15,13.6167079 C16.1819127,14.4947396 17.8220263,16 18.4614359,16 L18.6470588,16 C19.4267549,16 20.0588235,15.3284271 20.0588235,14.5 L20.0588235,10.5 C20.0588235,9.67157288 19.4267549,9 18.6470588,9 L18.4614359,9 C17.8220263,9 16.1819127,10.5052604 15,11.3832921 Z M10.9659389,13.2586027 L8.17830922,14.5921209 C7.6800954,14.8304514 7.08300824,14.6197744 6.84467773,14.1215606 C6.77768395,13.9815146 6.74421655,13.8277941 6.74692595,13.6725726 L6.79516322,10.9090615 C6.80480191,10.3568609 7.26026268,9.91702756 7.81246332,9.92666625 C7.96768477,9.92937565 8.1201437,9.96818743 8.2577663,10.0400279 L10.9971587,11.4700207 C11.4867514,11.7255935 11.6764621,12.3296694 11.4208894,12.8192621 C11.3207629,13.0110713 11.1611256,13.1652312 10.9659389,13.2586027 Z" id="path-1">
+                        </path>
+                    </svg>
+                    Videos
+                </a>
+                <a href="/podcasts">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" class="icon">
+                        <path d="M5.98959236,5.98959236 C2.67013588,9.30904884 2.67013588,14.6909512 5.98959236,18.0104076 C6.18485451,18.2056698 6.501437,18.2056698 6.69669914,18.0104076 C6.89196129,17.8151455 6.89196129,17.498563 6.69669914,17.3033009 C3.76776695,14.3743687 3.76776695,9.62563133 6.69669914,6.69669914 C6.89196129,6.501437 6.89196129,6.18485451 6.69669914,5.98959236 C6.501437,5.79433021 6.18485451,5.79433021 5.98959236,5.98959236 Z M18.0104076,18.0104076 C17.8151455,18.2056698 17.498563,18.2056698 17.3033009,18.0104076 C17.1080387,17.8151455 17.1080387,17.498563 17.3033009,17.3033009 C20.232233,14.3743687 20.232233,9.62563133 17.3033009,6.69669914 C17.1080387,6.501437 17.1080387,6.18485451 17.3033009,5.98959236 C17.498563,5.79433021 17.8151455,5.79433021 18.0104076,5.98959236 C21.3298641,9.30904884 21.3298641,14.6909512 18.0104076,18.0104076 Z M10.9393398,13.0606602 C10.3535534,12.4748737 10.3535534,11.5251263 10.9393398,10.9393398 C11.5251263,10.3535534 12.4748737,10.3535534 13.0606602,10.9393398 C13.6464466,11.5251263 13.6464466,12.4748737 13.0606602,13.0606602 C12.4748737,13.6464466 11.5251263,13.6464466 10.9393398,13.0606602 Z M11.6464466,12.3535534 C11.8417088,12.5488155 12.1582912,12.5488155 12.3535534,12.3535534 C12.5488155,12.1582912 12.5488155,11.8417088 12.3535534,11.6464466 C12.1582912,11.4511845 11.8417088,11.4511845 11.6464466,11.6464466 C11.4511845,11.8417088 11.4511845,12.1582912 11.6464466,12.3535534 Z M8.81801948,8.81801948 C9.01328163,8.62275734 9.32986412,8.62275734 9.52512627,8.81801948 C9.72038841,9.01328163 9.72038841,9.32986412 9.52512627,9.52512627 C8.15829124,10.8919613 8.15829124,13.1080387 9.52512627,14.4748737 C9.72038841,14.6701359 9.72038841,14.9867184 9.52512627,15.1819805 C9.32986412,15.3772427 9.01328163,15.3772427 8.81801948,15.1819805 C7.06066017,13.4246212 7.06066017,10.5753788 8.81801948,8.81801948 Z M15.1819805,15.1819805 C14.9867184,15.3772427 14.6701359,15.3772427 14.4748737,15.1819805 C14.2796116,14.9867184 14.2796116,14.6701359 14.4748737,14.4748737 C15.8417088,13.1080387 15.8417088,10.8919613 14.4748737,9.52512627 C14.2796116,9.32986412 14.2796116,9.01328163 14.4748737,8.81801948 C14.6701359,8.62275734 14.9867184,8.62275734 15.1819805,8.81801948 C16.9393398,10.5753788 16.9393398,13.4246212 15.1819805,15.1819805 Z" id="path-1">
+                        </path>
+                    </svg>
+                    Podcasts
+                </a>
+                <a href="/tv">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="icon">
+                        <path d="M2,6.0085302 L2,15.9914698 C2,16.5488389 2.4468432,17 2.991155,17 L21.008845,17 C21.5553257,17 22,16.5511656 22,15.9914698 L22,6.0085302 C22,5.45116109 21.5531568,5 21.008845,5 L2.991155,5 C2.44467434,5 2,5.44883437 2,6.0085302 Z M1,6.0085302 C1,4.8992496 1.88967395,4 2.991155,4 L21.008845,4 C22.1085295,4 23,4.90195036 23,6.0085302 L23,15.9914698 C23,17.1007504 22.1103261,18 21.008845,18 L2.991155,18 C1.89147046,18 1,17.0980496 1,15.9914698 L1,6.0085302 Z M6,19.5 C6,19.2238576 6.22900057,19 6.50034732,19 L17.4996527,19 C17.7759869,19 18,19.2319336 18,19.5 C18,19.7761424 17.7709994,20 17.4996527,20 L6.50034732,20 C6.22401312,20 6,19.7680664 6,19.5 Z M5.59056837,8.89492742 L7.47116879,8.89492742 C7.90501426,8.89492742 8.23039348,9.00269716 8.44731622,9.21823988 C8.66423895,9.43378259 8.77269869,9.73384735 8.77269869,10.1184432 C8.77269869,10.3339859 8.74512418,10.5125456 8.68997434,10.6541275 C8.63482449,10.7957095 8.57048396,10.9098186 8.49695083,10.9964584 C8.4234177,11.0830981 8.35080482,11.1454355 8.27911002,11.1834724 C8.20741522,11.2215094 8.15502365,11.246867 8.12193374,11.2595459 L8.12193374,11.2722249 C8.18076025,11.2806775 8.24418162,11.3018088 8.31219977,11.3356195 C8.38021791,11.3694301 8.44363928,11.423315 8.50246579,11.4972757 C8.56129229,11.5712364 8.61000726,11.6673839 8.64861216,11.7857211 C8.68721705,11.9040583 8.70651921,12.0519775 8.70651921,12.2294833 C8.70651921,12.495742 8.72398306,12.7376956 8.7589113,12.9553515 C8.79383954,13.1730073 8.84806941,13.3283226 8.92160254,13.4213018 L8.18259827,13.4213018 C8.13112508,13.3240962 8.10079312,13.2163265 8.09160148,13.0979893 C8.08240983,12.9796521 8.07781408,12.865543 8.07781408,12.7556585 C8.07781408,12.5485684 8.06678428,12.3700088 8.04472434,12.2199741 C8.0226644,12.0699395 7.98222179,11.9452647 7.92339528,11.845946 C7.86456878,11.7466273 7.7846027,11.6737242 7.68349464,11.6272346 C7.58238659,11.580745 7.45278639,11.5575006 7.29469016,11.5575006 L6.27993803,11.5575006 L6.27993803,13.4213018 L5.59056837,13.4213018 L5.59056837,8.89492742 Z M6.27993803,10.9552519 L7.41050426,10.9552519 C7.63110365,10.9552519 7.79838901,10.8950276 7.91236537,10.7745773 C8.02634172,10.6541269 8.08332904,10.4734541 8.08332904,10.2325535 C8.08332904,10.0888583 8.06494603,9.97157948 8.02817947,9.88071343 C7.9914129,9.78984738 7.94085963,9.71905746 7.87651814,9.66834152 C7.81217665,9.61762559 7.73864463,9.58381548 7.65591986,9.56691017 C7.57319508,9.55000486 7.4877141,9.54155233 7.39947434,9.54155233 L6.27993803,9.54155233 L6.27993803,10.9552519 Z M11.5963568,11.963226 C11.5963568,12.1618634 11.5816504,12.3541584 11.5522371,12.5401168 C11.5228239,12.7260753 11.4630791,12.8930127 11.373001,13.0409342 C11.2829229,13.1888556 11.1524036,13.307191 10.9814391,13.3959439 C10.8104745,13.4846968 10.5834444,13.5290726 10.3003418,13.5290726 C10.0907724,13.5290726 9.91245726,13.4920928 9.76539099,13.418132 C9.61832473,13.3441713 9.49699689,13.242741 9.40140382,13.113838 C9.30581075,12.984935 9.23595532,12.8317329 9.19183544,12.6542271 C9.14771556,12.4767214 9.12565596,12.2844263 9.12565596,12.0773363 L9.12565596,11.8364368 L9.81502561,11.8364368 L9.81502561,12.0709968 C9.81502561,12.3288028 9.85271077,12.5284938 9.92808223,12.6700758 C10.0034537,12.8116577 10.145922,12.8824477 10.3554914,12.8824477 C10.4657911,12.8824477 10.556787,12.8634295 10.6284818,12.8253925 C10.7001766,12.7873556 10.7571639,12.7313576 10.7994455,12.6573968 C10.841727,12.5834361 10.8702207,12.4915149 10.8849273,12.3816303 C10.8996339,12.2717458 10.9069871,12.147071 10.9069871,12.0076022 L10.9069871,8.89492742 L11.5963568,8.89492742 L11.5963568,11.963226 Z M12.0267906,8.89492742 L15.2144359,8.89492742 L15.2144359,9.57958909 L13.9625406,9.57958909 L13.9625406,13.4213018 L13.2731709,13.4213018 L13.2731709,9.57958909 L12.0267906,9.57958909 L12.0267906,8.89492742 Z M15.1926432,8.89492742 L15.9095876,8.89492742 L16.896765,12.4767222 L16.9077949,12.4767222 L17.9170321,8.89492742 L18.6174316,8.89492742 L17.2717821,13.4213018 L16.505203,13.4213018 L15.1926432,8.89492742 Z" id="path-1">
+                        </path>
+                    </svg>
+                    RJTV
+                </a>
+                <a href="/events">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="icon">
+                        <path d="M7,16 L9.50952148,16 C9.78494263,16 10,16.2238576 10,16.5 C10,16.7680664 9.78040529,17 9.50952148,17 L6.49047852,17 C6.21505737,17 6,16.7761424 6,16.5 C6,16.2319336 6.21959471,16 6.49047852,16 L7,16 L7,16.5 C7,16.7761424 6.77614237,17 6.5,17 C6.22385763,17 6,16.7761424 6,16.5 L6,10.5 C6,10.2319336 6.21959471,10 6.49047852,10 L9.50952148,10 C9.78494263,10 10,10.2238576 10,10.5 C10,10.7680664 9.78040529,11 9.50952148,11 L7,11 Z M7,11 L7,13 L9.50952148,13 C9.78494263,13 10,13.2238576 10,13.5 C10,13.7680664 9.78040529,14 9.50952148,14 L7,14 Z M3,20 L3,8 L21,8 L21,20 L3,20 Z M4,19 L20,19 L20,9 L4,9 L4,19 Z M11.5,14 C11.2238576,14 11,13.7761424 11,13.5 C11,13.2238576 11.2238576,13 11.5,13 L17.5,13 C17.7761424,13 18,13.2238576 18,13.5 C18,13.7761424 17.7761424,14 17.5,14 L11.5,14 Z M11.5,16 C11.2238576,16 11,15.7761424 11,15.5 C11,15.2238576 11.2238576,15 11.5,15 L15.5,15 C15.7761424,15 16,15.2238576 16,15.5 C16,15.7761424 15.7761424,16 15.5,16 L11.5,16 Z M11.5,12 C11.2238576,12 11,11.7761424 11,11.5 C11,11.2238576 11.2238576,11 11.5,11 L16.5,11 C16.7761424,11 17,11.2238576 17,11.5 C17,11.7761424 16.7761424,12 16.5,12 L11.5,12 Z M21,12.9557461 L21.2677485,12.8840031 L21,11.884752 L21,12.9557461 Z M18.6795581,3.22474487 L3.22474487,7.36584959 L3.39466496,8 L19.9590838,8 L18.6795581,3.22474487 Z M3,10.3907936 L2,6.65874281 L19.3866649,2 L22.4924934,13.5911099 L20,14.2589715 L20,9 L3,9 L3,10.3907936 Z" id="Combined-Shape"></path>
+                    </svg>
+                    Events
+                </a>
+                <a href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" class="icon">
+                        <path d="M22,8.75677089 L22,22 L10,22 L10,13.6087061 L7,15.0569819 L7,22 L2,22 L2,8.73712101 L1.38019169,9 L1,8.04895105 L17.6198083,1 L18,1.95104895 L13.9010053,3.68955353 L23,8.19685612 L22.4910122,9 L22,8.75677089 Z M21,8.26140819 L12.7533311,4.17631602 L3,8.31299151 L3,21.0344828 L6,21.0344828 L6,14.4602595 L11,12.0464664 L11,21.0344828 L21,21.0344828 L21,8.26140819 Z M14,18 L14,13 L18,13 L18,18 L14,18 Z M17,17 L17,14 L15,14 L15,17 L17,17 Z M7,3.11111111 L5,3.11111111 L5,7 L4,7 L4,2 L8,2 L8,5.51851852 L7,5.51851852 L7,3.11111111 Z" id="path-1"></path>
+                    </svg>
+                    Home
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="frontpage" class="mainContent">
+        <div class="grid grid_center" id="featured">
+            <a href="/mp3s/album/Satin-Harmony">
+                <img alt="" src="https://assets.rjassets.com/static/content_items/images/2022/02/02/c5433d6bb9a4856.jpg" />
+                <div class="songInfo center">
+                    <span class="artist" title="Satin">Satin</span>
+                    <span class="song" title="Harmony">Harmony</span>
+                    <span class="tag" title="Album">Album</span>
+                </div>
+            </a>
+        </div>
+        <div class="section" id="featuredPlaylists">
+            <div class="sectionTitle">
+                <h2 class="title">Playlists</h2>
+                <a class="viewMore button primaryButton" href="/playlists">View More</a>
+            </div>
+            <div class="grid">
+                <a href="/playlists/playlist/mp3/854b87855624">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/5883691/28910480c6580da.jpg" alt="Today&#39;s Top Hits&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Today&#39;s Top Hits">Today&#39;s Top Hits</span>
+                    </div>
+                </a>
+                <a href="/playlists/playlist/mp3/edfd3097c9cc">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/1550688/3473b1615b28771.jpg" alt="Classic Oldies&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Classic Oldies">Classic Oldies</span>
+                    </div>
+                </a>
+                <a href="/playlists/playlist/mp3/6dbfcdfe02d0">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/2127294/752ffdd0fee6f47.jpg" alt="Chillout&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Chillout">Chillout</span>
+                    </div>
+                </a>
+                <a href="/playlists/playlist/mp3/397e42de6e4d">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/6628501/608623aeb3b83b6.jpg" alt="Mehmooni&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Mehmooni">Mehmooni</span>
+                    </div>
+                </a>
+                <a href="/playlists/playlist/mp3/19054aeaf694">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/10057205/8cc135ad46e7155.jpg" alt="Do Nafare&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Do Nafare">Do Nafare</span>
+                    </div>
+                </a>
+                <a href="/playlists/playlist/mp3/f251fce10fe5">
+                    <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/11431543/d5758d4a72c5da5.jpg" alt="Sonati Modern&#39;" class="lazyload" />
+                    <div class="songInfo">
+                        <span class="playlistName" title="Sonati Modern">Sonati Modern</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="leaderboard_ad" id="frontpage_ad_top">
+            <div style="width: 1060px; margin:0 auto;">
+
+                <div class="gpt-ad" id='div-gpt-ad-7781010' data-gpt-div-id='div-gpt-ad-7781010' style="margin-top: 20px" data-gpt-path="/7048279/FrontpageTop" data-gpt-dimensions="[1060, 140]"></div>
+            </div>
+            <div style="width: 1060px; margin:0 auto;">
+
+                <div class="gpt-ad" id='div-gpt-ad-7781011' data-gpt-div-id='div-gpt-ad-7781011' style="margin-top: 20px" data-gpt-path="/7048279/FrontpageTop2" data-gpt-dimensions="[1060, 140]"></div>
+            </div>
+            <div style="width: 1060px; margin:0 auto;">
+
+                <div class="gpt-ad" id='div-gpt-ad-7781012' data-gpt-div-id='div-gpt-ad-7781012' style='margin-top: 20px' data-gpt-path="/7048279/FrontpageTop3" data-gpt-dimensions="[1060, 140]"></div>
+            </div>
+            <div style="width: 1060px; margin:0 auto;">
+
+                <div class="gpt-ad" id='div-gpt-ad-7781013' data-gpt-div-id='div-gpt-ad-7781013' style='margin-top: 20px' data-gpt-path="/7048279/FrontpageTop4" data-gpt-dimensions="[1060, 140]"></div>
+            </div>
+        </div>
+        <div class="section" id="frontpageItemContainers">
+            <div class="frontpageItems">
+                <div class="grid">
+                    <a href="newreleases">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2021/09/05/3e24a372cd33461.jpg" alt="" class="lazyload" />
+                        <div class="songInfo">
+                            <span class="artist" title="Latest on RJ">Latest on RJ</span>
+                            <span class="song" title=""></span>
+                        </div>
+                    </a>
+                    <a href="/playlists/playlist/mp3/5f22145e31d8">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/9824311/eb95f1ee8bb1d97.jpg" alt="New Songs&#39;" class="lazyload" />
+                        <div class="songInfo">
+                            <span class="playlistName" title="New Songs">New Songs</span>
+                        </div>
+                    </a>
+                    <a href="/playlists/playlist/mp3/6449cdabd351">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/1612406/912ff779d0cf81f.jpg" alt="Top Songs Pop&#39;" class="lazyload" />
+                        <div class="songInfo">
+                            <span class="playlistName" title="Top Songs Pop">Top Songs Pop</span>
+                        </div>
+                    </a>
+                    <a href="/playlists/playlist/mp3/3ff92ab663a3">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/playlist/1591981/ca6088911484428.jpg" alt="Top Songs Hip Hop&#39;" class="lazyload" />
+                        <div class="songInfo">
+                            <span class="playlistName" title="Top Songs Hip Hop">Top Songs Hip Hop</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems">
+                <div class="sectionTitle">
+                    <h2 class="title">RJ Exclusive</h2>
+                </div>
+                <div class="grid">
+                    <a href="/videos/video/donya-ghalb">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/03/f7ea854a057b561.jpg" alt="Donya - Ghalb" class="lazyload" />
+                        <span class="tag">Video</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Donya">Donya</span>
+                            <span class="song" title="Ghalb">Ghalb</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Alireza-JJ-Ghesmate-Man-(Ft-Shayan-Eshraghi)">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/01/eace298f6ca4bb6.jpg" alt="Alireza JJ - Ghesmate Man (Ft Shayan Eshraghi)" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Alireza JJ">Alireza JJ</span>
+                            <span class="song" title="Ghesmate Man (Ft Shayan Eshraghi)">Ghesmate Man (Ft Shayan Eshraghi)</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Saaren-Rose-Wine">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/23/60b888f7f5f03dc.jpg" alt="Saaren - Rose Wine" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Saaren">Saaren</span>
+                            <span class="song" title="Rose Wine">Rose Wine</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Danial-Dana-Havato-Dashtam-(Acoustic-Version)">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/02/94d63bf86917efb.jpg" alt="Danial Dana - Havato Dashtam (Acoustic Version)" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Danial Dana">Danial Dana</span>
+                            <span class="song" title="Havato Dashtam (Acoustic Version)">Havato Dashtam (Acoustic Version)</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems">
+                <div class="sectionTitle">
+                    <h2 class="title">Hot Tracks</h2>
+                </div>
+                <div class="grid">
+                    <a href="/mp3s/mp3/Behzad-Leito-Sijal-Business-(Ft-Sepehr-Khalse-Saman-Wilson-Sohrab-MJ-Alireza-JJ)">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/behzad-leito-sijal-business-(ft-sepehr-khalse-saman-wilson-sohrab-mj-alireza-jj)/0d36a3076d8d928.jpg" alt="Behzad Leito &amp; Sijal - Business (Ft Sepehr Khalse, Saman Wilson, Sohrab MJ, &amp; Alireza JJ)" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Behzad Leito &amp; Sijal">Behzad Leito &amp; Sijal</span>
+                            <span class="song" title="Business (Ft Sepehr Khalse, Saman Wilson, Sohrab MJ, &amp; Alireza JJ)">Business (Ft Sepehr Khalse, Saman Wilson, Sohrab MJ, &amp; Alireza JJ)</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Sohrab-Pakzad-Noor-Cheshmi">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/sohrab-pakzad-noor-cheshmi/4565d561dffcd73.jpg" alt="Sohrab Pakzad - Noor Cheshmi" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Sohrab Pakzad">Sohrab Pakzad</span>
+                            <span class="song" title="Noor Cheshmi">Noor Cheshmi</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Satin-Boland-Bala">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/satin-boland-bala/5007a6be1ab9101.jpg" alt="Satin - Boland Bala" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Satin">Satin</span>
+                            <span class="song" title="Boland Bala">Boland Bala</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Donya-Ghalb">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/donya-ghalb/848dd608130d299.jpg" alt="Donya - Ghalb" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Donya">Donya</span>
+                            <span class="song" title="Ghalb">Ghalb</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Kimia-Bezano-Bekoob">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/kimia-bezano-bekoob/a0649df05593db4.jpg" alt="Kimia - Bezano Bekoob" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Kimia">Kimia</span>
+                            <span class="song" title="Bezano Bekoob">Bezano Bekoob</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/The-Don-Saaghi-(Ft-Koorosh)">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/mp3/the-don-saaghi-(ft-koorosh)/7828a2bfb8cb100.jpg" alt="The Don - Saaghi (Ft Koorosh)" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="The Don">The Don</span>
+                            <span class="song" title="Saaghi (Ft Koorosh)">Saaghi (Ft Koorosh)</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems">
+                <div class="sectionTitle">
+                    <h2 class="title">More To Explore</h2>
+                </div>
+                <div class="grid">
+                    <a href="/mp3s/album/Black-Cats-Rise-Of-The-Cats">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/02/d79fbfda0dbed20.jpg" alt="Black Cats - Rise Of The Cats" class="lazyload" />
+                        <span class="tag">Album</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Black Cats">Black Cats</span>
+                            <span class="song" title="Rise Of The Cats">Rise Of The Cats</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Siavash-Ghomayshi-Safar">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/29/5d1ce654ddbf445.jpg" alt="Siavash Ghomayshi - Safar" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Siavash Ghomayshi">Siavash Ghomayshi</span>
+                            <span class="song" title="Safar">Safar</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Parham-Teamo">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/02/e7c93767f7bbf83.jpg" alt="Parham - Teamo" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Parham">Parham</span>
+                            <span class="song" title="Teamo">Teamo</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Agreen-Pileh">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/30/b33e68654d9db1c.jpg" alt="Agreen - Pileh" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Agreen">Agreen</span>
+                            <span class="song" title="Pileh">Pileh</span>
+                        </div>
+                    </a>
+                    <a href="/videos/video/marcel-nimeye-gomshodam">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/03/d908ad669b6f01e.jpg" alt="Marcel - Nimeye Gomshodam" class="lazyload" />
+                        <span class="tag">Video</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Marcel">Marcel</span>
+                            <span class="song" title="Nimeye Gomshodam">Nimeye Gomshodam</span>
+                        </div>
+                    </a>
+                    <a href="/videos/video/kimia-bezano-bekoob">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/21/ec79573bc2b5278.jpg" alt="Kimia - Bezano Bekoob" class="lazyload" />
+                        <span class="tag">Video</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Kimia">Kimia</span>
+                            <span class="song" title="Bezano Bekoob">Bezano Bekoob</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems">
+                <div class="sectionTitle">
+                    <h2 class="title">DJ Mixes</h2>
+                </div>
+                <div class="grid">
+                    <a href="/podcasts/podcast/Tehranto-44">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/29/82951a265e8cda1.jpg" alt="Tehranto - Episode 44" class="lazyload" />
+                        <span class="tag">Podcast</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Tehranto">Tehranto</span>
+                            <span class="song" title="Episode 44">Episode 44</span>
+                        </div>
+                    </a>
+                    <a href="/podcasts/podcast/Dubways-129">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/25/4b27f97ce56ee76.jpg" alt="Dubways - Episode 129" class="lazyload" />
+                        <span class="tag">Podcast</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Dubways">Dubways</span>
+                            <span class="song" title="Episode 129">Episode 129</span>
+                        </div>
+                    </a>
+                    <a href="/podcasts/podcast/NoodLand-22">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/17/02890a185e49998.jpg" alt="NoodLand - Episode 22" class="lazyload" />
+                        <span class="tag">Podcast</span>
+                        <div class="songInfo">
+                            <span class="artist" title="NoodLand">NoodLand</span>
+                            <span class="song" title="Episode 22">Episode 22</span>
+                        </div>
+                    </a>
+                    <a href="/podcasts/podcast/New-Year-Mix-2022-Dynatonic">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/01/03/0a9033f44215df1.jpg" alt="New Year Mix 2022 - Dynatonic" class="lazyload" />
+                        <span class="tag">Podcast</span>
+                        <div class="songInfo">
+                            <span class="artist" title="New Year Mix 2022">New Year Mix 2022</span>
+                            <span class="song" title="Dynatonic">Dynatonic</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems">
+                <div class="sectionTitle">
+                    <h2 class="title">More Music</h2>
+                </div>
+                <div class="grid">
+                    <a href="/mp3s/mp3/Payam-Fakhri-Dast-Bardar">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/02/90a9c510590ceab.jpg" alt="Payam Fakhri - Dast Bardar" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Payam Fakhri">Payam Fakhri</span>
+                            <span class="song" title="Dast Bardar">Dast Bardar</span>
+                        </div>
+                    </a>
+                    <a href="/mp3s/mp3/Parto-Sekans">
+                        <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/content_items/images/2022/02/01/c43289bd0d5f3ee.jpg" alt="Parto - Sekans" class="lazyload" />
+                        <span class="tag">MP3</span>
+                        <div class="songInfo">
+                            <span class="artist" title="Parto">Parto</span>
+                            <span class="song" title="Sekans">Sekans</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="frontpageItems" id="featuredArtistsPodcasts">
+                <div class="sectionTitle">
+                    <h2 class="title">
+                        Popular Artists
+                    </h2>
+                </div>
+                <div class="grid" id="featuredArtists">
+                    <a href="/sogand">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/sogand-68dd4098baee643-photo.jpg" alt="Sogand&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">Sogand</span>
+                        </div>
+                    </a>
+                    <a href="/farzad-farzin">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/farzad-farzin-54471aa0b61771b-photo.jpg" alt="Farzad Farzin&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">Farzad Farzin</span>
+                        </div>
+                    </a>
+                    <a href="/epicure">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/epicure-3c5cbdcb1b40b17-photo.jpg" alt="EpiCure&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">EpiCure</span>
+                        </div>
+                    </a>
+                    <a href="/anita">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/anita-a1732deff520aae-photo.jpg" alt="Anita&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">Anita</span>
+                        </div>
+                    </a>
+                    <a href="/shahab-tiam">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/shahab-tiam-5a8cf00205e9b08-photo.jpg" alt="Shahab Tiam&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">Shahab Tiam</span>
+                        </div>
+                    </a>
+                    <a href="/sirvan+khosravi">
+                        <div class="artist_image">
+                            <img src="images/blank.gif" data-src="https://assets.rjassets.com/static/artists/photos/sirvan-khosravi-82d3750647b77e9-photo.jpg" alt="Sirvan Khosravi&#39;" class="lazyload" />
+                        </div>
+                        <div class="songInfo center">
+                            <span class="song">Sirvan Khosravi</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

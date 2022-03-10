@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Persistance", "RadioMeti.Persistance\RadioMeti.Persistance.csproj", "{FE4D3AEA-D447-4E0F-906C-19D25BF34005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.UnitTest", "RadioMeti.UnitTest\RadioMeti.UnitTest.csproj", "{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{FE4D3AEA-D447-4E0F-906C-19D25BF34005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4D3AEA-D447-4E0F-906C-19D25BF34005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE4D3AEA-D447-4E0F-906C-19D25BF34005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{FA0DF43B-F34B-4680-B65B-2B4FD6494CFF} = {985FD97B-21D7-4491-94DF-D8B9C705D6FE}
 		{86C9EFFD-5C59-43B7-8C91-DD488EE6EA3E} = {2BED0223-63CD-4226-8581-D334F9EEC0AD}
 		{FE4D3AEA-D447-4E0F-906C-19D25BF34005} = {2BED0223-63CD-4226-8581-D334F9EEC0AD}
+		{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86} = {EEBCA706-8AC0-46EC-A5A6-18523009AC6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8F5532E-CCB0-4FDC-A24A-F3A186CD787D}
