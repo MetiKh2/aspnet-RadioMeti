@@ -1,4 +1,6 @@
-﻿ <header class="headerContainer">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> _signInManager
+ <header class="headerContainer">
         <nav class="topBar">
             <div class="leftColumn">
                 <div class="socialMediasContainer">
@@ -59,9 +61,17 @@
                 <div class=" button textButton listenNow">
                     <span>Listen Now</span>
                 </div>
-                <a asp-area="" asp-controller="Account" asp-action="LogIn" class="button textButton"  >Log In</a>
+             @if (_signInManager.IsSignedIn(User))
+            {
+                   <a asp-area="" asp-controller="Account" asp-action="Logout" class="button textButton"  >Log out</a>
+            }
+            else
+            {
+                  <a asp-area="" asp-controller="Account" asp-action="LogIn" class="button textButton"  >Log In</a>
                 <a asp-area="" asp-controller="Account" asp-action="SignUp" class="button textButton">Sign Up</a>
-            </div>
+          
+            }
+        </div>
         </nav>
         <nav class="secondaryNav" id="navContainer">
             <a href="/" id="logo" class="">

@@ -1,3 +1,5 @@
+using GoogleReCaptcha.V3;
+using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +37,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(op =>
     op.User.RequireUniqueEmail = true;
 
     op.Lockout.MaxFailedAccessAttempts = 6;
-    op.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    op.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
 
 }
             )
@@ -59,6 +61,7 @@ builder.Services.Configure<SecurityStampValidatorOptions>(option =>
 #region IOC
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IMessageSender,MessageSender>();
+builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
 #endregion
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -72,7 +75,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

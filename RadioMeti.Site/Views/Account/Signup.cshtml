@@ -6,6 +6,7 @@
 }
 @section Scripts{
     <partial name="_JqueryValidator"/>
+    <partial name="_CaptchaScripts"/>
 }
 <div class="mainContent" style="background: #fff">
             <div class="flexContainer center">
@@ -16,11 +17,12 @@
                         </div>
                         <div class="rightPanel">
                             <div class="titleContainer" style="margin-bottom: 20px">
-                                <h2 class="title dark">Create your account on Radio Javan</h2>
+                                <h2 class="title dark">Create your account on Radio Meti</h2>
                             </div>
                             <div id="rj_form_container">
                                 <div id="rj_form">
                                     <form asp-area="" asp-controller="Account" asp-action="Signup" class="parsley-validate" method="post">
+                                         <partial name="_CaptchaInput" />
                                         <input asp-for="UserName" type="text" placeholder="UserName"/>
                                         <input asp-for="Email" type="email" placeholder="Email"/>
                                         <input asp-for="Password" type="password" placeholder="Password"/>
