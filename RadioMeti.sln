@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Site", "RadioMeti.Site\RadioMeti.Site.csproj", "{3CA6AEE2-5164-42B7-BA27-EC9567F8D1C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Site", "RadioMeti.Site\RadioMeti.Site.csproj", "{3CA6AEE2-5164-42B7-BA27-EC9567F8D1C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{E28D936B-7519-44E5-BBA2-2A667D0F3C15}"
 EndProject
@@ -19,17 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persentation", "Persentation", "{7EEB3045-A88A-43B1-9F8E-696662B1798B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Domain", "RadioMeti.Domain\RadioMeti.Domain.csproj", "{CB58F991-CAC6-4C82-8529-ECA8D9280CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Domain", "RadioMeti.Domain\RadioMeti.Domain.csproj", "{CB58F991-CAC6-4C82-8529-ECA8D9280CED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Application", "RadioMeti.Application\RadioMeti.Application.csproj", "{D45BDA9B-816F-45F5-A30E-EDB5C0A8B2F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Application", "RadioMeti.Application\RadioMeti.Application.csproj", "{D45BDA9B-816F-45F5-A30E-EDB5C0A8B2F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Common", "RadioMeti.Common\RadioMeti.Common.csproj", "{FA0DF43B-F34B-4680-B65B-2B4FD6494CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Common", "RadioMeti.Common\RadioMeti.Common.csproj", "{FA0DF43B-F34B-4680-B65B-2B4FD6494CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Infrastructure", "RadioMeti.Infrastructure\RadioMeti.Infrastructure.csproj", "{86C9EFFD-5C59-43B7-8C91-DD488EE6EA3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Infrastructure", "RadioMeti.Infrastructure\RadioMeti.Infrastructure.csproj", "{86C9EFFD-5C59-43B7-8C91-DD488EE6EA3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.Persistance", "RadioMeti.Persistance\RadioMeti.Persistance.csproj", "{FE4D3AEA-D447-4E0F-906C-19D25BF34005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.Persistance", "RadioMeti.Persistance\RadioMeti.Persistance.csproj", "{FE4D3AEA-D447-4E0F-906C-19D25BF34005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioMeti.UnitTest", "RadioMeti.UnitTest\RadioMeti.UnitTest.csproj", "{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioMeti.UnitTest", "RadioMeti.UnitTest\RadioMeti.UnitTest.csproj", "{33A3A5F5-6172-4EB0-84E3-DB4C3EE64A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,15 +12,14 @@ namespace RadioMeti.Site.Controllers;
 public class AccountController : SiteBaseController
 {
     #region ctor
-    private readonly IUserService _userService;
+   // private readonly IUserService _userService;
     private readonly IMessageSender _messageSender;
     private readonly ICaptchaValidator _captchaValidator;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
-    public AccountController(SignInManager<IdentityUser> signInManager, IUserService userService, UserManager<IdentityUser> userManager, IMessageSender messageSender, ICaptchaValidator captchaValidator)
+    public AccountController(SignInManager<IdentityUser> signInManager,  UserManager<IdentityUser> userManager, IMessageSender messageSender, ICaptchaValidator captchaValidator)
     {
         _signInManager = signInManager;
-        _userService = userService;
         _userManager = userManager;
         _messageSender = messageSender;
         _captchaValidator = captchaValidator;
@@ -109,12 +108,13 @@ public class AccountController : SiteBaseController
         }
         return View(signup);
     }
+
+    #endregion
+    #region ConfirmEmail
     public async Task<IActionResult> ConfirmEmail(string userName, string token)
     {
         if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(token))
-        {
             return NotFound();
-        }
         var user = await _userManager.FindByNameAsync(userName);
         if (user == null) return NotFound();
         var result = await _userManager.ConfirmEmailAsync(user, token);
