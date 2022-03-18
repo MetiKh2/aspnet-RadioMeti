@@ -30,3 +30,11 @@ h6 {
 .fs-14{
     font-size:14px !important;
 }
+.margin-sidebar{
+    margin:0 0 0 250px !important;
+}
+@media screen and (max-width:770px){
+    .margin-sidebar{
+        margin:0 !important;
+    }
+}

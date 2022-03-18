@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+ <partial name="_AdminHeaderRefrences"/>
+  @RenderSection("Styles",false)
+  <style>
+    
+  </style>
+ <title>@ViewData["Title"] | Admin Radio Meti</title>
+</head>
+<body>
+    @await Component.InvokeAsync("AdminHeader")
+       <div id="page-wrapper" class="margin-sidebar">
+           @RenderBody()
+       </div> 
+ <partial name="_AdminFooterRefrences"/>
+  <partial name="_SiteMessages" />
+  @RenderSection("Scripts",false)
+</body>
+</html>

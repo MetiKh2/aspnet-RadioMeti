@@ -1,0 +1,23 @@
+﻿@model RadioMeti.Application.DTOs.Paging.BasePaging
+<div class="row">
+    @*<div class="col-sm-6">
+        <div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">Showing 1 to 10 of 57 entries</div>
+    </div>*@
+    <div class="col-12">
+        <div style="text-align:center" class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+            <ul class="pagination">
+
+                @if (Model.PageId < Model.EndPage)
+                {
+                    <li style="cursor:pointer"><a onclick="FillPageId(@(Model.PageId+1))"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li style="cursor:pointer" class="next"><a onclick="FillPageId(@(Model.PageId+1))">Next</a></li>
+
+                }
+                @for (var i = Model.StartPage; i <= Model.EndPage; i++)
+                {
+                    <li style="cursor:pointer" class="@(Model.PageId==i?"current":"")"><a onclick="FillPageId(@i)">@i</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

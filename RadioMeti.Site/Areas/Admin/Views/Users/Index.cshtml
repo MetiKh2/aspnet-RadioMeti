@@ -1,0 +1,102 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Users
+@model FilterUsersDto
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Users";
+}
+<partial name="_AdminTitle" model="title" />
+@section Styles{
+<style>
+    .w-100 {
+        width: 100% !important;
+    }
+</style>
+}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Filter
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Users" asp-action="Index" method="get">
+                        <input type="hidden" asp-for="PageId" />
+                        <div class="form-group">
+                            <a asp-area="Admin" asp-controller="Users" asp-action="CreateUser" class="btn btn-primary text-white w-100">Create User</a>
+                        </div>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input asp-for="UserName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="Email" class="form-control">
+                        </div>
+                        @foreach (var item in Html.GetEnumSelectList<FilterUsersState>())
+                        {
+                            <div class="radio">
+                                <label>
+                                    <input value="@item.Value" id="@item.Text"
+                                       type="radio"
+                                       name="@nameof(Model.FilterUsersState)"
+                                       @(Convert.ToInt32(item.Value) == Convert.ToInt32(Model.FilterUsersState) ? "checked" : "") />
+                                    @item.Text
+                                </label>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                List
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Commands</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Users" asp-action="EditUser" asp-route-userName="@item.UserName">Edit</a>
+                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Users" asp-action="DeleteUser" asp-route-userName="@item.UserName">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <partial name="_AdminPaging" />
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
