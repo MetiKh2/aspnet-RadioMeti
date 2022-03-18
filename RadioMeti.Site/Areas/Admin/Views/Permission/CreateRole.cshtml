@@ -1,12 +1,13 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model RadioMeti.Application.DTOs.Admin.Users.Create.CreateUserDto
+﻿@using RadioMeti.Application.DTOs.Admin.Roles.Create
+@using RadioMeti.Application.DTOs.Enums
+@model CreateRoleDto
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Create Role";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    List<IdentityRole> Roles = ViewBag.Roles;
-    List<string> selectedRoles = ViewBag.selectedRoles;
-    string title = "Create User";
+    string title = "Create Role";
+        List<string> selectedClaims = ViewBag.selectedClaims as List<string>;
 }
+   
 @section Scripts{
     <partial name="_JqueryValidator"/>
     <partial name="_CaptchaScripts"/>
@@ -22,33 +23,25 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="table-responsive">
-                    <form id="filter-form" asp-area="Admin" asp-controller="Users" asp-action="CreateUser" method="post">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Permission" asp-action="CreateRole" method="post">
                              <partial name="_CaptchaInput" />
                         <div class="form-group">
                             <label>User Name</label>
-                            <input asp-for="UserName" class="form-control">
+                            <input asp-for="RoleName" class="form-control">
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
                         </div>  
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input asp-for="Email" class="form-control">
-                        </div>  
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input asp-for="Password" class="form-control">
-                        </div> 
-                        @foreach (var item in Roles)
+                          @foreach (var item in Html.GetEnumSelectList<PermissionsSite>())
                         {
                             <div class="radio">
                                 <label>
-                                    <input value="@item.Name"
+                                    <input value="@item.Text"
                                        type="checkbox"
-                                       name="selectedRoles"
-                                      @(selectedRoles!=null&&selectedRoles.Any(p=>p==item.Name)?"checked":" ")/>
-                                    @item.Name
+                                       name="selectedClaims"
+                                        @(selectedClaims!=null&&selectedClaims.Any(p=>p==item.Text)?"checked":" ")/>
+                                    @item.Text
                                 </label>
                             </div>
                         }
-                        <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
                         <button type="submit" class="btn btn-info text-white w-100">Submit</button>
                         </div>
@@ -61,3 +54,5 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+

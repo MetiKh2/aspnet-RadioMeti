@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using RadioMeti.Application.DTOs.Enums;
 using RadioMeti.Application.Interfaces;
 using RadioMeti.Application.Services;
 using RadioMeti.Persistance.context;
@@ -54,13 +55,44 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.Configure<SecurityStampValidatorOptions>(option =>
 {
-    //option.ValidationInterval = TimeSpan.FromSeconds(5);
+    option.ValidationInterval = TimeSpan.FromMinutes(5);
+});
+
+builder.Services.AddAuthorization(option =>
+{
+    #region Roles
+    option.AddPolicy(PermissionsSite.IndexRoles.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.IndexRoles.ToString().ToUpper(), PermissionsSite.IndexRoles.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.CreateRole.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.CreateRole.ToString().ToUpper(), PermissionsSite.CreateRole.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.EditRole.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.EditRole.ToString().ToUpper(), PermissionsSite.EditRole.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.DeleteRole.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.DeleteRole.ToString().ToUpper(), PermissionsSite.DeleteRole.ToString().ToUpper()));
+    #endregion  
+    #region Users
+    option.AddPolicy(PermissionsSite.IndexUsers.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.IndexUsers.ToString().ToUpper(), PermissionsSite.IndexUsers.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.CreateUser.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.CreateUser.ToString().ToUpper(), PermissionsSite.CreateUser.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.EditUser.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.EditUser.ToString().ToUpper(), PermissionsSite.EditUser.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.DeleteUser.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.DeleteUser.ToString().ToUpper(), PermissionsSite.DeleteUser.ToString().ToUpper()));
+    #endregion
 });
 
 #endregion
 #region IOC
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IMessageSender,MessageSender>();
+builder.Services.AddScoped<IPermissionService,PermissionService>();
 builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
 #endregion
 var app = builder.Build();

@@ -24,7 +24,7 @@ namespace RadioMeti.Application.DTOs.Paging
         public int HowManyShowPageAfterAndBefore { get; set; }
         public string GetCurrentPagingStatus()
         {
-            return $"نمایش {((PageId * TakeEntity)-TakeEntity)+1}-{(PageId * TakeEntity>AllEntitiesCount?AllEntitiesCount:PageId * TakeEntity)} از  {AllEntitiesCount}";
+            return $"Showing {((PageId * TakeEntity)-TakeEntity)+1}-{(PageId * TakeEntity>AllEntitiesCount?AllEntitiesCount:PageId * TakeEntity)} From  {AllEntitiesCount}";
         }
         public BasePaging GetCurrentPaging()
         {

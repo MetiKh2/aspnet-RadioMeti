@@ -18,7 +18,7 @@ public class UserService : IUserService
         _userManager = userManager;
     }
 
-    public async Task<IdentityResult> CreateUser(CreateUserDto create)
+    public async Task<Tuple<IdentityResult,string>> CreateUser(CreateUserDto create)
     {
         var user = new IdentityUser()
         {
@@ -26,14 +26,15 @@ public class UserService : IUserService
             UserName = create.UserName,
             EmailConfirmed = true
         };
-        return await _userManager.CreateAsync(user, create.Password);
+        var result= await _userManager.CreateAsync(user, create.Password);
+        return Tuple.Create(result,user.Id);
     }
 
     public async Task<IdentityResult?> DeleteUser(string userName)
     {
-        var user=await _userManager.FindByNameAsync(userName);
-        if(user==null) return null;
-       return await _userManager.DeleteAsync(user);
+        var user = await _userManager.FindByNameAsync(userName);
+        if (user == null) return null;
+        return await _userManager.DeleteAsync(user);
     }
 
     public async Task<IdentityResult?> EditUser(EditUserDto edit)
@@ -42,13 +43,13 @@ public class UserService : IUserService
         if (user == null) return null;
         user.UserName = edit.UserName;
         user.Email = edit.Email;
-       var result= await _userManager.UpdateAsync(user);
-       var token= await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        await _userManager.ConfirmEmailAsync(user,token);
+        var result = await _userManager.UpdateAsync(user);
+        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        await _userManager.ConfirmEmailAsync(user, token);
         return result;
     }
 
-    public async Task<FilterUsersDto> FilterUsersListAsync(FilterUsersDto filter)
+    public async Task<FilterUsersDto> FilterUsersList(FilterUsersDto filter)
     {
         var query = _userManager.Users;
         #region state
@@ -87,5 +88,26 @@ public class UserService : IUserService
         return await _userManager.FindByNameAsync(userName);
     }
 
-   
+    public async Task<IList<string>> GetUserRoles(string userId)
+    {
+        var user=await _userManager.FindByIdAsync(userId);
+       return await _userManager.GetRolesAsync(user);
+    }
+
+    public async Task UserAddRole(string userId, List<string> selectedRoles)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user != null)
+            await _userManager.AddToRolesAsync(user, selectedRoles);
+    }
+
+    public async Task UserDeleteRole(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user != null)
+        {
+            var userRoles= await _userManager.GetRolesAsync(user);
+           await _userManager.RemoveFromRolesAsync(user,userRoles);
+        }
+    }
 }

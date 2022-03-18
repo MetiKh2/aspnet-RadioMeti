@@ -1,8 +1,10 @@
 ﻿using GoogleReCaptcha.V3.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadioMeti.Application.DTOs.Admin.Users;
 using RadioMeti.Application.DTOs.Admin.Users.Create;
 using RadioMeti.Application.DTOs.Admin.Users.Edit;
+using RadioMeti.Application.DTOs.Enums;
 using RadioMeti.Application.Interfaces;
 
 namespace RadioMeti.Site.Areas.Admin.Controllers
@@ -10,27 +12,34 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
     public class UsersController : AdminBaseController
     {
         private readonly IUserService _userService;
+        private readonly IPermissionService _permissionService;
         private readonly ICaptchaValidator _captchaValidator;
-        public UsersController(IUserService userService, ICaptchaValidator captchaValidator)
+        public UsersController(IUserService userService, ICaptchaValidator captchaValidator, IPermissionService permissionService)
         {
             _userService = userService;
             _captchaValidator = captchaValidator;
+            _permissionService = permissionService;
         }
+        [Authorize(Policy = "INDEXUSERS")]
         [HttpGet("Admin/users")]
         public async Task<IActionResult> Index(FilterUsersDto filter)
         {
-            filter.TakeEntity=2;
-            return View(await _userService.FilterUsersListAsync(filter));
+            filter.TakeEntity=5;
+            return View(await _userService.FilterUsersList(filter));
         }
-
+        [Authorize(Policy = "CREATEUSER")]
         [HttpGet("Admin/CreateUser")]
         public async Task<IActionResult> CreateUser()
         {
+            ViewBag.Roles = await _permissionService.GetIdentityRoles();
             return View();
         }
+        [Authorize(Policy = "CREATEUSER")]
         [HttpPost("Admin/CreateUser"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateUser(CreateUserDto create)
+        public async Task<IActionResult> CreateUser(CreateUserDto create,List<string> selectedRoles)
         {
+            ViewBag.Roles = await _permissionService.GetIdentityRoles();
+            ViewBag.selectedRoles = selectedRoles;
             if (!await _captchaValidator.IsCaptchaPassedAsync(create.Captcha))
             {
                 TempData[ErrorMessage] = "Captcha is require - Try again";
@@ -39,31 +48,37 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
               var result= await _userService.CreateUser(create);
-                if (result.Succeeded)
+                if (result.Item1.Succeeded)
                 {
+                    await _userService.UserAddRole(result.Item2,selectedRoles);
                     TempData[SuccessMessage] = "User Successful Created";
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    foreach (var item in result.Errors)
+                    foreach (var item in result.Item1.Errors)
                         ModelState.AddModelError("",item.Description);
                 }
             }
             return View(create);
         }
+        [Authorize(Policy = "EDITUSER")]
         [HttpGet("Admin/EditUser/{userName}")]
         public async Task<IActionResult> EditUser(string userName)
         {
+            ViewBag.Roles = await _permissionService.GetIdentityRoles();
             var user = await _userService.GetByName(userName);
             if (user == null)
                 return NotFound();
+            ViewBag.selectedRoles = await _userService.GetUserRoles(user.Id);
             return View(new EditUserDto {Email=user.Email,UserName=user.UserName,Id=user.Id});
         }
-
+        [Authorize(Policy = "EDITUSER")]
         [HttpPost("Admin/EditUser/{userName}"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(EditUserDto edit)
+        public async Task<IActionResult> EditUser(EditUserDto edit,List<string> selectedRoles)
         {
+            ViewBag.Roles = await _permissionService.GetIdentityRoles();
+            ViewBag.selectedRoles = selectedRoles;
             if (!await _captchaValidator.IsCaptchaPassedAsync(edit.Captcha))
             {
                 TempData[ErrorMessage] = "Captcha is require - Try again";
@@ -75,6 +90,8 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                 if (result == null) return NotFound();
                 if (result.Succeeded)
                 {
+                    await _userService.UserDeleteRole(edit.Id);
+                    await _userService.UserAddRole(edit.Id,selectedRoles);
                     TempData[SuccessMessage] = "User Successful Updated";
                     return RedirectToAction("Index");
                 }
@@ -86,6 +103,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
             }
             return View(edit);
         }
+        [Authorize(Policy = "DELETEUSER")]
         [HttpGet("Admin/DeleteUser/{userName}")]
         public async Task<IActionResult> DeleteUser(string userName)
         {
