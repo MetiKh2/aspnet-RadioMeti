@@ -11,6 +11,7 @@ using RadioMeti.Application.DTOs.Account.ResetPassword;
 using RadioMeti.Application.DTOs.Account.Signup;
 using RadioMeti.Application.Interfaces;
 using RadioMeti.Site.Controllers;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
@@ -29,10 +30,13 @@ namespace RadioMeti.UnitTest
         private SignupUserDto _signupUser;
         private ForgotPasswordDto _forgotPassword;
         private ResetPasswordDto _resetPassword;
+        private List<IdentityError> _identityErrors;
         [SetUp]
         public void SetUp()
         {
-            _resetPassword= new ResetPasswordDto()
+            _identityErrors = new List<IdentityError>() { new IdentityError() { Description="Error1"} ,
+            new IdentityError() { Description="Error2"} };
+            _resetPassword = new ResetPasswordDto()
             {
                Token="token",
                 Captcha = "Captcha",
@@ -155,6 +159,7 @@ namespace RadioMeti.UnitTest
             
             Assert.That(res, Is.TypeOf<RedirectResult>());
             Assert.AreEqual(redirectResult.Url, _loginUser.ReturnUrl);
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         [Test]
         public async Task LoginPost_CaptchaValidAndUserIsNotSignedInAndModelIsValidAndLoginSuccessAndReturnUrlIsEmpty_ReturnRedirectHomeIndex()
@@ -174,6 +179,7 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<RedirectToActionResult>());
             Assert.AreEqual(redirectToActionResult.ControllerName, "Home");
             Assert.AreEqual(redirectToActionResult.ActionName, "Index");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         [Test]
         public async Task LoginPost_CaptchaValidAndUserIsNotSignedInAndModelIsValidAndLoginSuccessAndReturnUrlIsNotLocaleUrl_ReturnRedirectHomeIndex()
@@ -196,6 +202,7 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<RedirectToActionResult>());
             Assert.AreEqual(redirectToActionResult.ControllerName, "Home");
             Assert.AreEqual(redirectToActionResult.ActionName, "Index");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         [Test]
         public async Task LoginPost_CaptchaValidAndUserIsNotSignedInAndModelIsValidAndLoginNotSuccessAndAccountLocked_ReturnSameView()
@@ -307,6 +314,7 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<RedirectToActionResult>());
             Assert.AreEqual(redirectToActionResult.ControllerName, "Home");
             Assert.AreEqual(redirectToActionResult.ActionName, "Index");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         //Todo Fix a few tests of sign up 
         #endregion
@@ -343,6 +351,7 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<RedirectToActionResult>());
             Assert.AreEqual(redirectToActionResult.ControllerName, "Home");
             Assert.AreEqual(redirectToActionResult.ActionName, "Index");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         [Test]
         public async Task ConfrimEmail_UserIsNotNullAndConfrimNotSuccess_ReturnRedirectHomeIndex()
@@ -374,6 +383,7 @@ namespace RadioMeti.UnitTest
             var redirectResult = (RedirectResult)res;
             Assert.That(res, Is.TypeOf<RedirectResult>());
             Assert.AreEqual(redirectResult.Url, "/");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
 
         #endregion
@@ -547,13 +557,14 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<RedirectToActionResult>());
             Assert.AreEqual(redirectToActionResult.ControllerName, "Account");
             Assert.AreEqual(redirectToActionResult.ActionName, "Login");
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, 0);
         }
         [Test]
         public async Task ResetPost_CaptchaValidAndAndModelStateIsValidAndUserIsNotNullAndResetPasswordNotSuccess_ReturnSameView()
         {
             _captchaVaildator.Setup(p => p.IsCaptchaPassedAsync(It.IsAny<string>())).ReturnsAsync(true);
             _userManager.Setup(p => p.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(new IdentityUser());
-            _userManager.Setup(p => p.ResetPasswordAsync(It.IsAny<IdentityUser>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Failed());
+            _userManager.Setup(p => p.ResetPasswordAsync(It.IsAny<IdentityUser>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Failed(_identityErrors.ToArray()));
 
             var res = await _accountController.ResetPassword(_resetPassword);
             var viewResult = (ViewResult)res;
@@ -562,6 +573,7 @@ namespace RadioMeti.UnitTest
             Assert.That(res, Is.TypeOf<ViewResult>());
             Assert.That(viewResult.Model, Is.TypeOf<ResetPasswordDto>());
             Assert.AreEqual(model, _resetPassword);
+            Assert.AreEqual(_accountController.ModelState.ErrorCount, _identityErrors.Count);
         }
         #endregion
     }

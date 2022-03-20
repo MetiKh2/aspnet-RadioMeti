@@ -22,4 +22,8 @@
     <ProjectReference Include="..\RadioMeti.Site\RadioMeti.Site.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Admin\Permission\" />
+  </ItemGroup>
+
 </Project>
