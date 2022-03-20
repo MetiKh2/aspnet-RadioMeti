@@ -127,7 +127,7 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Users
 
         }
         [Test]
-        public async Task CreateUserPost_CaptchaIsValidAndModelStateIsValidCreateSuccess_ReturnSameView()
+        public async Task CreateUserPost_CaptchaIsValidAndModelStateIsValidCreateSuccess_ReturnRedirectIndex()
         {
             _selectedRoles.AddRange(new List<string>() { "Role1", "Role2", "Role3" });
             _captchaVaildator.Setup(p => p.IsCaptchaPassedAsync(It.IsAny<string>())).ReturnsAsync(true);
