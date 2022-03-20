@@ -37,6 +37,8 @@ namespace RadioMeti.Persistance.context
         #endregion
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Artist>().HasQueryFilter(p => !p.IsRemoved);
+
             base.OnModelCreating(builder);
         }
     }

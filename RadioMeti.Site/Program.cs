@@ -1,14 +1,16 @@
+using AutoMapper;
 using GoogleReCaptcha.V3;
 using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using RadioMeti.Application.AutoMapper;
 using RadioMeti.Application.DTOs.Enums;
 using RadioMeti.Application.Interfaces;
 using RadioMeti.Application.Services;
 using RadioMeti.Persistance.context;
-using RadioMeti.Site.Logging.Extensions;
+using RadioMeti.Persistance.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 #region logging
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
@@ -86,6 +88,19 @@ builder.Services.AddAuthorization(option =>
     option.AddPolicy(PermissionsSite.DeleteUser.ToString().ToUpper(), policy => policy
             .RequireClaim(PermissionsSite.DeleteUser.ToString().ToUpper(), PermissionsSite.DeleteUser.ToString().ToUpper()));
     #endregion
+    #region Artists
+    option.AddPolicy(PermissionsSite.IndexArtist.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.IndexArtist.ToString().ToUpper(), PermissionsSite.IndexArtist.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.CreateArtist.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.CreateArtist.ToString().ToUpper(), PermissionsSite.CreateArtist.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.EditArtist.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.EditArtist.ToString().ToUpper(), PermissionsSite.EditArtist.ToString().ToUpper()));
+
+    option.AddPolicy(PermissionsSite.DeleteArtist.ToString().ToUpper(), policy => policy
+            .RequireClaim(PermissionsSite.DeleteArtist.ToString().ToUpper(), PermissionsSite.DeleteArtist.ToString().ToUpper()));
+    #endregion
 });
 
 #endregion
@@ -93,7 +108,13 @@ builder.Services.AddAuthorization(option =>
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IMessageSender,MessageSender>();
 builder.Services.AddScoped<IPermissionService,PermissionService>();
+builder.Services.AddScoped<IArtistService,ArtistService>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
+#endregion
+#region Auto Mapper
+builder.Services.AddAutoMapper(typeof(CustomProfile));
+
 #endregion
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -121,3 +142,4 @@ app.UseEndpoints(endpoints =>
  );
 });
 app.Run();
+ 

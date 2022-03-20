@@ -16,5 +16,9 @@ namespace RadioMeti.Application.DTOs.Enums
         CreateRole,
         EditRole,
         DeleteRole,
+        IndexArtist,
+        CreateArtist,
+        EditArtist,
+        DeleteArtist,
     }
 }

@@ -17,6 +17,7 @@ namespace RadioMeti.Domain.Entities.Music
         public string? Avatar { get; set; }
         [Display]
         public string? Image { get; set; }
+        public bool IsPopular { get; set; }
         #endregion
         #region rel
         public ICollection<ArtistAlbum> ArtistAlbums { get; set; }

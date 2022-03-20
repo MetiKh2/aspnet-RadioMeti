@@ -1,7 +1,7 @@
 ﻿using RadioMeti.Domain.Entities.Base;
 namespace RadioMeti.Persistance.Repository
 {
-    public interface IGenericRepository<TEntity> where TEntity :BaseEntity
+    public interface IGenericRepository<TEntity> where TEntity :BaseEntityNullableDates
     {
         Task AddEntity(TEntity entity);
         void EditEntity(TEntity entity);

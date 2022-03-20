@@ -1,0 +1,77 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@model RadioMeti.Application.DTOs.Admin.Artists.Edit.EditArtistDto
+
+@{
+    ViewData["Title"] = "Edit Artist";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Edit User";
+}
+@section Scripts{
+    <partial name="_JqueryValidator"/>
+    <partial name="_CaptchaScripts"/>
+}
+@section Styles{
+    <style>
+        .rounded{
+            border-radius:8px;
+        }
+        .w-100{
+            width:100%;
+        }
+    </style>
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Artist" asp-action="EditArtist" method="post" enctype="multipart/form-data">
+                             <partial name="_CaptchaInput" />
+                             <input type="hidden" asp-for="Avatar"/>
+                             <input type="hidden" asp-for="Image"/>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input asp-for="FullName" class="form-control">
+                        </div>  
+                        <div class="checkbox">
+                            <label>
+                            <input asp-for="IsPopular">
+                            IsPopular?
+                            </label>
+                        </div>  
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>  
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input type="file" name="avatar" class="form-control">
+                        </div> 
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-md-6 col-12">
+        <label>Avatar</label>
+        <img class="rounded w-100" src="@(PathExtension.ArtistAvatarOriginPath+Model.Avatar)"/>
+    </div> 
+    <div class="col-md-6 col-12">
+        <label>Image</label>
+        <img class="rounded w-100" src="@(PathExtension.ArtistImageOriginPath+Model.Image)"/>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+

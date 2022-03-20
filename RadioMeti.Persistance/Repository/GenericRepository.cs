@@ -4,7 +4,7 @@ using RadioMeti.Persistance.context;
 
 namespace RadioMeti.Persistance.Repository
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntityNullableDates
     {
         private readonly RadioMetiDbContext _context;
         private readonly DbSet<TEntity> _dBSet;

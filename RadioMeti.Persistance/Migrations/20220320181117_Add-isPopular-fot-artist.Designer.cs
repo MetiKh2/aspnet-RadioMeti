@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220320181117_Add-isPopular-fot-artist")]
+    partial class AddisPopularfotartist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,7 +233,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Level")
@@ -272,7 +274,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
@@ -313,7 +315,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -341,7 +343,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -370,7 +372,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<long>("MusicId")
@@ -413,7 +415,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsSingle")
@@ -479,7 +481,7 @@ namespace RadioMeti.Persistance.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
@@ -514,7 +516,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
@@ -541,7 +543,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<long>("MusicId")
@@ -573,7 +575,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<long>("PlayListCategoryId")
@@ -614,7 +616,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<long>("DjId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Narrator")
@@ -665,7 +667,7 @@ namespace RadioMeti.Persistance.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -690,7 +692,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -722,7 +724,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemoved")
+                    b.Property<bool?>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<int>("LikesCount")
