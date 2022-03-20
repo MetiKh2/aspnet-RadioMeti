@@ -8,6 +8,6 @@ namespace RadioMeti.Application.Utilities.Security
 {
     public static class EmailSecurity
     {
-        public static readonly string EmailPassword = "12212332";
+        public static readonly string EmailPassword = "...";
     }
 }
