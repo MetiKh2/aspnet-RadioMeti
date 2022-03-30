@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /RadioMeti.Site/wwwroot/Content/Artist
+/RadioMeti.Site/wwwroot/AdminTemplate/Searchable
+/RadioMeti.Site/wwwroot/Content/Audio/Music/Single/origin
+/RadioMeti.Site/wwwroot/Content/Cover/Music/Album
+/RadioMeti.Site/wwwroot/Content/Cover/Music/Single/origin
+/RadioMeti.Site/wwwroot/Content/Cover/Music/Single/Thumb

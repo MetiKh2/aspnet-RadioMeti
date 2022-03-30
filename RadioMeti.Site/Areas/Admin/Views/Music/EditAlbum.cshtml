@@ -1,0 +1,83 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Music.Album.Edit
+@using RadioMeti.Domain.Entities.Music
+@model EditAlbumDto
+@{
+    ViewData["Title"] = "EditAlbum";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Edit Album";
+    List<Artist> artists = ViewBag.Artists;
+    List<long> artistsAlbums = ViewBag.ArtistsAlbum;
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Music" asp-action="EditAlbum" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <input type="hidden" asp-for="Id"/>
+                        <input type="hidden" asp-for="Cover"/>
+                        <input type="hidden" name="artistId" value="@ViewBag.artistId"/>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsSlider">
+                                IsSlider?
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Artists</label>
+                            <div class="searchable-select">
+                                <select style="display:none" class="form-control " multiple name="artistsId">
+                                    @foreach (var item in artists)
+                                    {
+                                        if (artistsAlbums.Any(p => p == item.Id))
+                                        {
+                                            <option selected value="@item.Id">@item.FullName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.FullName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
+
+
+
+

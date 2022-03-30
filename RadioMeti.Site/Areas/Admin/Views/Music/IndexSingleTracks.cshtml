@@ -1,0 +1,135 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Music.Single
+@using RadioMeti.Application.Utilities.Utils
+@model FilterMusicsDto
+@{
+    ViewData["Title"] = $"{ViewBag.ArtistName} Single Tracks";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = $"{ViewBag.ArtistName} Single Tracks";
+}
+<partial name="_AdminTitle" model="title" />
+@section Styles{
+<style>
+    .w-100 {
+        width: 100% !important;
+    }
+    .border-success{
+        border:1px solid green;
+    }
+</style>
+}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Filter
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Music" asp-action="IndexSingleTracks" method="get">
+                        <input type="hidden" asp-for="PageId" />
+                         <div class="form-group">
+                            <a asp-area="Admin" asp-controller="Artist" asp-action="Index" class="btn btn-warning text-white w-100">Go Back To Artists</a>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Arrangement</label>
+                            <input asp-for="Arrangement" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>MusicProducer</label>
+                            <input asp-for="MusicProducer" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Lyrics</label>
+                            <input asp-for="Lyrics" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Poet</label>
+                            <input asp-for="Poet" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Photographer</label>
+                            <input asp-for="Photographer" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>CoverArtist</label>
+                            <input asp-for="CoverArtist" class="form-control">
+                        </div>
+                        @foreach (var item in Html.GetEnumSelectList<FilterMusicState>())
+                        {
+                            <div class="radio">
+                                <label>
+                                    <input value="@item.Value" id="@item.Text"
+                                       type="radio"
+                                       name="@nameof(Model.FilterMusicState)"
+                                       @(Convert.ToInt32(item.Value) == Convert.ToInt32(Model.FilterMusicState) ? "checked" : "") />
+                                    @item.Text
+                                </label>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                List
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cover</th>
+                                <th>Title</th>
+                                <th>Commands</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Musics)
+                            {
+                                <tr>
+                                    <td><img width="80" src="@(PathExtension.CoverSingleTrackThumbPath+item.Cover)" class="img-thumbnail"/></td>
+                                    <td>@item.Title</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Music" asp-action="EditSingleTrack" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Edit</a>
+                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Music" asp-action="DeleteMusic" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <partial name="_AdminPaging" model="@Model.GetCurrentPaging()" />
+                    <div class="row">
+                        <div class="col-12">
+                            <div style="padding:1.5rem" class="dataTables_info text-info border-success" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">@Model.GetCurrentPagingStatus()</div>
+                        </div>
+                    </div>
+                    <video>
+                        <source type="audio/vorbis"/>
+                    </video>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+ 
+

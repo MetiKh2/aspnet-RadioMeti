@@ -108,6 +108,7 @@ builder.Services.AddAuthorization(option =>
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IMessageSender,MessageSender>();
 builder.Services.AddScoped<IPermissionService,PermissionService>();
+builder.Services.AddScoped<IMusicService, MusicService>();
 builder.Services.AddScoped<IArtistService,ArtistService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();

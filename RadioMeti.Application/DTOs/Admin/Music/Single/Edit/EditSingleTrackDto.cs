@@ -1,19 +1,19 @@
-﻿
-using RadioMeti.Domain.Entities.Base;
+﻿using RadioMeti.Application.DTOs.Common;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RadioMeti.Domain.Entities.Music
+namespace RadioMeti.Application.DTOs.Admin.Music.Single.Edit
 {
-    public class Music:BaseEntityNullableDates
+    public class EditSingleTrackDto
     {
-
-        #region props
         [Display]
         [MaxLength(200)]
         [Required]
         public string Title { get; set; }
-        public long PlaysCount { get; set; }
         [Display]
         [MaxLength(200)]
         public string? Poet { get; set; }
@@ -33,21 +33,20 @@ namespace RadioMeti.Domain.Entities.Music
         [Display]
         [MaxLength(200)]
         public string? MusicProducer { get; set; }
-        public long LikesCount { get; set; }
-        public bool IsSingle { get; set; }
+
         [Display]
         [MaxLength(200)]
         public string? Tags { get; set; }
+        public long Id { get; set; }
         public bool IsSlider { get; set; }
-        public long? AlbumId { get; set; }
-        public string? Audio { get; set; }
-        #endregion
-        #region Rel
-        public ICollection<PlaylistMusic> PlaylistMusics { get; set; }
-        [ForeignKey("AlbumId")]
-        public Album? Album { get; set; }
-        public ICollection<ArtistMusic> ArtistMusics { get; set; }
-        #endregion
+        public string? Audio{ get; set; }
 
     }
+    public enum EditSingleTrackResult
+    {
+        Success,
+        Error,
+        MusicNotfound,
+    }
 }
+

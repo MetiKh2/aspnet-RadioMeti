@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220330074450_add-isSlider-to-music")]
+    partial class addisSlidertomusic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,9 +277,6 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSlider")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -405,9 +404,6 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<string>("Arrangement")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Audio")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cover")
                         .HasColumnType("nvarchar(max)");

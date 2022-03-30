@@ -26,5 +26,27 @@ namespace RadioMeti.Application.Utilities.Utils
         public static string ArtistAvatarThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Artist/Avatar/Thumb/");
         #endregion
 
+        #region Cover Single Tracks
+        public static string CoverSingleTrackOriginPath = "/Content/Cover/Music/Single/origin/";
+        public static string CoverSingleTrackOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/Single/origin/");
+
+        public static string CoverSingleTrackThumbPath = "/Content/Cover/Music/Single/Thumb/";
+        public static string CoverSingleTrackThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/Single/Thumb/");
+
+        #endregion
+        #region Cover Album
+        public static string CoverAlbumOriginPath = "/Content/Cover/Music/Album/origin/";
+        public static string CoverAlbumOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/Album/origin/");
+
+        public static string CoverAlbumThumbPath = "/Content/Cover/Music/Album/Thumb/";
+        public static string CoverAlbumThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/Album/Thumb/");
+
+        #endregion
+        #region SingleTrackAudio
+        public static string AudioSingleTrackOriginPath = "/Content/Audio/Music/Single/origin/";
+        public static string AudioSingleTrackOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Audio/Music/Single/origin/");
+
+
+        #endregion
     }
 }

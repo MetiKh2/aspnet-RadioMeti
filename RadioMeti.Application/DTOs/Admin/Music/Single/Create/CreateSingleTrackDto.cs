@@ -1,19 +1,13 @@
-﻿
-using RadioMeti.Domain.Entities.Base;
+﻿using RadioMeti.Application.DTOs.Common;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace RadioMeti.Domain.Entities.Music
+namespace RadioMeti.Application.DTOs.Admin.Music.Single.Create
 {
-    public class Music:BaseEntityNullableDates
+    public class CreateSingleTrackDto:CaptchaDto
     {
-
-        #region props
         [Display]
         [MaxLength(200)]
         [Required]
         public string Title { get; set; }
-        public long PlaysCount { get; set; }
         [Display]
         [MaxLength(200)]
         public string? Poet { get; set; }
@@ -33,21 +27,18 @@ namespace RadioMeti.Domain.Entities.Music
         [Display]
         [MaxLength(200)]
         public string? MusicProducer { get; set; }
-        public long LikesCount { get; set; }
-        public bool IsSingle { get; set; }
+        
         [Display]
         [MaxLength(200)]
         public string? Tags { get; set; }
         public bool IsSlider { get; set; }
-        public long? AlbumId { get; set; }
         public string? Audio { get; set; }
-        #endregion
-        #region Rel
-        public ICollection<PlaylistMusic> PlaylistMusics { get; set; }
-        [ForeignKey("AlbumId")]
-        public Album? Album { get; set; }
-        public ICollection<ArtistMusic> ArtistMusics { get; set; }
-        #endregion
 
+    }
+    public enum CreateSingleTrackResult
+    {
+        Success,
+        Error,
+        ArtistNotfound,
     }
 }

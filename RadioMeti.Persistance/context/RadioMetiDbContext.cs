@@ -38,6 +38,10 @@ namespace RadioMeti.Persistance.context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Artist>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Music>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<ArtistMusic>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Album>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<ArtistAlbum>().HasQueryFilter(p => !p.IsRemoved);
 
             base.OnModelCreating(builder);
         }

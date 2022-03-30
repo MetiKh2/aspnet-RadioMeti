@@ -106,5 +106,10 @@ namespace RadioMeti.Application.Services
         {
            return await _artistRepository.GetEntityById(id);
         }
+
+        public async Task<List<Artist>> GetArtists()
+        {
+            return await _artistRepository.GetQuery().ToListAsync();
+        }
     }
 }

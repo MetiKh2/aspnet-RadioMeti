@@ -15,3 +15,7 @@ function FillPageId(pageId) {
     $('#PageId').val(pageId)
     $('#filter-form').submit()
 }
+$('.searchable-select').dropdown({
+    limitCount: Infinity,
+    input: '<input type="text" maxLength="20" placeholder="Search">',
+});

@@ -1,11 +1,10 @@
-﻿@using RadioMeti.Application.DTOs.Admin.Artists
+﻿@using RadioMeti.Application.DTOs.Admin.Music.Album
 @using RadioMeti.Application.Utilities.Utils
-
-@model FilterArtistsDto
+@model FilterAlbumDto
 @{
-    ViewData["Title"] = "Artists";
+    ViewData["Title"] = $"{ViewBag.ArtistName} Albums";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-    string title = "Artists";
+string title = $"{ViewBag.ArtistName} Albums";
 }
 <partial name="_AdminTitle" model="title" />
 @section Styles{
@@ -15,9 +14,6 @@
     }
     .border-success{
         border:1px solid green;
-    }
-    .mt-3{
-        margin-top:1.5rem;
     }
 </style>
 }
@@ -30,25 +26,24 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="table-responsive">
-                    <form id="filter-form" asp-area="Admin" asp-controller="Artist" asp-action="Index" method="get">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Music" asp-action="IndexAlbum" method="get">
                         <input type="hidden" asp-for="PageId" />
-                        <div class="form-group">
-                            <a asp-area="Admin" asp-controller="Artist" asp-action="CreateArtist" class="btn btn-primary text-white w-100">Create Artist</a>
-                            <a asp-area="Admin" asp-controller="Music" asp-action="CreateSingleTrack" class="btn btn-info mt-3 text-white w-100">Create Music</a>
-                            <a asp-area="Admin" asp-controller="Music" asp-action="CreateAlbum" class="btn btn-warning mt-3 text-white w-100">Create Album</a>
+                         <div class="form-group">
+                            <a asp-area="Admin" asp-controller="Artist" asp-action="Index" class="btn btn-warning text-white w-100">Go Back To Artists</a>
                         </div>
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input asp-for="FullName" class="form-control">
+                       
+                          <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
                         </div>
-                        @foreach (var item in Html.GetEnumSelectList<FilterArtistState>())
+                        @foreach (var item in Html.GetEnumSelectList<FilterAlbumState>())
                         {
                             <div class="radio">
                                 <label>
                                     <input value="@item.Value" id="@item.Text"
                                        type="radio"
-                                       name="@nameof(Model.FilterArtistState)"
-                                       @(Convert.ToInt32(item.Value) == Convert.ToInt32(Model.FilterArtistState) ? "checked" : "") />
+                                       name="@nameof(Model.FilterAlbumState)"
+                                       @(Convert.ToInt32(item.Value) == Convert.ToInt32(Model.FilterAlbumState) ? "checked" : "") />
                                     @item.Text
                                 </label>
                             </div>
@@ -74,22 +69,20 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Avatar</th>
-                                <th>FullName</th>
+                                <th>Cover</th>
+                                <th>Title</th>
                                 <th>Commands</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Artists)
+                            @foreach (var item in Model.Albums)
                             {
                                 <tr>
-                                    <td><img width="80" src="@(PathExtension.ArtistAvatarThumbPath+item.Avatar)" class="img-thumbnail"/></td>
-                                    <td>@item.FullName</td>
+                                    <td><img width="80" src="@(PathExtension.CoverAlbumThumbPath+item.Cover)" class="img-thumbnail"/></td>
+                                    <td>@item.Title</td>
                                     <td>
-                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Artist" asp-action="EditArtist" asp-route-id="@item.Id">Edit</a>
-                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Artist" asp-action="DeleteArtist" asp-route-id="@item.Id">Delete</a>
-                                        <a class="btn btn-sm btn-success text-white" asp-area="Admin" asp-controller="Music" asp-action="IndexSingleTracks" asp-route-artistId="@item.Id">Single Tracks</a>
-                                        <a class="btn btn-sm btn-primary text-white" asp-area="Admin" asp-controller="Music" asp-action="IndexAlbum" asp-route-artistId="@item.Id">Albums</a>
+                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Music" asp-action="EditAlbum" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Edit</a>
+                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Music" asp-action="DeleteAlbum" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -101,6 +94,9 @@
                             <div style="padding:1.5rem" class="dataTables_info text-info border-success" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">@Model.GetCurrentPagingStatus()</div>
                         </div>
                     </div>
+                    <video>
+                        <source type="audio/vorbis"/>
+                    </video>
                 </div>
                 <!-- /.table-responsive -->
             </div>
@@ -110,4 +106,7 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+
+ 
 

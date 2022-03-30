@@ -16,6 +16,7 @@ namespace RadioMeti.Domain.Entities.Music
         [Required]
         public string Title { get; set; }
         public string? Cover { get; set; }
+        public bool IsSlider { get; set; }
         #endregion
         #region rel
         public ICollection<ArtistAlbum> ArtistAlbums { get; set; }
