@@ -83,6 +83,8 @@ string title = $"{ViewBag.ArtistName} Albums";
                                     <td>
                                         <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Music" asp-action="EditAlbum" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Edit</a>
                                         <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Music" asp-action="DeleteAlbum" asp-route-id="@item.Id" asp-route-artistId="@Model.ArtistId">Delete</a>
+                                        
+                                         <a class="btn btn-sm btn-primary text-white" asp-area="Admin" asp-controller="Music" asp-action="IndexAlbumMusic" asp-route-albumId="@item.Id">Musics</a>
                                     </td>
                                 </tr>
                             }

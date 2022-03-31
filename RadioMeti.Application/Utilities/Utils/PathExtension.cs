@@ -41,12 +41,27 @@ namespace RadioMeti.Application.Utilities.Utils
         public static string CoverAlbumThumbPath = "/Content/Cover/Music/Album/Thumb/";
         public static string CoverAlbumThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/Album/Thumb/");
 
-        #endregion
+        #endregion  
+        #region Cover Album Music
+        public static string CoverAlbumMusicOriginPath = "/Content/Cover/Music/AlbumMusic/origin/";
+        public static string CoverAlbumMusicOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/AlbumMusic/origin/");
+
+        public static string CoverAlbumMusicThumbPath = "/Content/Cover/Music/AlbumMusic/Thumb/";
+        public static string CoverAlbumMusicThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Music/AlbumMusic/Thumb/");
+
+#endregion
         #region SingleTrackAudio
         public static string AudioSingleTrackOriginPath = "/Content/Audio/Music/Single/origin/";
         public static string AudioSingleTrackOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Audio/Music/Single/origin/");
 
 
         #endregion
+        #region SingleTrackAudio
+        public static string AudioAlbumMusicOriginPath = "/Content/Audio/Music/AlbumMusic/origin/";
+        public static string AudioAlbumMusicOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Audio/Music/AlbumMusic/origin/");
+
+
+        #endregion
+        
     }
 }

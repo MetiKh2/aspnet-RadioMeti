@@ -6,6 +6,8 @@ using RadioMeti.Application.DTOs.Admin.Music.Album;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Delete;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Edit;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Edit;
 using RadioMeti.Application.DTOs.Admin.Music.Single;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
@@ -338,6 +340,151 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     break;
             }
             return RedirectToAction(nameof(IndexAlbum), new { artistId = artistId });
+        }
+        #endregion
+
+        #region Album Music
+        [HttpGet("admin/Music/Album-Musics/{albumId}")]
+        public async Task<IActionResult> IndexAlbumMusic(long albumId)
+        {
+            ViewBag.AlbumId = albumId;
+            return View(await _musicService.GetAlbumMusics(albumId));
+        }
+        [HttpGet("admin/Music/CreateAlbum-Music/{albumId}")]
+        public async Task<IActionResult> CreateAlbumMusic(long albumId)
+        {
+            return View(new CreateAlbumMusicDto { AlbumId=albumId});
+        }
+        [HttpPost("admin/Music/CreateAlbum-Music/{albumId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAlbumMusic(CreateAlbumMusicDto createAlbumMusic, IFormFile? cover, IFormFile? audio)
+        {
+            if (!await _captchaValidator.IsCaptchaPassedAsync(createAlbumMusic.Captcha))
+            {
+                TempData[ErrorMessage] = "Captcha is require - Try again";
+                return View(createAlbumMusic);
+            }
+            if (ModelState.IsValid)
+            {
+                #region upload image
+
+                if (cover != null)
+                {
+                    createAlbumMusic.Cover = Guid.NewGuid().ToString("N") + Path.GetExtension(cover.FileName);
+
+                    if (!cover.AddImageToServer(createAlbumMusic.Cover, PathExtension.CoverAlbumMusicOriginSever, 300, 200, PathExtension.CoverAlbumMusicThumbSever))
+                    {
+                        TempData[ErrorMessage] = "Something Is Wrong";
+                        return View(createAlbumMusic);
+                    }
+                }
+                #endregion
+                #region upload audio
+
+                if (audio != null)
+                {
+                    createAlbumMusic.Audio = audio.FileName;
+
+                    if (!audio.AddAudioToServer(createAlbumMusic.Audio, PathExtension.AudioAlbumMusicOriginSever))
+                    {
+                        TempData[ErrorMessage] = "Something Is Wrong";
+                        return View(createAlbumMusic);
+                    }
+                }
+                #endregion
+                var result = await _musicService.CreateAlbumMusic(createAlbumMusic);
+                 
+                switch (result.Item1)
+                {
+                    case CreateAlbumMusicResult.Success:
+                        TempData[SuccessMessage] = "Album Track Successfully Added";
+                        break;
+                    case CreateAlbumMusicResult.Error:
+                        TempData[ErrorMessage] = "Some Thing Is Wrong";
+                        break;
+                    case CreateAlbumMusicResult.AlbumNotfound:
+                        TempData[WarningMessage] = "Album Not Found";
+                        break;
+                }
+                return RedirectToAction("IndexAlbumMusic", new { albumId=createAlbumMusic.AlbumId});
+            }
+            return View(createAlbumMusic);
+        }
+        [HttpGet("admin/Music/EditAlbum-Music/{id}")]
+        public async Task<IActionResult> EditAlbumMusic(long id)
+        {
+            var music = await _musicService.GetMusicBy(id);
+            if (music == null) return NotFound();
+            return View(_mapper.Map<EditAlbumMusicDto>(music));
+        }
+        [HttpPost("admin/Music/EditAlbum-Music/{id}")]
+        public async Task<IActionResult> EditAlbumMusic(EditAlbumMusicDto editAlbumMusic, IFormFile? cover, IFormFile? audio)
+        {
+            if (ModelState.IsValid)
+            {
+                #region upload images
+
+                if (cover != null)
+                {
+                    var coverName = Guid.NewGuid().ToString("N") + Path.GetExtension(cover.FileName);
+
+                    if (!cover.AddImageToServer(coverName, PathExtension.CoverAlbumMusicOriginSever, 300, 200, PathExtension.CoverAlbumMusicThumbSever, editAlbumMusic.Cover))
+                    {
+                        TempData[ErrorMessage] = "Something Is Wrong";
+                        return View(editAlbumMusic);
+                    }
+                    editAlbumMusic.Cover = coverName;
+                }
+                #endregion
+                #region upload audio
+
+                if (audio != null)
+                {
+                    var audioName = audio.FileName;
+
+                    if (!audio.AddAudioToServer(audioName, PathExtension.AudioAlbumMusicOriginSever, editAlbumMusic.Audio))
+                    {
+                        TempData[ErrorMessage] = "Something Is Wrong";
+                        return View(editAlbumMusic);
+                    }
+                    editAlbumMusic.Audio = audioName;
+                }
+                #endregion
+                var result = await _musicService.EditSingleTrack(editAlbumMusic);
+                switch (result)
+                {
+                    case EditSingleTrackResult.Success:
+                        TempData[SuccessMessage] = "Music Successfully Edited";
+                        break;
+                    case EditSingleTrackResult.Error:
+                        TempData[ErrorMessage] = "Some Thing Is Wrong";
+                        break;
+                    case EditSingleTrackResult.MusicNotfound:
+                        break;
+                    default:
+                        break;
+                }
+                return RedirectToAction(nameof(IndexAlbumMusic), new { albumId = editAlbumMusic.AlbumId });
+            }
+            return View(editAlbumMusic);
+        }
+        [HttpGet("Admin/DeleteAlbumMusic/{id}")]
+        public async Task<IActionResult> DeleteAlbumMusic(long id, long albumId)
+        {
+            var result = await _musicService.DeleteAlbumMusic(id);
+            switch (result)
+            {
+                case DeleteMusicResult.Success:
+                    TempData[WarningMessage] = "Music Deleted";
+                    break;
+                case DeleteMusicResult.Error:
+                    TempData[ErrorMessage] = "Something Wrong";
+                    break;
+                case DeleteMusicResult.Notfound:
+                    TempData[ErrorMessage] = "Music Notfound";
+                    break;
+            }
+            return RedirectToAction(nameof(IndexAlbumMusic), new { albumId = albumId });
         }
         #endregion
     }

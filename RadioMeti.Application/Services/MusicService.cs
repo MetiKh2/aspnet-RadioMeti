@@ -5,6 +5,7 @@ using RadioMeti.Application.DTOs.Admin.Music.Album;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Delete;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Edit;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
@@ -281,6 +282,46 @@ namespace RadioMeti.Application.Services
             return await _musicRepository.GetEntityById(id);
         }
 
-    
+        #region AlbumMusic
+        public async Task<Tuple<CreateAlbumMusicResult, long>> CreateAlbumMusic(CreateAlbumMusicDto createAlbumMusic)
+        {
+                try
+                {
+                if (!await _albumRepository.GetQuery().AnyAsync(p => p.Id == createAlbumMusic.AlbumId)) 
+                    return Tuple.Create(item1: CreateAlbumMusicResult.AlbumNotfound, Convert.ToInt64(0));
+                var track = _mapper.Map<Music>(createAlbumMusic);
+                    track.IsSingle = false;
+                    await _musicRepository.AddEntity(track);
+                    await _musicRepository.SaveChangesAsync();
+                    return Tuple.Create(CreateAlbumMusicResult.Success, track.Id);
+                }
+                catch
+                {
+                    return Tuple.Create(item1: CreateAlbumMusicResult.Error, Convert.ToInt64(0));
+                }
+            }
+
+        public async Task<List<Music>> GetAlbumMusics(long albumId)
+        {
+            return await _musicRepository.GetQuery().Where(p => p.AlbumId == albumId).ToListAsync();
+        }
+
+        public async Task<DeleteMusicResult> DeleteAlbumMusic(long id)
+        {
+            try
+            {
+                var music = await _musicRepository.GetEntityById(id);
+                if (music == null) return DeleteMusicResult.Notfound;
+                _musicRepository.DeleteEntity(music);
+                await _musicRepository.SaveChangesAsync();
+                return DeleteMusicResult.Success;
+            }
+            catch
+            {
+                return DeleteMusicResult.Error;
+            }
+        }
+
+        #endregion
     }
 }

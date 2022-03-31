@@ -3,6 +3,8 @@ using RadioMeti.Application.DTOs.Admin.Artists.Create;
 using RadioMeti.Application.DTOs.Admin.Artists.Edit;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Edit;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Edit;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
 using RadioMeti.Domain.Entities.Music;
@@ -31,6 +33,10 @@ namespace RadioMeti.Application.AutoMapper
             CreateMap<CreateAlbumDto, Album>().ReverseMap();
             CreateMap<EditAlbumDto, Album>().ReverseMap();
 
+            #endregion
+            #region AlbumMusic
+            CreateMap<CreateAlbumMusicDto, Music>().ReverseMap();
+            CreateMap<EditAlbumMusicDto, Music>().ReverseMap();
             #endregion
         }
 

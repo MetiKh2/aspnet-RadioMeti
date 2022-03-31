@@ -3,6 +3,7 @@ using RadioMeti.Application.DTOs.Admin.Music.Album;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Delete;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Edit;
+using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
@@ -30,6 +31,13 @@ namespace RadioMeti.Application.Interfaces
         Task<List<long>> GetArtistsAlbum(long albumId);
         Task<EditAlbumResult> EditAlbum(EditAlbumDto editAlbum);
         Task<DeleteAlbumResult> DeleteAlbum(long id);
+
+        #endregion
+
+        #region AlbumMusic
+        Task<Tuple<CreateAlbumMusicResult, long>> CreateAlbumMusic(CreateAlbumMusicDto  createAlbumMusic);
+        Task<DeleteMusicResult> DeleteAlbumMusic(long id);
+        Task<List<Music>> GetAlbumMusics(long albumId);
         #endregion
         Task<FilterMusicsDto> FilterMusics(FilterMusicsDto filter);
         Task<Music> GetMusicBy(long id);

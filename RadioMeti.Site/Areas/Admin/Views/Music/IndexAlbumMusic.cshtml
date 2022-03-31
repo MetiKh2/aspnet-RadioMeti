@@ -1,0 +1,66 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Music
+@model List<Music>
+@{
+    ViewData["Title"] = "Album Musics";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+string title = $"{ViewBag.AlbumName} Tracks";
+}
+<partial name="_AdminTitle" model="title" />
+@section Styles{
+<style>
+    .w-100 {
+        width: 100% !important;
+    }
+    .border-success{
+        border:1px solid green;
+    }
+</style>
+}
+<div class="row">
+    <div class="col-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                List
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+     <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Artist" asp-action="Index">Back To Artists</a>
+     <a class="btn btn-sm btn-primary text-white" asp-area="Admin" asp-controller="Music" asp-action="CreateAlbumMusic" asp-route-albumId="@ViewBag.AlbumId">Add Music</a>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cover</th>
+                                <th>Title</th>
+                                <th>Commands</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><img width="80" src="@(PathExtension.CoverAlbumMusicThumbPath+item.Cover)" class="img-thumbnail"/></td>
+                                    <td>@item.Title</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Music" asp-action="EditAlbumMusic" asp-route-id="@item.Id" asp-route-albumId="@item.AlbumId">Edit</a>
+                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Music" asp-action="DeleteAlbumMusic" asp-route-id="@item.Id" asp-route-albumId="@item.AlbumId">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+ 
+
+
