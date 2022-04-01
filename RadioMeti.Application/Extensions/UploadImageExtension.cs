@@ -11,6 +11,7 @@ namespace RadioMeti.Application.Extensions
 {
     public static class UploadImageExtension
     {
+
         public static bool AddImageToServer(this IFormFile image, string fileName, string orginalPath, int? width, int? height, string thumbPath = null, string deletefileName = null)
         {
             if (image != null && image.IsImage())

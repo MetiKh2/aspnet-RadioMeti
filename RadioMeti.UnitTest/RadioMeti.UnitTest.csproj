@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RadioMeti.Domain\RadioMeti.Domain.csproj" />
     <ProjectReference Include="..\RadioMeti.Site\RadioMeti.Site.csproj" />
   </ItemGroup>
 
