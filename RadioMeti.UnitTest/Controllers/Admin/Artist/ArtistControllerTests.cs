@@ -158,7 +158,7 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Artist
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
         [Test]
-        public async Task EditUserGet_UserValid_ReturnView()
+        public async Task EditUserGet_ArtistValid_ReturnView()
         {
             var artistId = new Random().Next();
             var artist = new Domain.Entities.Music .Artist{ };

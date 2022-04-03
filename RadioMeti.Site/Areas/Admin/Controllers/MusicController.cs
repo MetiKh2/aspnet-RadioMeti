@@ -314,7 +314,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                         TempData[ErrorMessage] = "Some Thing Is Wrong";
                         break;
                     case EditAlbumResult.AlbumNotfound:
-                        return RedirectToAction(nameof(IndexAlbum), new { artistId = artistId });
+                        break;
                     default:
                         break;
                 }
