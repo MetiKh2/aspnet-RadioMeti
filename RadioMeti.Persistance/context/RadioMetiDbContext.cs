@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using RadioMeti.Domain.Entities.Log;
 using RadioMeti.Domain.Entities.Music;
 using RadioMeti.Domain.Entities.Prodcast;
-using RadioMeti.Domain.Entities.Prodcasts;
 using RadioMeti.Domain.Entities.Video;
 
 namespace RadioMeti.Persistance.context
@@ -42,6 +41,14 @@ namespace RadioMeti.Persistance.context
             builder.Entity<ArtistMusic>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<Album>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<ArtistAlbum>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<PlayList>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<PlayListCategory>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<PlaylistMusic>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<PlayListSelectedCategory>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Video>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<ArtistVideo>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Dj>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Prodcast>().HasQueryFilter(p => !p.IsRemoved);
 
             base.OnModelCreating(builder);
         }

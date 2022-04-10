@@ -1,0 +1,98 @@
+﻿@using RadioMeti.Application.DTOs.Playlist.Edit
+@using RadioMeti.Domain.Entities.Music
+@model EditPlaylistDto
+@{
+    ViewData["Title"] = "EditPlaylist";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Music> musics = ViewBag.Musics;
+    List<PlayListCategory> playListCategories = ViewBag.Categories;
+    List<long> playListMusics = ViewBag.PlayListMusics;
+    List<long> playlistSelectedCategories = ViewBag.PlaylistSelectedCategories;
+
+    string title = "Create Playlist";
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Playlist" asp-action="EditPlaylist" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <input type="hidden" asp-for=Id/>
+                        <input type="hidden" asp-for=Cover/>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Creator</label>
+                            <input asp-for="Creator" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Categories</label>
+                            <div class="searchable-select">
+                                <select style="display:none" class="form-control " multiple name="selectedCategories">
+                                    @foreach (var item in playListCategories)
+                                    {
+                                        if (playlistSelectedCategories.Any(p => p == item.Id))
+                                        {
+                                            <option selected value="@item.Id">@item.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Title</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Musics</label>
+                            <div class="searchable-select">
+                                <select style="display:none" class="form-control " multiple name="selectedMusics">
+                                    @foreach (var item in musics)
+                                    {
+                                        if (playListMusics.Any(p => p == item.Id))
+                                        {
+                                            <option selected value="@item.Id">@item.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Title</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
+
+

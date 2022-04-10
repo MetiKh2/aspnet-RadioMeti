@@ -1,5 +1,4 @@
 ﻿using RadioMeti.Domain.Entities.Base;
-using RadioMeti.Domain.Entities.Prodcasts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,6 +24,8 @@ namespace RadioMeti.Domain.Entities.Prodcast
         public string? Narrator { get; set; }
         public string? Cover { get; set; }
         public long DjId { get; set; }
+        public string? Audio { get; set; }
+        public bool IsSlider { get; set; }
 
         #endregion        
         #region rel

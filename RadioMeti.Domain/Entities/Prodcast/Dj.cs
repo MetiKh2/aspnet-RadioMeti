@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RadioMeti.Domain.Entities.Prodcasts
+namespace RadioMeti.Domain.Entities.Prodcast
 {
     public class Dj:BaseEntityNullableDates
     {
@@ -23,7 +23,7 @@ namespace RadioMeti.Domain.Entities.Prodcasts
 
         #endregion
         #region rel
-        public ICollection<Prodcast.Prodcast> Prodcasts { get; set; }
+        public ICollection<Prodcast> Prodcasts { get; set; }
         #endregion
     }
 }

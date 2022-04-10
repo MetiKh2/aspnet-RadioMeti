@@ -1,0 +1,55 @@
+﻿@using RadioMeti.Application.DTOs.Playlist.Category.Edit
+@model EditPlaylistCategoryDto
+@{
+    ViewData["Title"] = "EditCategory";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Edit Category";
+}
+@section Scripts{
+    <partial name="_JqueryValidator"/>
+    <partial name="_CaptchaScripts"/>
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Playlist" asp-action="EditCategory" method="post" enctype="multipart/form-data">
+                             <partial name="_CaptchaInput" />
+                             <input type="hidden" asp-for=Id/>
+                             <input type="hidden" asp-for=Cover/>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>  
+                        <div class="checkbox">
+                            <label>
+                            <input asp-for="IsInBrowse">
+                            IsInBrowse?
+                            </label>
+                        </div>  
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" name="cover" class="form-control">
+                        </div>  
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+

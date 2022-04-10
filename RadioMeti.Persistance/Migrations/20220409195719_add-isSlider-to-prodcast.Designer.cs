@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220409195719_add-isSlider-to-prodcast")]
+    partial class addisSlidertoprodcast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -521,9 +523,6 @@ namespace RadioMeti.Persistance.Migrations
 
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsInBrowse")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");

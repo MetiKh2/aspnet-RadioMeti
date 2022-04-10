@@ -1,0 +1,81 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Prodcast.Edit
+@using RadioMeti.Application.Utilities.Utils
+@model EditProdcastDto
+@{
+    ViewData["Title"] = "Edit Prodcast";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Edit Prodcast";
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Prodcast" asp-action="EditProdcast" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <input type="hidden" asp-for=Id/>
+                        <input type="hidden" asp-for=DjId/>
+                        <input type="hidden" asp-for=Audio/>
+                        <input type="hidden" asp-for=Cover/>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Narrator</label>
+                            <input asp-for="Narrator" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                           <textarea class="form-control" asp-for="Description">
+                           </textarea>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsSlider">
+                                IsSlider?
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Audio</label>
+                            <input type="file" name="audio" accept="audio" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Audio</label>
+                            <audio controls class="form-control">
+                                <source src="@(PathExtension.AudioProdcastOriginPath+Model.Audio)"/>
+                            </audio>
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
+
+

@@ -1,0 +1,78 @@
+﻿@using RadioMeti.Application.DTOs.Playlist.Create
+@using RadioMeti.Domain.Entities.Music
+@model CreatePlaylistDto
+@{
+    ViewData["Title"] = "Create Playlist";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Music> musics = ViewBag.Musics;
+    List<PlayListCategory> playListCategories= ViewBag.Categories;
+
+    string title = "Create Playlist";
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Playlist" asp-action="CreatePlaylist" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Creator</label>
+                            <input asp-for="Creator" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Categories</label>
+                            <div class="searchable-select">
+                         <select style="display:none" class="form-control " multiple name="selectedCategories">
+                                @foreach (var item in playListCategories)
+                                {
+                                    <option value="@item.Id">@item.Title</option>
+                                }
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Musics</label>
+                            <div class="searchable-select">
+                         <select style="display:none" class="form-control " multiple name="selectedMusics">
+                                @foreach (var item in musics)
+                                {
+                                    <option value="@item.Id">@item.Title</option>
+                                }
+                            </select>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+

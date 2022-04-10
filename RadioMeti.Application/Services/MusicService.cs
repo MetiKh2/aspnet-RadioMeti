@@ -322,6 +322,12 @@ namespace RadioMeti.Application.Services
             }
         }
 
-        #endregion
-    }
+       
+
+        #endregion 
+        public async Task<List<Music>> GetMusics()
+        {
+            return await _musicRepository.GetQuery().ToListAsync() ;
+        }
+}
 }

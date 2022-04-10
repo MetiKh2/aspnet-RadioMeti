@@ -50,7 +50,9 @@ namespace RadioMeti.Application.Interfaces
         #region ArtistAlbum
         Task DeleteArtistsAlbum(long albumId);
         Task CreateArtistsAlbum(long albumId, List<long> artistsId);
-       
+
         #endregion
+
+        Task<List<Music>> GetMusics();
     }
 }
