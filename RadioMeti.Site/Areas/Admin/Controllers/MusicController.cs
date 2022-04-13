@@ -406,7 +406,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                         TempData[WarningMessage] = "Album Not Found";
                         break;
                 }
-                return RedirectToAction("IndexAlbumMusic", new { albumId=createAlbumMusic.AlbumId});
+                return RedirectToAction(nameof(IndexAlbumMusic), new { albumId=createAlbumMusic.AlbumId});
             }
             return View(createAlbumMusic);
         }

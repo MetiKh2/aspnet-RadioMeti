@@ -1,0 +1,72 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Video.Create
+@using RadioMeti.Domain.Entities.Music
+@model CreateVideoDto
+@{
+    ViewData["Title"] = "Create Video";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Artist> artists = ViewBag.Artists;
+    string title = "Create Video";
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Video" asp-action="CreateVideo" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsSlider">
+                                IsSlider?
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file"  name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Video</label>
+                            <input type="file" name="video"  class="form-control">
+                        </div>
+                         <div class="form-group">
+                            <label>Artists</label>
+                            <div class="searchable-select">
+                         <select style="display:none" class="form-control " multiple name="selectedArtists">
+                                @foreach (var item in artists)
+                                {
+                                    <option value="@item.Id">@item.FullName</option>
+                                }
+                            </select>
+                            </div>
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+

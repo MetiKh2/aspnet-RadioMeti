@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RadioMeti.Domain.Entities.Event;
 using RadioMeti.Domain.Entities.Log;
 using RadioMeti.Domain.Entities.Music;
 using RadioMeti.Domain.Entities.Prodcast;
@@ -34,6 +35,11 @@ namespace RadioMeti.Persistance.context
         public DbSet<Dj> Djs { get; set; }
         public DbSet<Prodcast> Prodcasts { get; set; }
         #endregion
+        #region Event
+        public DbSet<Event> Events{ get; set; }
+        public DbSet<ArtistEvent> ArtistEvents{ get; set; }
+
+        #endregion
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Artist>().HasQueryFilter(p => !p.IsRemoved);
@@ -49,6 +55,8 @@ namespace RadioMeti.Persistance.context
             builder.Entity<ArtistVideo>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<Dj>().HasQueryFilter(p => !p.IsRemoved);
             builder.Entity<Prodcast>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<Event>().HasQueryFilter(p => !p.IsRemoved);
+            builder.Entity<ArtistEvent>().HasQueryFilter(p => !p.IsRemoved);
 
             base.OnModelCreating(builder);
         }

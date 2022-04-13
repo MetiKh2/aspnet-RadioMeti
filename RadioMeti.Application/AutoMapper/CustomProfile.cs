@@ -3,6 +3,8 @@ using RadioMeti.Application.DTOs.Admin.Artists.Create;
 using RadioMeti.Application.DTOs.Admin.Artists.Edit;
 using RadioMeti.Application.DTOs.Admin.Dj.Create;
 using RadioMeti.Application.DTOs.Admin.Dj.Edit;
+using RadioMeti.Application.DTOs.Admin.Event.Create;
+using RadioMeti.Application.DTOs.Admin.Event.Edit;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Album.Edit;
 using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
@@ -11,8 +13,11 @@ using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Create;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Edit;
+using RadioMeti.Application.DTOs.Admin.Video.Edit;
+using RadioMeti.Domain.Entities.Event;
 using RadioMeti.Domain.Entities.Music;
 using RadioMeti.Domain.Entities.Prodcast;
+using RadioMeti.Domain.Entities.Video;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +54,18 @@ namespace RadioMeti.Application.AutoMapper
             CreateMap<EditDjDto, Dj>().ReverseMap();
             #endregion
 
+
             #region Prodcast
             CreateMap<CreateProdcastDto, Prodcast>().ReverseMap();
             CreateMap<EditProdcastDto, Prodcast>().ReverseMap();
+            #endregion
+            #region Video
+            CreateMap<EditVideoDto, Video>().ReverseMap();
+            #endregion
+
+            #region Event
+            CreateMap<CreateEventDto, Event>().ReverseMap();
+            CreateMap<EditEventDto, Event>().ReverseMap();
             #endregion
         }
 

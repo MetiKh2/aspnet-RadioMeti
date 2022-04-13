@@ -1,0 +1,91 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Video.Edit
+@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Music
+@model EditVideoDto
+@{
+    ViewData["Title"] = "Edit Video";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Artist> artists = ViewBag.Artists;
+    List<long> videoArtists= ViewBag.VideoArtists;
+    string title = "Edit Video";
+}
+@section Scripts{
+<partial name="_JqueryValidator" />
+<partial name="_CaptchaScripts" />
+}
+<partial name="_AdminTitle" model="title" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Video" asp-action="EditVideo" method="post" enctype="multipart/form-data">
+                        <partial name="_CaptchaInput" />
+                        <input type="hidden" asp-for=Id/>
+                        <input type="hidden" asp-for=Cover/>
+                        <input type="hidden" asp-for=VideoFile/>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsSlider">
+                                IsSlider?
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file"  name="cover" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Video</label>
+                            <input type="file" name="video"  class="form-control">
+                        </div>
+                         <div class="form-group">
+                            <label>Artists</label>
+                            <div class="searchable-select">
+                         <select style="display:none" class="form-control " multiple name="selectedArtists">
+                                @foreach (var item in artists)
+                                {
+                                        @if (videoArtists.Any(p => p == item.Id))
+                                        {
+                                            <option selected value="@item.Id">@item.FullName</option>
+                                        }
+                                        else
+                                        {
+                                             <option value="@item.Id">@item.FullName</option>
+                                        }
+                                    }
+                            </select>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>Video</label>
+                            <video style="width:100%;height:8rem;" controls >
+                                <source src="@(PathExtension.VideoOriginPath+Model.VideoFile)"/>
+                            </video>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
+
+

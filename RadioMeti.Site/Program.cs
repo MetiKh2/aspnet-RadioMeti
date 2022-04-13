@@ -111,6 +111,8 @@ builder.Services.AddScoped<IPermissionService,PermissionService>();
 builder.Services.AddScoped<IMusicService, MusicService>();
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 builder.Services.AddScoped<IProdcastService, ProdcastService>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IVideoService,VideoService>();
 builder.Services.AddScoped<IArtistService,ArtistService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();

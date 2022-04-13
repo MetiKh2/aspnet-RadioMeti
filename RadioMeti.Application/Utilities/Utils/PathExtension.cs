@@ -17,6 +17,13 @@ namespace RadioMeti.Application.Utilities.Utils
         public static string ArtistImageThumbPath = "/Content/Artist/Image/Thumb/";
         public static string ArtistImageThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Artist/Image/Thumb/");
         #endregion
+        #region event cover
+        public static string EventCoverOriginPath = "/Content/Event/Cover/origin/";
+        public static string EventCoverOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Event/Cover/origin/");
+
+        public static string EventCoverThumbPath = "/Content/Event/Cover/Thumb/";
+        public static string EventCoverThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Event/Cover/Thumb/");
+        #endregion
 
         #region artist avatar
         public static string ArtistAvatarOriginPath = "/Content/Artist/Avatar/origin/";
@@ -92,12 +99,26 @@ namespace RadioMeti.Application.Utilities.Utils
 
 
         #endregion
+        #region Video
+        public static string VideoOriginPath = "/Content/Video/origin/";
+        public static string VideoOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Video/origin/");
+
+
+        #endregion
         #region Cover playlist category
         public static string CoverPlaylistCategoryOriginPath = "/Content/Cover/Playlist/Category/origin/";
         public static string CoverPlaylistCategoryOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Playlist/Category/origin/");
 
         public static string CoverPlaylistCategoryThumbPath = "/Content/Cover/Playlist/Category/Thumb/";
         public static string CoverPlaylistCategoryThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Playlist/Category/Thumb/");
+
+        #endregion
+        #region Cover video
+        public static string CoverVideoOriginPath = "/Content/Cover/Video/origin/";
+        public static string CoverVideoOriginSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Video/origin/");
+
+        public static string CoverVideoThumbPath = "/Content/Cover/Video/Thumb/";
+        public static string CoverVideoThumbSever = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Content/Cover/Video/Thumb/");
 
         #endregion
         #region Cover playlist 

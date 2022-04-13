@@ -72,10 +72,10 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                 {
                     case CreateArtistResult.Success:
                         TempData[SuccessMessage] = "Artist Successfully Created";
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(Index));
                     case CreateArtistResult.Error:
                         TempData[ErrorMessage] = "Something Is Wrong";
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(Index));
                     default:
                         break;
                 }
@@ -130,13 +130,13 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                 {
                     case EditArtistResult.Success:
                         TempData[SuccessMessage] = "Artist Successfully Edited";
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(Index));
                     case EditArtistResult.Error:
                         TempData[ErrorMessage] = "Something Is Wrong";
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(Index));
                     case EditArtistResult.ArtistNotfound:
                         TempData[WarningMessage] = "Artist Notfounded";
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(Index));
                     default:
                         break;
                 }
@@ -160,7 +160,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     TempData[ErrorMessage] = "Artist Notfound";
                     break;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 

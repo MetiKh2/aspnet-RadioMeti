@@ -74,7 +74,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     default:
                         break;
                 }
-                return RedirectToAction("IndexCategory");
+                return RedirectToAction(nameof(IndexCategory));
             }
             return View(create);
         }

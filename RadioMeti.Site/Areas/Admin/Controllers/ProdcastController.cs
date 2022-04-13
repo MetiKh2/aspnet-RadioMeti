@@ -81,7 +81,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                         TempData[ErrorMessage] = "Something is wrong";
                         break;
                 }
-                return RedirectToAction("IndexDj");
+                return RedirectToAction(nameof(IndexDj));
             }
             return View(create);
         }
@@ -141,7 +141,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                         TempData[WarningMessage] = "Dj notfound!";
                         break;
                 }
-                return RedirectToAction("IndexDj");
+                return RedirectToAction(nameof(IndexDj));
             }
             return View(edit);
         }
@@ -162,7 +162,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     TempData[ErrorMessage] = "Dj Notfound";
                     break;
             }
-            return RedirectToAction("IndexDj");
+            return RedirectToAction(nameof(IndexDj));
         }
 
         #endregion
@@ -230,11 +230,11 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                         break;
                     case CreateProdcastResult.DjNotfound:
                         TempData[WarningMessage] = "Dj Not Found";
-                        return RedirectToAction("IndexDj");
+                        return RedirectToAction(nameof(IndexDj));
                     default:
                         break;
                 }
-                return RedirectToAction("IndexProdcast", new {djId=result.Item2 });
+                return RedirectToAction(nameof(IndexProdcast), new {djId=result.Item2 });
             }
             return View(create);
         }

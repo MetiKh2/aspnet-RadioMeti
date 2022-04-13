@@ -15,7 +15,7 @@ namespace RadioMeti.Application.Utilities.Utils
         public static bool IsAudio(this IFormFile postedFile)
         {
             //-------------------------------------------
-            //  Check the image mime types
+            //  Check the audio mime types
             //-------------------------------------------
             if (postedFile.ContentType.ToLower() != "audio/mp3" &&
                         postedFile.ContentType.ToLower() != "audio/ogg" &&
@@ -36,7 +36,7 @@ namespace RadioMeti.Application.Utilities.Utils
             }
 
             //-------------------------------------------
-            //  Check the image extension
+            //  Check the audio extension
             //-------------------------------------------
             if (Path.GetExtension(postedFile.FileName).ToLower() != ".mp3"
                 && Path.GetExtension(postedFile.FileName).ToLower() != ".aac"

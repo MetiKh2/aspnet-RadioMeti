@@ -52,7 +52,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                 {
                     await _userService.UserAddRole(result.Item2,selectedRoles);
                     TempData[SuccessMessage] = "User Successful Created";
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     await _userService.UserDeleteRole(edit.Id);
                     await _userService.UserAddRole(edit.Id,selectedRoles);
                     TempData[SuccessMessage] = "User Successful Updated";
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
             else
                 foreach (var item in result.Errors)
                     TempData[ErrorMessage] = item;
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

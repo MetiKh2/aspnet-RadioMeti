@@ -1,0 +1,110 @@
+﻿@using RadioMeti.Application.DTOs.Admin.Video
+@using RadioMeti.Application.Utilities.Utils
+@model FilterVideoDto
+@{
+    ViewData["Title"] = "Videos";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string title = "Videos";
+}
+<partial name="_AdminTitle" model="title" />
+@section Styles{
+<style>
+    .w-100 {
+        width: 100% !important;
+    }
+    .border-success{
+        border:1px solid green;
+    }
+    .mt-3{
+        margin-top:1.5rem;
+    }
+</style>
+}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Filter
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <form id="filter-form" asp-area="Admin" asp-controller="Video" asp-action="Index" method="get">
+                        <input type="hidden" asp-for="PageId" />
+                        <div class="form-group">
+                            <a asp-area="Admin" asp-controller="Video" asp-action="CreateVideo" class="btn btn-primary text-white w-100">Create Video</a>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input asp-for="Title" class="form-control">
+                        </div>
+                        @foreach (var item in Html.GetEnumSelectList<FilterVideoState>())
+                        {
+                            <div class="radio">
+                                <label>
+                                    <input value="@item.Value" id="@item.Text"
+                                       type="radio"
+                                       name="@nameof(Model.FilterVideoState)"
+                                       @(Convert.ToInt32(item.Value) == Convert.ToInt32(Model.FilterVideoState) ? "checked" : "") />
+                                    @item.Text
+                                </label>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info text-white w-100">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                List
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cover</th>
+                                <th>Title</th>
+                                <th>Commands</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Videos)
+                            {
+                                <tr>
+                                    <td><img width="80" src="@(PathExtension.CoverVideoThumbPath+item.Cover)" class="img-thumbnail"/></td>
+                                    <td>@item.Title</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info text-white" asp-area="Admin" asp-controller="Video" asp-action="EditVideo" asp-route-id="@item.Id">Edit</a>
+                                        <a class="btn btn-sm btn-warning text-white" asp-area="Admin" asp-controller="Video" asp-action="DeleteVideo" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <partial name="_AdminPaging" model="@Model.GetCurrentPaging()" />
+                    <div class="row">
+                        <div class="col-12">
+                            <div style="padding:1.5rem" class="dataTables_info text-info border-success" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">@Model.GetCurrentPagingStatus()</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+

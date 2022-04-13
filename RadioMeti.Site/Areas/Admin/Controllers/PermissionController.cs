@@ -86,7 +86,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                     await _permissionService.RoleDeleteClaim(edit.Id);
                     await _permissionService.RoleAddClaim(edit.Id, selectedClaims);
                     TempData[SuccessMessage] = "Role Successfully Edited";
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
                 foreach (var item in result.Errors)
                 {
@@ -105,7 +105,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
             else
                 foreach (var item in result.Errors)
                     TempData[ErrorMessage] = item;
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
     }

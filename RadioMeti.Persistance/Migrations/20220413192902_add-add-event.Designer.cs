@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413192902_add-add-event")]
+    partial class addaddevent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,10 +247,6 @@ namespace RadioMeti.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtistId");
-
-                    b.HasIndex("EventId");
-
                     b.ToTable("ArtistEvents");
                 });
 
@@ -278,7 +276,7 @@ namespace RadioMeti.Persistance.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("HoldingDate")
+                    b.Property<DateTime>("HoldingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("HoldingTime")
@@ -297,7 +295,6 @@ namespace RadioMeti.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -909,25 +906,6 @@ namespace RadioMeti.Persistance.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RadioMeti.Domain.Entities.Event.ArtistEvent", b =>
-                {
-                    b.HasOne("RadioMeti.Domain.Entities.Music.Artist", "Artist")
-                        .WithMany()
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RadioMeti.Domain.Entities.Event.Event", "Event")
-                        .WithMany("ArtistEvents")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artist");
-
-                    b.Navigation("Event");
-                });
-
             modelBuilder.Entity("RadioMeti.Domain.Entities.Music.ArtistAlbum", b =>
                 {
                     b.HasOne("RadioMeti.Domain.Entities.Music.Album", "Album")
@@ -1050,11 +1028,6 @@ namespace RadioMeti.Persistance.Migrations
                     b.Navigation("Artist");
 
                     b.Navigation("Video");
-                });
-
-            modelBuilder.Entity("RadioMeti.Domain.Entities.Event.Event", b =>
-                {
-                    b.Navigation("ArtistEvents");
                 });
 
             modelBuilder.Entity("RadioMeti.Domain.Entities.Music.Album", b =>

@@ -1,10 +1,6 @@
 ﻿using RadioMeti.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+ 
 
 namespace RadioMeti.Domain.Entities.Video
 {
@@ -18,6 +14,8 @@ namespace RadioMeti.Domain.Entities.Video
         public int PlaysCount { get; set; }
         public int LikesCount { get; set; }
         public string? Cover { get; set; }
+        public string? VideoFile { get; set; }
+        public bool IsSlider { get; set; }
 
         #endregion
         #region Rel

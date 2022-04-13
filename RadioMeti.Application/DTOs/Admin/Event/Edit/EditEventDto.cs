@@ -1,14 +1,12 @@
-﻿using RadioMeti.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace RadioMeti.Domain.Entities.Event
+using RadioMeti.Application.DTOs.Common;
+
+namespace RadioMeti.Application.DTOs.Admin.Event.Edit
 {
-    public class Event:BaseEntityNullableDates
+    public class EditEventDto:CaptchaDto
     {
+        public long Id { get; set; }
         public string Title { get; set; }
         public string? Cover { get; set; }
         public DateTime? HoldingDate { get; set; }
@@ -21,7 +19,11 @@ namespace RadioMeti.Domain.Entities.Event
         public string? InformationPhone { get; set; }
         public bool IsSlider { get; set; }
         public string? Description { get; set; }
-
-        public ICollection<ArtistEvent> ArtistEvents { get; set; }
+    }
+    public enum EditEventResult
+    {
+        Success,
+        Error,
+        Notfound
     }
 }
