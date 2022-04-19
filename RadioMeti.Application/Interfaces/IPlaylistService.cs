@@ -22,7 +22,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<PlayListCategory>> GetPlayListCategories();
         #endregion
         #region Playlist
-        Task<FilterPlaylistDto> filterPlaylistDto(FilterPlaylistDto filter);
+        Task<FilterPlaylistDto> filterPlaylist(FilterPlaylistDto filter);
         Task<Tuple<CreatePlaylistResult, long>> CreatePlaylist(CreatePlaylistDto create);
         Task<PlayList> GetPlayListBy(long id);
         Task<EditPlaylistResult> EditPlaylist(EditPlaylistDto edit);

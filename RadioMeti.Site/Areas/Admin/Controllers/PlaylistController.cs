@@ -161,7 +161,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
         public async Task<IActionResult> IndexPlaylist(FilterPlaylistDto filter)
         {
             filter.TakeEntity = 3;
-            return View(await _playlistService.filterPlaylistDto(filter));
+            return View(await _playlistService.filterPlaylist(filter));
         }
         [HttpGet("admin/createplaylist")]
         public async Task<IActionResult> CreatePlaylist()

@@ -126,7 +126,7 @@ namespace RadioMeti.Application.Services
         #endregion
 
         #region Playlist
-        public async Task<FilterPlaylistDto> filterPlaylistDto(FilterPlaylistDto filter)
+        public async Task<FilterPlaylistDto> filterPlaylist(FilterPlaylistDto filter)
         {
             var query = _playlistRepository.GetQuery().OrderByDescending(p => p.CreateDate).AsQueryable();
              
