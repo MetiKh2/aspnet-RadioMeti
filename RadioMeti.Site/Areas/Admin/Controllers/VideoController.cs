@@ -110,15 +110,15 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
         [HttpPost("/admin/editvideo/{id}"), ValidateAntiForgeryToken]
         [RequestFormLimits(MultipartBodyLengthLimit =409715200)]
         [RequestSizeLimit(409715200)]
-        public async Task<IActionResult> EditVideo(EditVideoDto edit,IFormFile? cover,IFormFile? video,List<long> selectedArtists)
+        public async Task<IActionResult> EditVideo(EditVideoDto? edit,IFormFile? cover,IFormFile? video,List<long> selectedArtists)
         {
             ViewBag.Artists = await _artistService.GetArtists();
-            ViewBag.VideoArtists = await _videoService.GetVideoArtists(edit.Id);
             if (edit == null)
             {
                 TempData[ErrorMessage] = "Video file is heavy";
                 return View();
             }
+            ViewBag.VideoArtists = await _videoService.GetVideoArtists(edit.Id);
             if (!await _captchaValidator.IsCaptchaPassedAsync(edit.Captcha))
             {
                 TempData[ErrorMessage] = "Captcha is require - Try again";

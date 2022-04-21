@@ -142,7 +142,6 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
         }
         //Todo Now In All Tests Image And Avatar Is Null Fix It In Feature
         #endregion
-
         #region Edit
         [Test]
         public async Task EditGet_EventIsNull_ReturnNotfound()
@@ -154,7 +153,7 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
         [Test]
-        public async Task EditGet_ArtistValid_ReturnView()
+        public async Task EditGet_EventValid_ReturnView()
         {
             var eventId = new Random().Next();
             var selectedEvent = new Domain.Entities.Event.Event { };
@@ -198,6 +197,8 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
 
 
             var result = await _eventController.EditEvent(_editEventDto, _cover, _selectedArtists);
+            _eventService.Verify(p => p.GetArtistsEvent(_editEventDto.Id));
+            _artistService.Verify(p => p.GetArtists());
             var viewResult = (ViewResult)result;
             Assert.IsNotNull(result);
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -215,6 +216,8 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
             _eventController.TempData = tempData;
 
             var result = await _eventController.EditEvent(_editEventDto, _cover, _selectedArtists);
+            _eventService.Verify(p => p.GetArtistsEvent(_editEventDto.Id));
+            _artistService.Verify(p => p.GetArtists());
             _eventService.Verify(p=>p.CreateEventArtists(_editEventDto.Id,_selectedArtists));
             _eventService.Verify(p=>p.DeleteEventArtists(_editEventDto.Id));
             var redirectToActionResult = (RedirectToActionResult)result;
@@ -234,6 +237,8 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
             _eventController.TempData = tempData;
 
             var result = await _eventController.EditEvent(_editEventDto, _cover, _selectedArtists);
+            _eventService.Verify(p => p.GetArtistsEvent(_editEventDto.Id));
+            _artistService.Verify(p => p.GetArtists());
             var redirectToActionResult = (RedirectToActionResult)result;
             Assert.IsNotNull(result);
             Assert.That(result, Is.TypeOf<RedirectToActionResult>());
@@ -251,6 +256,8 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
             _eventController.TempData = tempData;
 
             var result = await _eventController.EditEvent(_editEventDto, _cover, _selectedArtists);
+            _eventService.Verify(p => p.GetArtistsEvent(_editEventDto.Id));
+            _artistService.Verify(p => p.GetArtists());
             var redirectToActionResult = (RedirectToActionResult)result;
             Assert.IsNotNull(result);
             Assert.That(result, Is.TypeOf<RedirectToActionResult>());
@@ -259,7 +266,6 @@ namespace RadioMeti.UnitTest.Controllers.Admin.Event
         }
         //Todo Now In All Tests Image And Avatar Is Null Fix It In Feature
         #endregion
-
         #region Delete
         [Test]
         public async Task Delete_DeleteResultSuccess_ReturnRedirectIndex()
