@@ -6,6 +6,7 @@ using RadioMeti.Application.DTOs.Admin.Music;
 using RadioMeti.Application.DTOs.Admin.Prodcast;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Create;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Edit;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Domain.Entities.Prodcast;
 
 namespace RadioMeti.Application.Interfaces
@@ -27,6 +28,10 @@ namespace RadioMeti.Application.Interfaces
         Task<Prodcast> GetProdcastBy(long id);
         Task<EditProdcastResult> EditProdcast(EditProdcastDto edit);
         Task<DeleteMusicResult> DeleteProdcast(long id);
+        Task<List<SiteSliderDto>> GetInSliderProdcasts();
+        Task<List<Prodcast>> GetNewestProdcasts(int take);
+        Task<List<Prodcast>> GetPopularProdcasts(int take);
+        Task<List<Prodcast>> GetProdcastsByStartDate(int beforeDays, int take);
         #endregion
     }
 }

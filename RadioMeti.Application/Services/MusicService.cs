@@ -10,7 +10,9 @@ using RadioMeti.Application.DTOs.Admin.Music.Single;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
 using RadioMeti.Application.DTOs.Paging;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Application.Interfaces;
+using RadioMeti.Application.Utilities.Utils;
 using RadioMeti.Domain.Entities.Music;
 using RadioMeti.Persistance.Repository;
 
@@ -126,6 +128,10 @@ namespace RadioMeti.Application.Services
             var allMusics = await query.Paging(pager).ToListAsync();
             #endregion
             return filter.SetAlbums(allMusics).SetPaging(pager);
+        }
+        public async Task<List<Album>> GetLastAlbums(int take)
+        {
+            return await _albumRepository.GetQuery().Include(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover) && p.Musics.Any()).OrderByDescending(p => p.CreateDate).ToListAsync();
         }
 
         #endregion
@@ -322,12 +328,43 @@ namespace RadioMeti.Application.Services
             }
         }
 
-       
 
-        #endregion 
+
+        #endregion
+        #region Musics
         public async Task<List<Music>> GetMusics()
         {
-            return await _musicRepository.GetQuery().ToListAsync() ;
+            return await _musicRepository.GetQuery().ToListAsync();
         }
-}
+
+        public async Task<List<SiteSliderDto>> GetInSliderMusics()
+        {
+            return await _musicRepository.GetQuery().Include(p => p.Album).ThenInclude(p => p.ArtistAlbums).Include(p => p.ArtistMusics).ThenInclude(p => p.Music).Where(p => p.IsSlider && !string.IsNullOrEmpty(p.Cover)).Select(p => new SiteSliderDto
+            {
+                Title = p.Title,
+                Cover = p.AlbumId == null ? PathExtension.CoverSingleTrackOriginPath + p.Cover : PathExtension.CoverAlbumMusicOriginPath + p.Cover,
+                Artist = p.AlbumId == null ? p.ArtistMusics.Select(p => p.Artist.FullName).ToList() : p.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList(),
+                Id = p.Id
+            }).ToListAsync();
+        }
+
+        public async Task<List<Music>> GetNewestMusics(int take)
+        {
+            return await _musicRepository.GetQuery().Include(p => p.Album).ThenInclude(p => p.ArtistAlbums).Include(p => p.ArtistMusics).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.CreateDate).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Music>> GetPopularMusics(int take)
+        {
+            return await _musicRepository.GetQuery().Include(p => p.Album).ThenInclude(p => p.ArtistAlbums).Include(p => p.ArtistMusics).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.LikesCount).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Music>> GetMusicsByStartDate(int beforeDays, int take)
+        {
+            DateTime date = DateTime.Now.AddDays(-beforeDays);
+            return await _musicRepository.GetQuery().Include(p => p.Album).ThenInclude(p => p.ArtistAlbums).Include(p => p.ArtistMusics).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover) && p.CreateDate >= date).OrderBy(p => p.CreateDate).Take(take).ToListAsync();
+        }
+
+       
+        #endregion
+    }
 }

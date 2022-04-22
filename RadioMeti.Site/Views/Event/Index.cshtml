@@ -1,0 +1,58 @@
+﻿@using RadioMeti.Application.DTOs.Event
+@using RadioMeti.Application.Utilities.Utils
+@model EventPageDto
+@{
+    ViewData["Title"] = "Events";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="mainContent" id="mp3s">
+    @await Component.InvokeAsync("SiteSlider",new {model=Model.Sliders})
+    <div class="leaderboard_ad frontpage">
+        <div style="width: 970px; margin:0 auto;">
+
+            <div class="gpt-ad" id="div-gpt-ad-8782011" data-gpt-div-id="div-gpt-ad-8782011" data-gpt-path="/7048279/SectionsBillboard" data-gpt-dimensions="[970, 250]" data-gpt-channel="9497573784" style="display: none;" data-google-query-id="CMLfzvjYp_cCFYm5dwodH9AM5g">
+                <div id="google_ads_iframe_/7048279/SectionsBillboard_0__container__" style="border: 0pt none; width: 970px; height: 0px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="upcomingEvents">
+        <div class="sectionTitle">
+            <h2 class="title">Upcoming Events</h2>
+            <div class="actions">
+                <a href="javascript:void(0)" class="button textButton light " id="add_new_event">
+                    <i class="fa fa-plus"></i>
+                    <span class="hide-for-small-only">Add New Event</span>
+                </a>
+                <a href="/tickets/myorders" class="button textButton light" id="ticket_orders" data-no-turbolink="">
+                    <i class="fa fa-ticket-alt"></i>
+                    My Orders
+                </a>
+            </div>
+        </div>
+        <div class="grid">
+            @if (Model.NewestEvents != null && Model.NewestEvents.Any())
+            {
+                @foreach (var item in Model.NewestEvents)
+                {
+                      <div class="itemContainer">
+                <a href="/event/@item.Id" class="">
+                    <div class="eventArt">
+                        <img alt="Omid Djalili The Good Times Tour" border="0" src="@(PathExtension.EventCoverThumbPath+item.Cover)">
+                    </div>
+                    <div class="eventInfo">
+                        <span class="eventName" title="Omid Djalili The Good Times Tour">@item.Title</span>
+                        <span class="eventLocation" title="London, United Kingdom">@item.City</span>
+                        <span class="eventDate">@item.HoldingDate.ToString()</span>
+                    </div>
+                </a>
+                <div class="actions">
+                    <a href="http://omiddjalili.net" data-no-turbolink="" class="button textButton light" target="_blank">Buy Now</a>
+                </div>
+            </div>
+                }
+            }
+          
+        </div>
+    </div>
+</div>

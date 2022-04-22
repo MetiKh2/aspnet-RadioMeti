@@ -3,6 +3,7 @@ using RadioMeti.Application.DTOs.Admin.Video;
 using RadioMeti.Application.DTOs.Admin.Video.Create;
 using RadioMeti.Application.DTOs.Admin.Video.Delete;
 using RadioMeti.Application.DTOs.Admin.Video.Edit;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Domain.Entities.Video;
 
 namespace RadioMeti.Application.Interfaces
@@ -17,5 +18,9 @@ namespace RadioMeti.Application.Interfaces
         Task<Video> GetVideoBy(long videoId);
         Task<EditVideoResult> EditVideo(EditVideoDto edit);
         Task<DeleteVideoResult> DeleteVideo(long id);
+        Task<List<SiteSliderDto>> GetInSliderVideos();
+        Task<List<Video>> GetNewestVideos(int take);
+        Task<List<Video>> GetPopularVideos(int take);
+        Task<List<Video>> GetVideosByStartDate(int beforeDays, int take);
     }
 }

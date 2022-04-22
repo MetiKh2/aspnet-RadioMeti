@@ -26,6 +26,7 @@ namespace RadioMeti.Domain.Entities.Prodcast
         public long DjId { get; set; }
         public string? Audio { get; set; }
         public bool IsSlider { get; set; }
+        public int LikesCount { get; set; }
 
         #endregion        
         #region rel

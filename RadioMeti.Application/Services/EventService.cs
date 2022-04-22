@@ -5,7 +5,9 @@ using RadioMeti.Application.DTOs.Admin.Event.Create;
 using RadioMeti.Application.DTOs.Admin.Event.Delete;
 using RadioMeti.Application.DTOs.Admin.Event.Edit;
 using RadioMeti.Application.DTOs.Paging;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Application.Interfaces;
+using RadioMeti.Application.Utilities.Utils;
 using RadioMeti.Domain.Entities.Event;
 using RadioMeti.Persistance.Repository;
 
@@ -145,5 +147,22 @@ namespace RadioMeti.Application.Services
         {
             return await _eventRepository.GetEntityById(id);
         }
+
+        public async Task<List<SiteSliderDto>> GetInSliderEvents()
+        {
+            return await _eventRepository.GetQuery().Include(p=>p.ArtistEvents).ThenInclude(p=>p.Artist).Where(p => p.IsSlider && !string.IsNullOrEmpty(p.Cover)).Select(p => new SiteSliderDto
+            {
+                Title = p.Title,
+                Cover = PathExtension.EventCoverOriginPath+ p.Cover,
+                Artist = p.ArtistEvents.Select(p => p.Artist.FullName).ToList(),
+                Id = p.Id
+            }).ToListAsync();
+        }
+
+        public async Task<List<Event>> GetNewestEvents(int take)
+        {
+            return await _eventRepository.GetQuery().Include(p => p.ArtistEvents).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)&&p.HoldingDate>DateTime.Now).OrderByDescending(p => p.HoldingDate).Take(take).ToListAsync();
+        }
+
     }
 }

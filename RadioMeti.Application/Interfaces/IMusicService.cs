@@ -7,6 +7,7 @@ using RadioMeti.Application.DTOs.Admin.Music.AlbumMusic.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Create;
 using RadioMeti.Application.DTOs.Admin.Music.Single.Edit;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Domain.Entities.Music;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,18 @@ namespace RadioMeti.Application.Interfaces
 {
     public interface IMusicService
     {
+
+        #region Music
+        Task<List<SiteSliderDto>> GetInSliderMusics();
+        Task<List<Music>> GetNewestMusics(int take);
+        Task<List<Music>> GetPopularMusics(int take);
+        Task<List<Music>> GetMusicsByStartDate(int beforeDays, int take);
+        #endregion
         #region Single
         Task<Tuple<CreateSingleTrackResult, long>> CreateSingleTrack(CreateSingleTrackDto createSingleTrack);
         Task<EditSingleTrackResult> EditSingleTrack(EditSingleTrackDto editSingleTrack);
         Task<DeleteMusicResult> DeleteMusic(long id);
-
+        
         #endregion
         #region Album
         Task<Tuple<CreateAlbumResult, long>> CreateAlbum(CreateAlbumDto createAlbum);
@@ -31,7 +39,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<long>> GetArtistsAlbum(long albumId);
         Task<EditAlbumResult> EditAlbum(EditAlbumDto editAlbum);
         Task<DeleteAlbumResult> DeleteAlbum(long id);
-
+        Task<List<Album>> GetLastAlbums(int take);
         #endregion
 
         #region AlbumMusic

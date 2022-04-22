@@ -4,6 +4,7 @@ using RadioMeti.Application.DTOs.Admin.Event;
 using RadioMeti.Application.DTOs.Admin.Event.Create;
 using RadioMeti.Application.DTOs.Admin.Event.Delete;
 using RadioMeti.Application.DTOs.Admin.Event.Edit;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Domain.Entities.Event;
 
 namespace RadioMeti.Application.Interfaces
@@ -18,5 +19,7 @@ namespace RadioMeti.Application.Interfaces
         Task CreateEventArtists(long eventId, List<long> selectedArtists);
         Task DeleteEventArtists(long eventId);
         Task<DeleteEventResult> DeleteEvent(long id);
+        Task<List<SiteSliderDto>> GetInSliderEvents();
+        Task<List<Event>> GetNewestEvents(int take);
     }
 }

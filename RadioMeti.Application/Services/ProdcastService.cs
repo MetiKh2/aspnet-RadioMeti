@@ -9,7 +9,9 @@ using RadioMeti.Application.DTOs.Admin.Prodcast;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Create;
 using RadioMeti.Application.DTOs.Admin.Prodcast.Edit;
 using RadioMeti.Application.DTOs.Paging;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Application.Interfaces;
+using RadioMeti.Application.Utilities.Utils;
 using RadioMeti.Domain.Entities.Prodcast;
 using RadioMeti.Persistance.Repository;
 
@@ -196,6 +198,33 @@ namespace RadioMeti.Application.Services
             {
                 return DeleteMusicResult.Error;
             }
+        }
+
+        public async Task<List<SiteSliderDto>> GetInSliderProdcasts()
+        {
+            return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.IsSlider && !string.IsNullOrEmpty(p.Cover)).Select(p => new SiteSliderDto
+            {
+                Title = p.Title,
+                Cover =PathExtension.CoverProdcastOriginPath+p.Cover,
+                Artist =new List<string> { p.Dj.FullName },
+                Id = p.Id
+            }).ToListAsync();
+        }
+
+        public async Task<List<Prodcast>> GetNewestProdcasts(int take)
+        {
+            return await _prodcastRepository.GetQuery().Include(p => p.Dj).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.CreateDate).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Prodcast>> GetPopularProdcasts(int take)
+        {
+            return await _prodcastRepository.GetQuery().Include(p => p.Dj).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.LikesCount).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Prodcast>> GetProdcastsByStartDate(int beforeDays, int take)
+        {
+            DateTime date = DateTime.Now.AddDays(-beforeDays);
+            return await _prodcastRepository.GetQuery().Include(p => p.Dj).Where(p => !string.IsNullOrEmpty(p.Cover)&&p.CreateDate>=date).OrderBy(p => p.CreateDate).Take(take).ToListAsync();
         }
         #endregion
     }

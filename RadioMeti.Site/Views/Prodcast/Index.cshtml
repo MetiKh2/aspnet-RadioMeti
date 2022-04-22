@@ -1,0 +1,169 @@
+﻿@using RadioMeti.Application.DTOs.Prodcast
+@using RadioMeti.Application.Utilities.Utils
+@model ProdcastPageDto
+@{
+    ViewData["Title"] = "Prodcasts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContent" id="mp3s">
+    @await Component.InvokeAsync("SiteSlider",new {model=Model.Sliders})
+    <div class="leaderboard_ad frontpage">
+        <div style="width: 970px; margin:0 auto;">
+
+            <div class="gpt-ad" id="div-gpt-ad-8782011" data-gpt-div-id="div-gpt-ad-8782011" data-gpt-path="/7048279/SectionsBillboard" data-gpt-dimensions="[970, 250]" data-gpt-channel="9497573784" style="display: none;" data-google-query-id="CMLfzvjYp_cCFYm5dwodH9AM5g">
+                <div id="google_ads_iframe_/7048279/SectionsBillboard_0__container__" style="border: 0pt none; width: 970px; height: 0px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panelsContainer">
+        <div class="mainPanel" id="trending_featured_latest">
+            <dl class="tabs" data-tab="">
+                <dd class="tab active"><a href="#panel2-1">Newest Prodcasts In Site</a></dd>
+                <dd class="tab"><a href="#panel2-2">Popular Prodcasts</a></dd>
+            </dl>
+            <div class="tabs-content">
+                <div class="content active" id="panel2-1">
+                    <div class="grid" id="trending_mp3_container">
+                        @if (Model.NewestProdcasts != null && Model.NewestProdcasts.Any())
+                        {
+                            @foreach (var item in Model.NewestProdcasts)
+                            {
+                                <div class="itemContainer">
+                                    <a href="/prodcast/@item.Id">
+                                        <img src="images/blank.gif" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
+                                        <div class="songInfo">
+                                            <span class="artist">@item.Dj.FullName</span>
+                                            <span class="song">@item.Title</span>
+                                        </div>
+                                    </a>
+                                    <button class="button textButton light mp3_playlist_add add_playlist" mp3id="104464">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                            <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="content" id="panel2-2">
+                    <div class="grid" id="featured_mp3_container">
+                        @if (Model.PopularProdcasts != null && Model.PopularProdcasts.Any())
+                        {
+                            @foreach (var item in Model.PopularProdcasts)
+                            {
+                                <div class="itemContainer">
+                                    <a href="/prodcast/@item.Id">
+                                         <img src="images/blank.gif" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
+                                        <div class="songInfo">
+                                             <span class="artist">@item.Dj.FullName</span>
+                                            <span class="song">@item.Title</span>
+                                        </div>
+                                    </a>
+                                    <button class="button textButton light mp3_playlist_add add_playlist" mp3id="104464">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                            <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidePanel" id="side_bar ">
+            <div class="">
+                <div id="sidebar_ad">
+                </div>
+                <div id="popular_tabs" style="" class="">
+                    <dl class="tabs" data-tab="">
+                        <dd class="tab active"><a href="#this_month">This Month</a></dd>
+                        <dd class="tab"><a href="#this_week">This Week</a></dd>
+                        <dd class="tab"><a href="#this_day">This Day</a></dd>
+                    </dl>
+                    <div class="tabs-content">
+                        <div class="content" id="this_week">
+                            <ul class="listView">
+                                @if (Model.ThisWeekProdcasts != null && Model.ThisWeekProdcasts.Any())
+                                {
+                                    @foreach (var item in Model.ThisWeekProdcasts)
+                                    {
+                                        <li>
+                                            <a href="/prodcast/@item.Id" class="">
+                                                <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
+                                                <div class="songInfo">
+                                                    <span class="artist">@item.Dj.FullName</span>
+                                                    <span class="song">@item.Title</span>
+                                                </div>
+                                            </a>
+
+                                            <button class="button textButton light mp3_playlist_add_popular add_playlist" mp3id="105452">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                                    <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="content active" id="this_month">
+                            <ul class="listView">
+                                @if (Model.ThisMonthProdcasts != null && Model.ThisMonthProdcasts.Any())
+                                {
+                                    @foreach (var item in Model.ThisMonthProdcasts)
+                                    {
+                                         <li>
+                                            <a href="/prodcast/@item.Id" class="">
+                                                <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
+                                                <div class="songInfo">
+                                                    <span class="artist">@item.Dj.FullName</span>
+                                                    <span class="song">@item.Title</span>
+                                                </div>
+                                            </a>
+
+                                            <button class="button textButton light mp3_playlist_add_popular add_playlist" mp3id="105452">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                                    <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    }
+                                }
+                                <a href="/mp3s/browse/popular/month" class="button primaryButton viewMore">View More</a>
+                            </ul>
+                        </div>
+                        <div class="content" id="this_day">
+                            <ul class="listView">
+                                @if (Model.ThisDayProdcasts != null && Model.ThisDayProdcasts.Any())
+                                {
+                                    @foreach (var item in Model.ThisDayProdcasts)
+                                    {
+                                         <li>
+                                            <a href="/prodcast/@item.Id" class="">
+                                                <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
+                                                <div class="songInfo">
+                                                    <span class="artist">@item.Dj.FullName</span>
+                                                    <span class="song">@item.Title</span>
+                                                </div>
+                                            </a>
+
+                                            <button class="button textButton light mp3_playlist_add_popular add_playlist" mp3id="105452">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                                    <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+</div>

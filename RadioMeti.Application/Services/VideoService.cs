@@ -5,7 +5,9 @@ using RadioMeti.Application.DTOs.Admin.Video.Create;
 using RadioMeti.Application.DTOs.Admin.Video.Delete;
 using RadioMeti.Application.DTOs.Admin.Video.Edit;
 using RadioMeti.Application.DTOs.Paging;
+using RadioMeti.Application.DTOs.Slider;
 using RadioMeti.Application.Interfaces;
+using RadioMeti.Application.Utilities.Utils;
 using RadioMeti.Domain.Entities.Video;
 using RadioMeti.Persistance.Repository;
 
@@ -125,6 +127,27 @@ namespace RadioMeti.Application.Services
             return filter.SetVideos(allVideos).SetPaging(pager);
         }
 
+        public async Task<List<SiteSliderDto>> GetInSliderVideos()
+        {
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p => p.IsSlider && !string.IsNullOrEmpty(p.Cover)).Select(p => new SiteSliderDto
+            {
+                Title = p.Title,
+                Cover = PathExtension.CoverVideoOriginPath + p.Cover,
+                Artist = p.ArtistVideos.Select(p => p.Artist.FullName).ToList(),
+                Id = p.Id
+            }).ToListAsync();
+        }
+
+        public async Task<List<Video>> GetNewestVideos(int take)
+        {
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p=>p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.CreateDate).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Video>> GetPopularVideos(int take)
+        {
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.LikesCount).Take(take).ToListAsync();
+        }
+
         public async Task<List<long>> GetVideoArtists(long videoId)
         {
             return await _artistVideoRepository.GetQuery().Where(p => p.VideoId == videoId).Select(p => p.ArtistId).ToListAsync();
@@ -133,6 +156,12 @@ namespace RadioMeti.Application.Services
         public async Task<Video> GetVideoBy(long videoId)
         {
             return await _videoRepository.GetEntityById(videoId);
+        }
+
+        public async Task<List<Video>> GetVideosByStartDate(int beforeDays, int take)
+        {
+            DateTime date = DateTime.Now.AddDays(-beforeDays);
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover) && p.CreateDate >= date).OrderBy(p => p.CreateDate).Take(take).ToListAsync();
         }
     }
 }
