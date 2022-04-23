@@ -40,6 +40,34 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+        [HttpGet("/album/{albumId}")]
+        public async Task<IActionResult> ShowAlbum(long albumId,long itemId)
+        {
+            var album=await _musicService.GetAlbumForSiteBy(albumId);
+            if(album==null) return NotFound();
+            var music = await _musicService.GetMusicForSiteBy(itemId);
+            if (music == null)
+            {
+                return View(new ShowAlbumPageDto { Album=album});
+            }
+            await _musicService.AddPlaysMusic(music);
+            var model = new ShowAlbumPageDto
+            {
+                Music = music,
+                Album =album
+            };
+            return View(model);
+        }
+        [HttpGet("/music/all")]
+        public async Task<IActionResult> ShowAllMusics()
+        {
+            return View(await _musicService.GetAllMusicsForSite());
+        }
+        [HttpGet("/album/all")]
+        public async Task<IActionResult> ShowAllAlbums()
+        {
+            return View(await _musicService.GetAllAlbumsForSite());
+        }
 
     }
 }

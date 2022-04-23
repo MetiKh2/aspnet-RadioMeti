@@ -1,0 +1,34 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Music
+@model List<PlayList>
+@{
+    ViewData["Title"] = @ViewBag.categoryName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="playlists" class="mainContent">
+    <div id="featured_playlist">
+        <div class="sectionTitle">
+            <h2 class="title">@ViewBag.categoryName</h2>
+        </div>
+        <div class="grid playlist_container">
+        
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                        <a asp-area="" asp-controller="Playlist" asp-action="ShowPlayList"  asp-route-id="@item.Id" class="play_all">
+                <div class="image_crop">
+                    <img src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)" data-src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)"  class=" ls-is-cached lazyloaded">
+                </div>
+                <div class="songInfo">
+                    <span class="playlistName" title="@item.Title">@item.Title</span>
+                </div>
+            </a>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+

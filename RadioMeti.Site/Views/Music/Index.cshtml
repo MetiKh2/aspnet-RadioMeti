@@ -45,6 +45,9 @@
                                 </div>
                             }
                         }
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Music" asp-action="ShowAllMusics" class="viewMore">View All</a>
+                        </div>
                     </div>
                 </div>
                 <div class="content" id="panel2-2">
@@ -69,6 +72,7 @@
                                 </div>
                             }
                         }
+                         
                     </div>
                 </div>
             </div>
@@ -168,7 +172,7 @@
     <div id="albums">
         <div class="sectionTitle">
             <h2 class="title">New Albums</h2>
-            <a href="/mp3s/browse/albums/all" class="viewMore button primaryButton">
+            <a asp-area="" asp-controller="Music" asp-action="ShowAllAlbums" class="viewMore button primaryButton">
                 View More <i class="icon-chevron-right "></i>
             </a>
         </div>
@@ -177,7 +181,7 @@
             {
                 @foreach (var item in Model.LastAlbums)
                 {
-                     <a href="/album/@item.Id">
+                  <a asp-area="" asp-controller="Music" asp-action="ShowAlbum"  asp-route-albumId="@item.Id" class="play_all">
                 <img src="@(PathExtension.CoverAlbumThumbPath+item.Cover)" data-src="@(PathExtension.CoverAlbumThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                 <div class="songInfo">
                     <span class="artist" title="Amirabbas Golab">@(string.Join(" ft ",item.ArtistAlbums.Select(p=>p.Artist.FullName).ToList()))</span>

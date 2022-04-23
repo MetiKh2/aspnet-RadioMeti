@@ -15,7 +15,7 @@
     {
         foreach (var item in Model.FeaturedPlayLists)
         {
-             <a href="/playlist/@item.Id" class="play_all">
+              <a asp-area="" asp-controller="Playlist" asp-action="ShowPlayList"  asp-route-id="@item.Id" class="play_all">
         <img src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)" data-src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)" alt="Ghofli'" class=" lazyloaded">
         <div class="songInfo">
             <span class="playlistName" title="Ghofli">@item.Title</span>
@@ -34,8 +34,8 @@
     {
         foreach (var item in Model.PlayListCategories)
         {
-             <a href="/playlist-category/@item.Id" class="play_all">
-        <img src="@(PathExtension.CoverPlaylistCategoryThumbPath+item.Cover)" data-src="@(PathExtension.CoverPlaylistCategoryThumbPath+item.Cover)" alt="Ghofli'" class=" lazyloaded">
+             <a asp-area="" asp-controller="Playlist" asp-action="PlaylistsByCategory" asp-route-categoryId="@item.Id" class="play_all">
+        <img src="@(PathExtension.CoverPlaylistCategoryThumbPath+item?.Cover)" data-src="@(PathExtension.CoverPlaylistCategoryThumbPath+item?.Cover)" alt="Ghofli'" class=" lazyloaded">
         <div class="songInfo">
             <span class="playlistName" title="Ghofli">@item.Title</span>
         </div>

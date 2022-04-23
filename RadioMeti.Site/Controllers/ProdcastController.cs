@@ -41,5 +41,10 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+        [HttpGet("/prodcast/all")]
+        public async Task<IActionResult> ShowAllProdcast()
+        {
+            return View(await _prodcastService.GetAllProdcastForSite());
+        }
     }
 }

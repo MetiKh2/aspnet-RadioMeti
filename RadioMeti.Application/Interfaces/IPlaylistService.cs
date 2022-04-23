@@ -27,7 +27,9 @@ namespace RadioMeti.Application.Interfaces
         Task<PlayList> GetPlayListBy(long id);
         Task<EditPlaylistResult> EditPlaylist(EditPlaylistDto edit);
         Task<DeletePlaylistResult> DeletePlaylist(long id);
+        Task<PlayList> GetPlayListForSiteBy(long id);
         Task<List<PlayList>> GetFeaturedPlayLists();
+        Task<List<PlayList>> GetPlaylistsByCategory(long categoryId);
         #endregion
         #region Playlist selected categories
         Task CreatePlaylistSelectedCategories(long playlistId, List<long> selectedCategories);

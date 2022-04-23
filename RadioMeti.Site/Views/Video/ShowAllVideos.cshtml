@@ -1,0 +1,28 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Video
+@model List<Video>
+@{
+    ViewData["Title"] = "All-Videos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+  <div id="playlists" class="mainContent">
+<div class="sectionTitle">
+    <h2 class="title">All Prodcasts</h2>
+</div>
+
+<div class="grid">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+              <a asp-area="" asp-controller="Video" asp-action="ShowVideo"  asp-route-id="@item.Id" class="play_all">
+        <img src="@(PathExtension.CoverAlbumThumbPath+item.Cover)" data-src="@(PathExtension.CoverAlbumThumbPath+item.Cover)" alt="'" class=" lazyloaded">
+        <div class="songInfo">
+            <span class="playlistName" title="Ghofli">@item.Title</span>
+        </div>
+    </a>
+        }
+    }
+   
+</div>
+</div>

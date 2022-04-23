@@ -41,5 +41,10 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+        [HttpGet("/video/all")]
+        public async Task<IActionResult> ShowAllVideos()
+        {
+            return View(await _videoService.GetAllVideosForSite());
+        }
     }
 }

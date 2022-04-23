@@ -134,6 +134,11 @@ namespace RadioMeti.Application.Services
             return filter.SetVideos(allVideos).SetPaging(pager);
         }
 
+        public async Task<List<Video>> GetAllVideosForSite()
+        {
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p=>!string.IsNullOrEmpty(p.Cover)).ToListAsync();
+        }
+
         public async Task<List<SiteSliderDto>> GetInSliderVideos()
         {
             return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p => p.IsSlider && !string.IsNullOrEmpty(p.Cover)).Select(p => new SiteSliderDto
@@ -141,7 +146,8 @@ namespace RadioMeti.Application.Services
                 Title = p.Title,
                 Cover = PathExtension.CoverVideoOriginPath + p.Cover,
                 Artist = p.ArtistVideos.Select(p => p.Artist.FullName).ToList(),
-                Id = p.Id
+                Id = p.Id,
+                Link="/video/"+p.Id
             }).ToListAsync();
         }
 

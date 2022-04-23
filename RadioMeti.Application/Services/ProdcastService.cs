@@ -207,7 +207,8 @@ namespace RadioMeti.Application.Services
                 Title = p.Title,
                 Cover =PathExtension.CoverProdcastOriginPath+p.Cover,
                 Artist =new List<string> { p.Dj.FullName },
-                Id = p.Id
+                Id = p.Id,
+                Link="/prodcast/"+p.Id
             }).ToListAsync();
         }
 
@@ -242,6 +243,11 @@ namespace RadioMeti.Application.Services
         public async Task<List<Prodcast>> GetRelatedProdcast(long djId)
         {
             return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.DjId == djId).ToListAsync();
+        }
+
+        public async Task<List<Prodcast>> GetAllProdcastForSite()
+        {
+            return await _prodcastRepository.GetQuery().Include(p => p.Dj).OrderByDescending(p=>p.CreateDate).ToListAsync();
         }
         #endregion
     }

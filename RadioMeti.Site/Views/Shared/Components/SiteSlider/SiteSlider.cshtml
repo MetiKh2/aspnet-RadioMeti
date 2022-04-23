@@ -6,7 +6,7 @@
                
                @foreach (var item in Model)
                {
-                    <a href="/music/@item.Id">
+                    <a href="@item.Link">
                     <img style="width:100%;height:280px" src="images/blank.gif" data-src="@item.Cover" alt="" class="lazyload" border="0" />
                     <div class="songInfo inline">
                         <span class="artist" title="Satin">@string.Join(" ft ",item.Artist) –</span>

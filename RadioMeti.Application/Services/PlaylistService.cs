@@ -126,6 +126,18 @@ namespace RadioMeti.Application.Services
         #endregion
 
         #region Playlist
+        public async Task<List<PlayList>> GetPlaylistsByCategory(long categoryId)
+        {
+            var playListsId =await _playlistSelectedCategoryRepository.GetQuery().Where(p => p.PlayListCategoryId == categoryId).Select(p=>p.PlayListId).ToListAsync();
+            var result = new List<PlayList>();
+            foreach (var item in playListsId)
+            {
+                var playlist = await GetPlayListBy(item);
+                if(playlist!=null)
+                result.Add(playlist);
+            }
+            return result;
+        }
         public async Task<List<PlayList>> GetFeaturedPlayLists()
         {
             return await _playlistRepository.GetQuery().Where(p=>p.IsFeatured&&!string.IsNullOrEmpty(p.Cover)).ToListAsync();
@@ -250,8 +262,20 @@ namespace RadioMeti.Application.Services
             await _playlistMusicRepository.SaveChangesAsync();
         }
 
-      
-
+        public async Task<PlayList> GetPlayListForSiteBy(long id)
+        {
+            return await _playlistRepository.GetQuery().
+                Include(p => p.PlaylistMusics).
+                ThenInclude(p => p.Music).
+                ThenInclude(p => p.Album).
+                ThenInclude(p => p.ArtistAlbums).
+                ThenInclude(p => p.Artist).
+                Include(p => p.PlaylistMusics).
+                ThenInclude(p => p.Music).
+                ThenInclude(p => p.ArtistMusics).
+                ThenInclude(p => p.Artist)
+                .FirstOrDefaultAsync(p=>p.Id==id);
+        }
 
         #endregion
     }

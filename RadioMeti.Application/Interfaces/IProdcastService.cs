@@ -30,6 +30,7 @@ namespace RadioMeti.Application.Interfaces
         Task<DeleteMusicResult> DeleteProdcast(long id);
         Task<List<SiteSliderDto>> GetInSliderProdcasts();
         Task<Prodcast>GetProdcastForSiteBy(long id);
+        Task<List<Prodcast>> GetAllProdcastForSite();
         Task<List<Prodcast>> GetNewestProdcasts(int take);
         Task<List<Prodcast>> GetPopularProdcasts(int take);
         Task AddPlaysProdcast(Prodcast prodcast);

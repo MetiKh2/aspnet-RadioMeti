@@ -37,6 +37,11 @@ namespace RadioMeti.Application.Services
         }
 
         #region Album
+        public async Task<Album> GetAlbumForSiteBy(long id)
+        {
+            return await _albumRepository.GetQuery().Include(p=>p.Musics).Include(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).FirstOrDefaultAsync(p=>p.Id==id);
+
+        }
         public async Task<DeleteAlbumResult> DeleteAlbum(long id)
         {
             try
@@ -133,7 +138,11 @@ namespace RadioMeti.Application.Services
         {
             return await _albumRepository.GetQuery().Include(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover) && p.Musics.Any()).OrderByDescending(p => p.CreateDate).ToListAsync();
         }
+        public async Task<List<Album>> GetAllAlbumsForSite()
+        {
+            return await _albumRepository.GetQuery().Where(p=>!string.IsNullOrEmpty(p.Cover)).ToListAsync();
 
+        }
         #endregion
         #region ArtistAlbum
         public async Task CreateArtistsAlbum(long albumId, List<long> artistsId)
@@ -348,7 +357,8 @@ namespace RadioMeti.Application.Services
                 Title = p.Title,
                 Cover = p.AlbumId == null ? PathExtension.CoverSingleTrackOriginPath + p.Cover : PathExtension.CoverAlbumMusicOriginPath + p.Cover,
                 Artist = p.AlbumId == null ? p.ArtistMusics.Select(p => p.Artist.FullName).ToList() : p.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList(),
-                Id = p.Id
+                Id = p.Id,
+                Link = "/music/"+p.Id
             }).ToListAsync();
         }
 
@@ -376,7 +386,11 @@ namespace RadioMeti.Application.Services
             {
                 var musicsId = await _artistMusicRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.MusicId).ToListAsync();
                 foreach (var musicId in musicsId)
-                    relatedMusics.Add(await GetMusicForSiteBy(musicId));
+                {
+                    var relMusic = await GetMusicForSiteBy(musicId);
+                    if(relMusic!=null)
+                    relatedMusics.Add(relMusic);
+                }
             }
             return relatedMusics;   
         }
@@ -387,6 +401,15 @@ namespace RadioMeti.Application.Services
             _musicRepository.EditEntity(music);
             await _musicRepository.SaveChangesAsync();
         }
+
+        public async Task<List<Music>> GetAllMusicsForSite()
+        {
+            return await _musicRepository.GetQuery().Include(p => p.Album.ArtistAlbums).ThenInclude(p => p.Artist).Include(p => p.ArtistMusics).ThenInclude(p => p.Artist).Where(p=>!string.IsNullOrEmpty(p.Cover)).ToListAsync();
+        }
+
+       
+
+
 
 
         #endregion

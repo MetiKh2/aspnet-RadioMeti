@@ -1,0 +1,131 @@
+﻿@using RadioMeti.Application.DTOs.Music
+@using RadioMeti.Application.Utilities.Utils
+@model ShowAlbumPageDto
+@{
+    ViewData["Title"] = @Model.Album.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string artists = string.Join(" ft ", Model.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList()); 
+}
+
+<div id="playlist" class="mainContent">
+    <div class="sectionTitle">
+            <h2 class="title">@Model.Album.Title</h2>
+        </div>
+    <div class="panelsContainer">
+        @if (Model.Music == null)
+        {
+            <div class="mainPanel">
+                <div class="artworkContainer">
+                    <img alt="" id="playlist_image" src="@(PathExtension.CoverAlbumThumbPath+Model.Album.Cover)">
+                    <div class="songInfo">
+                        <h2 class="title">@Model.Album.Title</h2>
+                        <span>
+                            Created by <span class="label radius secondary">@artists</span> |
+                            <span>Songs :  @Model.Album.Musics.Count()</span> | <span id="follower_count">@Model.Album.CreateDate.ToString()</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="webPlayer" style="display:block">
+                <div class="mainPanel">
+                    <div class="artworkContainer" style="padding:0">
+                        <div class="leftColumn">
+                            <div class="artwork">
+                                <img alt="@artists | @Model.Music.Title'" class="" src="@(PathExtension.CoverAlbumMusicThumbPath+Model.Music.Cover)">
+                                <div class="songInfo">
+                                    <span class="artist">@artists</span>
+                                    <span class="song">@Model.Music.Title</span>
+                                </div>
+                            </div>
+                            <div class="ratingContianer">
+                                <div id="mp3_rating_container">
+                                    <button id="mp3_likes" class="number_of_likes button textButton">
+                                        <i class="fa fa-heart "></i>
+
+                                        <span class="rating">@Model.Music.LikesCount.ToString("n0") likes</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-for-small-only">
+                            <div class="mobile_leaderboard_ad">
+                            </div>
+                        </div>
+                        <div class="controllersContainer inline">
+                            <div class="timing-data">
+                                <span id="mp3_position"></span>
+                                <div class="statusbar">
+                                    <div id="slider-range-min"></div>
+                                </div>
+                                <span id="mp3_duration"></span>
+                            </div>
+                            <div class="flexContainer center">
+                                <audio style="width:100%" controls>
+                                    <source src="@(PathExtension.AudioAlbumMusicOriginPath+Model.Music.Audio)" />
+                                </audio>
+                            </div>
+                        </div>
+                        <div class="collapsibleContainer">
+                            <input id="collapsible" class="toggle" type="checkbox" checked="">
+                            <label for="collapsible" class="collapsibleToggle button textButton">Details</label>
+                            <div class="collapsibleContent">
+                                <div class="contentInner">
+                                    <div class="mp3Description">
+                                        <div class="views">Plays: @Model.Music.PlaysCount.ToString("n0")</div>
+                                        <div pubdate="pubdate" class="dateAdded">Date Added: @Model.Music.CreateDate.ToString()</div>
+                                        Poet: @Model.Music.Poet
+                                        <br>Music Producer: @Model.Music.MusicProducer
+                                        <br>Cover Art: @Model.Music.CoverArtist<br>
+                                        <br>Photographer: @Model.Music.Photographer<br>
+                                        <br>Arrangement: @Model.Music.Arrangement<br>
+                                    </div>
+                                    <div class="tagsContainer">
+                                        @if (!string.IsNullOrEmpty(Model.Music.Tags))
+                                        {
+                                            @foreach (var item in Model.Music.Tags.Split("/"))
+                                            {
+                                                <span class="tags"><a href="/mp3s/browse/tag/@item">@item</a></span>
+                                            }
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="sidePanel">
+            <ul class="listView">
+                @if (Model.Album.Musics!= null && Model.Album.Musics.Any())
+                {
+                    foreach (var item in Model.Album.Musics)
+                    {
+                        <li>
+                            <a asp-area="" asp-controller="Music" asp-action="ShowAlbum" asp-route-itemId="@item.Id" asp-route-albumId="@Model.Album.Id">
+                                <img src="@(PathExtension.CoverAlbumMusicThumbPath+item.Cover)" src="@(PathExtension.CoverAlbumMusicThumbPath+item.Cover)"  class=" ls-is-cached lazyloaded">
+                                <div class="songInfo">
+                                    <span class="artist" title="@artists">@artists</span>
+                                    <span class="song" title="@item.Title">@item.Title</span>
+                                </div>
+                            </a>
+                            <button class="button textButton light mp3_playlist_add_playlists" mp3id="105452">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                    <path d="M8,22 C9.65685425,22 11,20.6568542 11,19 C11,17.3431458 9.65685425,16 8,16 C6.34314575,16 5,17.3431458 5,19 C5,20.6568542 6.34314575,22 8,22 Z M6.5,7.5 L9.49956417,7.5 C9.77594725,7.5 10,7.73193359 10,8 C10,8.27614237 9.76920319,8.5 9.49956417,8.5 L6.5,8.5 L6.5,11.4995642 C6.5,11.7759472 6.26806641,12 6,12 C5.72385763,12 5.5,11.7692032 5.5,11.4995642 L5.5,8.5 L2.50043583,8.5 C2.22405275,8.5 2,8.26806641 2,8 C2,7.72385763 2.23079681,7.5 2.50043583,7.5 L5.5,7.5 L5.5,4.50043583 C5.5,4.22405275 5.73193359,4 6,4 C6.27614237,4 6.5,4.23079681 6.5,4.50043583 L6.5,7.5 Z M11,16.3541756 L11,9 L11,3.66666628 L20,1 L20,6.33333372 L12,8.70370375 L12,19 C12,21.209139 10.209139,23 8,23 C5.790861,23 4,21.209139 4,19 C4,16.790861 5.790861,15 8,15 C9.19469253,15 10.2670555,15.5237549 11,16.3541756 Z M12,7.66073133 L19,5.58665755 L19,2.33926867 L12,4.41334245 L12,7.66073133 Z" id="path-1"></path>
+                                </svg>
+                            </button>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+

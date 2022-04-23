@@ -1,0 +1,30 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Music
+@model List<Music>
+@{
+    ViewData["Title"] = "All-Musics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+  <div id="playlists" class="mainContent">
+<div class="sectionTitle">
+    <h2 class="title">All Prodcasts</h2>
+</div>
+
+<div class="grid">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+              <a asp-area="" asp-controller="Music" asp-action="ShowMusic"  asp-route-id="@item.Id" class="play_all">
+        <img src="@(item.Album == null ? PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" data-src="@(item.Album == null ? PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" alt="'" class=" lazyloaded">
+        <div class="songInfo">
+            <span class="playlistName" title="Ghofli">@item.Title</span>
+        </div>
+    </a>
+        }
+    }
+   
+</div>
+</div>
+

@@ -6,5 +6,6 @@
         public string? Cover { get; set; }
         public string? Title { get; set; }
         public List<string> Artist { get; set; }
+        public string Link { get; set; }
     }
 }

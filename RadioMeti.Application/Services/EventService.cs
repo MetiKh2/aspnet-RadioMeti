@@ -155,7 +155,8 @@ namespace RadioMeti.Application.Services
                 Title = p.Title,
                 Cover = PathExtension.EventCoverOriginPath+ p.Cover,
                 Artist = p.ArtistEvents.Select(p => p.Artist.FullName).ToList(),
-                Id = p.Id
+                Id = p.Id,
+                Link="/event/"+p.Id
             }).ToListAsync();
         }
 

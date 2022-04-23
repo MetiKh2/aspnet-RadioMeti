@@ -26,6 +26,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<Music>> GetPopularMusics(int take);
         Task<List<Music>> GetMusicsByStartDate(int beforeDays, int take);
         Task<List<Music>> GetRelatedMusics(Music music);
+        Task<List<Music>> GetAllMusicsForSite();
         Task AddPlaysMusic(Music music);
         #endregion
         #region Single
@@ -38,9 +39,11 @@ namespace RadioMeti.Application.Interfaces
         Task<Tuple<CreateAlbumResult, long>> CreateAlbum(CreateAlbumDto createAlbum);
         Task<FilterAlbumDto> FilterAlbums(FilterAlbumDto filter);
         Task<Album> GetAlbumBy(long id);
+        Task<Album> GetAlbumForSiteBy(long id);
         Task<List<long>> GetArtistsAlbum(long albumId);
         Task<EditAlbumResult> EditAlbum(EditAlbumDto editAlbum);
         Task<DeleteAlbumResult> DeleteAlbum(long id);
+        Task<List<Album>> GetAllAlbumsForSite();
         Task<List<Album>> GetLastAlbums(int take);
         #endregion
 
