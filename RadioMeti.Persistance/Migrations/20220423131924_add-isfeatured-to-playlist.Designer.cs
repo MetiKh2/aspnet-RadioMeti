@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220423131924_add-isfeatured-to-playlist")]
+    partial class addisfeaturedtoplaylist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -523,7 +525,8 @@ namespace RadioMeti.Persistance.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Lyrics")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MusicProducer")
                         .HasMaxLength(200)

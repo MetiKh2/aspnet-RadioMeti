@@ -19,6 +19,7 @@ namespace RadioMeti.Application.DTOs.Playlist.Edit
         [MaxLength(200)]
         public string? Creator { get; set; }
         public long Id { get; set; }
+        public bool IsFeatured { get; set; }
     }
     public enum EditPlaylistResult
     {

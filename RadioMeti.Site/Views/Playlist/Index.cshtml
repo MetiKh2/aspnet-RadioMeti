@@ -1,0 +1,69 @@
+﻿@using RadioMeti.Application.DTOs.Playlist
+@using RadioMeti.Application.Utilities.Utils
+@model PlaylistPageDto
+@{
+    ViewData["Title"] = "Playlists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="playlists" class="mainContent">
+<div class="sectionTitle">
+    <h2 class="title">Featured Playlists</h2>
+</div>
+
+<div class="grid">
+    @if (Model.FeaturedPlayLists != null && Model.FeaturedPlayLists.Any())
+    {
+        foreach (var item in Model.FeaturedPlayLists)
+        {
+             <a href="/playlist/@item.Id" class="play_all">
+        <img src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)" data-src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)" alt="Ghofli'" class=" lazyloaded">
+        <div class="songInfo">
+            <span class="playlistName" title="Ghofli">@item.Title</span>
+        </div>
+    </a>
+        }
+    }
+   
+</div>
+<div class="sectionTitle">
+    <h2 class="title">Browse</h2>
+</div>
+<div id="playlist_categories">
+    <div class="grid">
+         @if (Model.PlayListCategories != null && Model.PlayListCategories.Any())
+    {
+        foreach (var item in Model.PlayListCategories)
+        {
+             <a href="/playlist-category/@item.Id" class="play_all">
+        <img src="@(PathExtension.CoverPlaylistCategoryThumbPath+item.Cover)" data-src="@(PathExtension.CoverPlaylistCategoryThumbPath+item.Cover)" alt="Ghofli'" class=" lazyloaded">
+        <div class="songInfo">
+            <span class="playlistName" title="Ghofli">@item.Title</span>
+        </div>
+    </a>
+        }
+    }
+        
+    </div>
+</div>
+
+
+
+<div id="mymp3s_playlist" class="">
+    <div class="sectionTitle">
+        <h2 class="title">My MP3 Playlists</h2>
+    </div>
+    <div class="grid">
+        <div class="itemContainer">
+            <a href="/playlists/playlist/mp3/541065197d66">
+                <div class="image_crop">
+                    <img style="" alt="" src="https://assets.rjassets.com/static/playlist/14428426/bd2d0f49ce64799-artwork.jpg">
+                </div>
+                <div class="songInfo">
+                    <span class="playlistName" title="dfgd">dfgd</span>
+                </div>
+            </a>
+            <a href="/mp3s/playlist/541065197d66" class="playlistSetting"><i class="fa fa-cog setting"></i></a>
+        </div>
+    </div>
+</div>
+</div>

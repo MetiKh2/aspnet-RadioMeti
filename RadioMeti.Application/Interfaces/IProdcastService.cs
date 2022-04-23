@@ -29,9 +29,12 @@ namespace RadioMeti.Application.Interfaces
         Task<EditProdcastResult> EditProdcast(EditProdcastDto edit);
         Task<DeleteMusicResult> DeleteProdcast(long id);
         Task<List<SiteSliderDto>> GetInSliderProdcasts();
+        Task<Prodcast>GetProdcastForSiteBy(long id);
         Task<List<Prodcast>> GetNewestProdcasts(int take);
         Task<List<Prodcast>> GetPopularProdcasts(int take);
+        Task AddPlaysProdcast(Prodcast prodcast);
         Task<List<Prodcast>> GetProdcastsByStartDate(int beforeDays, int take);
+        Task<List<Prodcast>> GetRelatedProdcast(long djId);
         #endregion
     }
 }

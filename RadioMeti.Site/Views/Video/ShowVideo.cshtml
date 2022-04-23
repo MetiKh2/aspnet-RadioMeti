@@ -1,0 +1,149 @@
+﻿@using RadioMeti.Application.DTOs.Video
+@using RadioMeti.Application.Utilities.Utils
+@model ShowVideoPageDto
+@{
+    ViewData["Title"] = @Model.Video.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Video = Model.Video;
+    string artists = string.Join(" ft ", Model.Video.ArtistVideos.Select(p => p.Artist.FullName).ToList());
+}
+
+
+<div class="mainContent">
+    <div class="leaderboard_ad">
+        <div style="width: 970px; margin:0 auto;">
+
+            <div class="gpt-ad" id="div-gpt-ad-8782010" data-gpt-div-id="div-gpt-ad-8782010" data-gpt-path="/7048279/PlayerBillboard" data-gpt-dimensions="[970, 250]" data-gpt-channel="8461492588" style="display: none;" data-google-query-id="CMmUwvCqqvcCFeZCHQkdM98Jrw">
+                <div id="google_ads_iframe_/7048279/PlayerBillboard_0__container__" style="border: 0pt none; width: 970px; height: 0px;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="breadcrumbs_container" class="">
+        <ul class="breadcrumbs">
+            <li><a asp-area="" asp-controller="Video" asp-action="Index">Videos</a></li>
+            <li><a>@artists</a></li>
+            <li class="current"><span>@Video.Title</span></li>
+        </ul>
+    </div>
+    <div class="webPlayer">
+        <div class="mainPanel">
+            <div class="artworkContainer">
+                <div class="leftColumn">
+                    <div class="artwork">
+                        <img alt="@artists | @Video.Title'" class="" src="@(PathExtension.CoverVideoThumbPath+Video.Cover)">
+                        <div class="songInfo">
+                            <span class="artist">@artists</span>
+                            <span class="song">@Video.Title</span>
+                        </div>
+                    </div>
+                    <div class="ratingContianer">
+                        <div id="mp3_rating_container">
+                            <button id="mp3_likes" class="number_of_likes button textButton">
+                                <i class="fa fa-heart "></i>
+
+                                <span class="rating">@Video.LikesCount.ToString("n0") likes</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="show-for-small-only">
+                    <div class="mobile_leaderboard_ad">
+                    </div>
+                </div>
+                <div class="controllersContainer inline">
+                    <div class="timing-data">
+                        <span id="mp3_position"></span>
+                        <div class="statusbar">
+                            <div id="slider-range-min"></div>
+                        </div>
+                        <span id="mp3_duration"></span>
+                    </div>
+                    <div class="flexContainer center">
+                        <video style="width:100%" controls>
+                            <source src="@(PathExtension.VideoOriginPath+Video.VideoFile)" />
+                        </video>
+                    </div>
+                </div>
+                <div class="collapsibleContainer">
+                    <input id="collapsible" class="toggle" type="checkbox" checked="">
+                    <label for="collapsible" class="collapsibleToggle button textButton">Details</label>
+                    <div class="collapsibleContent">
+                        <div class="contentInner">
+                            <div class="mp3Description">
+                                <div class="views">Plays: @Video.PlaysCount.ToString("n0")</div>
+                                <div pubdate="pubdate" class="dateAdded">Date Added: @Video.CreateDate.ToString()</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidePanel">
+            <dl class="tabs" data-tab="">
+                <dd class="tab active"><a href="#relatedTab">Related</a></dd>
+            </dl>
+            <div class="tabsContainer">
+                <div class="tabs-content">
+                    <div class="content active" id="relatedTab">
+                        <ul class="listView">
+                            <li class="active">
+                                <a>
+                                    <img src="@(PathExtension.CoverVideoThumbPath+Video.Cover)" class=" ls-is-cached lazyloaded">
+                                    <div class="nowPlayingIcon">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="songInfo">
+                                        <span class="artist" title="artists">@artists</span>
+                                        <span class="song" title="@Video.Title">@Video.Title</span>
+                                    </div>
+                                </a>
+                                <button class="button textButton mp3_playlist_add_related addToPlaylist" mp3id="106470">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="plusIcon icon">
+                                        <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                    </svg>
+                                </button>
+                            </li>
+                            @if (Model.RelatedVideos != null && Model.RelatedVideos.Any())
+                            {
+                                foreach (var item in Model.RelatedVideos)
+                                {
+                                    <li>
+                                        <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
+                                            <img src="images/blank.gif" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class="lazyload">
+                                            <div class="nowPlayingIcon">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            <div class="songInfo">
+                                                <span class="artist" title="@string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList())">@string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList())</span>
+                                                <span class="song" title="Hanoozam">@item.Title</span>
+                                            </div>
+                                        </a>
+                                        <button class="button textButton mp3_playlist_add_related addToPlaylist" mp3id="92904">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="plusIcon icon">
+                                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="alert-box success text-center form_success" style="display: none; margin-top: 10px" id="form_success">
+                Thank you.
+            </div>
+        </div>
+    </div>
+</div>
+

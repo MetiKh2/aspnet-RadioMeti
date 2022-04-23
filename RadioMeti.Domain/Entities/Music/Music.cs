@@ -18,7 +18,6 @@ namespace RadioMeti.Domain.Entities.Music
         [MaxLength(200)]
         public string? Poet { get; set; }
         [Display]
-        [MaxLength(200)]
         public string? Lyrics { get; set; }
         [Display]
         [MaxLength(200)]

@@ -27,5 +27,19 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+
+        [HttpGet("/video/{id}")]
+        public async Task<IActionResult> ShowVideo(long id)
+        {
+            var video = await _videoService.GetVideoForSiteBy(id);
+            if (video == null) return NotFound();
+            await _videoService.AddPlaysVideo(video);
+            var model = new ShowVideoPageDto
+            {
+                Video = video,
+                RelatedVideos = await _videoService.GetRelatedVideos(video),
+            };
+            return View(model);
+        }
     }
 }

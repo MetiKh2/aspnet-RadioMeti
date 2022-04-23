@@ -24,6 +24,13 @@ namespace RadioMeti.Application.Services
             _videoRepository = videoRepository;
         }
 
+        public async Task AddPlaysVideo(Video video)
+        {
+            video.PlaysCount++;
+            _videoRepository.EditEntity(video);
+            await _videoRepository.SaveChangesAsync();  
+        }
+
         public async Task<Tuple<CreateVideoResult, long>> CreateVideo(CreateVideoDto create)
         {
             try
@@ -148,6 +155,19 @@ namespace RadioMeti.Application.Services
             return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).Where(p => !string.IsNullOrEmpty(p.Cover)).OrderByDescending(p => p.LikesCount).Take(take).ToListAsync();
         }
 
+        public async Task<List<Video>> GetRelatedVideos(Video video)
+        {
+           var artistsId= video.ArtistVideos.Select(p => p.ArtistId).ToList();
+            var videos = new List<Video>();
+            foreach (var artistId in artistsId)
+            {
+                var videosId = await _artistVideoRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.VideoId).ToListAsync();
+                foreach (var videoId in videosId)
+                   videos.Add(await GetVideoForSiteBy(videoId));
+            }
+            return videos;
+        }
+
         public async Task<List<long>> GetVideoArtists(long videoId)
         {
             return await _artistVideoRepository.GetQuery().Where(p => p.VideoId == videoId).Select(p => p.ArtistId).ToListAsync();
@@ -157,6 +177,12 @@ namespace RadioMeti.Application.Services
         {
             return await _videoRepository.GetEntityById(videoId);
         }
+
+        public async Task<Video> GetVideoForSiteBy(long id)
+        {
+            return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).FirstOrDefaultAsync(p=>p.Id==id);
+        }
+
 
         public async Task<List<Video>> GetVideosByStartDate(int beforeDays, int take)
         {

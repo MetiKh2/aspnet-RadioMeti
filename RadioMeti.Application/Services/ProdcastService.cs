@@ -226,6 +226,23 @@ namespace RadioMeti.Application.Services
             DateTime date = DateTime.Now.AddDays(-beforeDays);
             return await _prodcastRepository.GetQuery().Include(p => p.Dj).Where(p => !string.IsNullOrEmpty(p.Cover)&&p.CreateDate>=date).OrderBy(p => p.CreateDate).Take(take).ToListAsync();
         }
+
+        public async Task<Prodcast> GetProdcastForSiteBy(long id)
+        {
+            return await _prodcastRepository.GetQuery().Include(p => p.Dj).FirstOrDefaultAsync(p=>p.Id==id);
+        }
+
+        public async Task AddPlaysProdcast(Prodcast prodcast)
+        {
+            prodcast.PlaysCount++;
+            _prodcastRepository.EditEntity(prodcast);
+            await _prodcastRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<Prodcast>> GetRelatedProdcast(long djId)
+        {
+            return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.DjId == djId).ToListAsync();
+        }
         #endregion
     }
 }

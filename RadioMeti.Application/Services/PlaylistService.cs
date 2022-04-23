@@ -126,6 +126,10 @@ namespace RadioMeti.Application.Services
         #endregion
 
         #region Playlist
+        public async Task<List<PlayList>> GetFeaturedPlayLists()
+        {
+            return await _playlistRepository.GetQuery().Where(p=>p.IsFeatured&&!string.IsNullOrEmpty(p.Cover)).ToListAsync();
+        }
         public async Task<FilterPlaylistDto> filterPlaylist(FilterPlaylistDto filter)
         {
             var query = _playlistRepository.GetQuery().OrderByDescending(p => p.CreateDate).AsQueryable();
@@ -149,6 +153,7 @@ namespace RadioMeti.Application.Services
                 playlist.Title = edit.Title;
                 playlist.Creator = edit.Creator;
                 playlist.Cover = edit.Cover;
+                playlist.IsFeatured = edit.IsFeatured;
                 _playlistRepository.EditEntity(playlist);
                 await _playlistRepository.SaveChangesAsync();
                 return EditPlaylistResult.Success;
@@ -167,6 +172,7 @@ namespace RadioMeti.Application.Services
                     Cover = create.Cover,
                     Creator = create.Creator,
                     Title = create.Title,
+                    IsFeatured= create.IsFeatured,
                 };
                 await _playlistRepository.AddEntity(playlist);
                 await _playlistRepository.SaveChangesAsync();
@@ -244,7 +250,9 @@ namespace RadioMeti.Application.Services
             await _playlistMusicRepository.SaveChangesAsync();
         }
 
-        
+      
+
+
         #endregion
     }
 }

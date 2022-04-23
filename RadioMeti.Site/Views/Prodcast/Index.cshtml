@@ -30,7 +30,7 @@
                             @foreach (var item in Model.NewestProdcasts)
                             {
                                 <div class="itemContainer">
-                                    <a href="/prodcast/@item.Id">
+                                   <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id="@item.Id">
                                         <img src="images/blank.gif" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
                                         <div class="songInfo">
                                             <span class="artist">@item.Dj.FullName</span>
@@ -54,7 +54,7 @@
                             @foreach (var item in Model.PopularProdcasts)
                             {
                                 <div class="itemContainer">
-                                    <a href="/prodcast/@item.Id">
+                                 <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id="@item.Id">
                                          <img src="images/blank.gif" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
                                         <div class="songInfo">
                                              <span class="artist">@item.Dj.FullName</span>
@@ -91,7 +91,7 @@
                                     @foreach (var item in Model.ThisWeekProdcasts)
                                     {
                                         <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                          <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@item.Dj.FullName</span>
@@ -116,7 +116,7 @@
                                     @foreach (var item in Model.ThisMonthProdcasts)
                                     {
                                          <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@item.Dj.FullName</span>
@@ -142,7 +142,7 @@
                                     @foreach (var item in Model.ThisDayProdcasts)
                                     {
                                          <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                          <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" data-src="@(PathExtension.CoverProdcastThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@item.Dj.FullName</span>

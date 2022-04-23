@@ -227,6 +227,7 @@ namespace RadioMeti.Site.Areas.Admin.Controllers
                 Creator = playlist.Creator,
                 Title = playlist.Title,
                 Id = playlist.Id,
+                IsFeatured = playlist.IsFeatured,
             });
         }
         [HttpPost("admin/EditPlaylist/{id}"), ValidateAntiForgeryToken]

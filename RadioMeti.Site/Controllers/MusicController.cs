@@ -27,5 +27,19 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+
+        [HttpGet("/music/{id}")]
+        public async Task<IActionResult> ShowMusic(long id)
+        {
+            var music = await _musicService.GetMusicForSiteBy(id);
+            if (music == null) return NotFound();
+           await _musicService.AddPlaysMusic(music);
+            var model = new ShowMusicPageDto { 
+            Music = music,
+            RelatedMusics=await _musicService.GetRelatedMusics(music), 
+            };
+            return View(model);
+        }
+
     }
 }

@@ -22,5 +22,8 @@ namespace RadioMeti.Application.Interfaces
         Task<List<Video>> GetNewestVideos(int take);
         Task<List<Video>> GetPopularVideos(int take);
         Task<List<Video>> GetVideosByStartDate(int beforeDays, int take);
+        Task<Video> GetVideoForSiteBy(long id);
+        Task AddPlaysVideo(Video video);
+        Task<List<Video>> GetRelatedVideos(Video video);
     }
 }

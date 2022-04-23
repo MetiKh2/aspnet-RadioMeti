@@ -31,7 +31,7 @@
                             @foreach (var item in Model.NewestVideos)
                             {
                                 <div class="itemContainer">
-                                    <a href="/video/@item.Id">
+                                  <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
                                         <img src="images/blank.gif" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
                                         <div class="songInfo">
                                             <span class="artist">@(string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -55,7 +55,7 @@
                             @foreach (var item in Model.PopularVideos)
                             {
                                 <div class="itemContainer">
-                                    <a href="/prodcast/@item.Id">
+                                  <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
                                         <img src="images/blank.gif" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
                                         <div class="songInfo">
                                             <span class="artist">@(string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -92,7 +92,7 @@
                                     @foreach (var item in Model.ThisWeekVideos)
                                     {
                                         <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverVideoThumbPath+item.Cover)" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -117,7 +117,7 @@
                                     @foreach (var item in Model.ThisMonthVideos)
                                     {
                                          <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverVideoThumbPath+item.Cover)" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -142,7 +142,7 @@
                                     @foreach (var item in Model.ThisDayVideos)
                                     {
                                         <li>
-                                            <a href="/prodcast/@item.Id" class="">
+                                         <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.Id">
                                                 <img src="@(PathExtension.CoverVideoThumbPath+item.Cover)" data-src="@(PathExtension.CoverVideoThumbPath+item.Cover)" alt="" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList()))</span>

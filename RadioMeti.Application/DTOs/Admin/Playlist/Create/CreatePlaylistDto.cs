@@ -14,6 +14,7 @@ namespace RadioMeti.Application.DTOs.Playlist.Create
         [Display]
         [MaxLength(200)]
         public string? Creator { get; set; }
+        public bool IsFeatured { get; set; }
     }
     public enum CreatePlaylistResult
     {

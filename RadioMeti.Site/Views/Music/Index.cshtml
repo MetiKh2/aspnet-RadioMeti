@@ -54,7 +54,7 @@
                             @foreach (var item in Model.PopularMusics)
                             {
                                 <div class="itemContainer">
-                                    <a href="/music/@item.Id">
+                                   <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id="@item.Id">
                                         <img src="images/blank.gif" data-src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" alt="" class="lazyload" border="0" />
                                         <div class="songInfo">
                                             <span class="artist">@(item.AlbumId==null?string.Join(" ft ",item.ArtistMusics.Select(p=>p.Artist.FullName).ToList()):string.Join(" ft ",item.Album.ArtistAlbums.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -91,7 +91,7 @@
                                     @foreach (var item in Model.ThisWeekMusics)
                                     {
                                         <li>
-                                            <a href="/music/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id="@item.Id">
                                                 <img src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" data-src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" alt="Sasy - 'Maman Mano Bebakhsh'" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(item.AlbumId==null?string.Join(" ft ",item.ArtistMusics.Select(p=>p.Artist.FullName).ToList()):string.Join(" ft ",item.Album.ArtistAlbums.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -116,7 +116,7 @@
                                     @foreach (var item in Model.ThisMonthMusics)
                                     {
                                         <li>
-                                            <a href="/music/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id="@item.Id">
                                                 <img src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" data-src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" alt="Sasy - 'Maman Mano Bebakhsh'" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(item.AlbumId==null?string.Join(" ft ",item.ArtistMusics.Select(p=>p.Artist.FullName).ToList()):string.Join(" ft ",item.Album.ArtistAlbums.Select(p=>p.Artist.FullName).ToList()))</span>
@@ -142,7 +142,7 @@
                                     @foreach (var item in Model.ThisDayMusics)
                                     {
                                         <li>
-                                            <a href="/music/@item.Id" class="">
+                                           <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id="@item.Id">
                                                 <img src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" data-src="@(item.AlbumId==null?PathExtension.CoverSingleTrackThumbPath+item.Cover:PathExtension.CoverAlbumMusicThumbPath+item.Cover)" alt="Sasy - 'Maman Mano Bebakhsh'" class=" ls-is-cached lazyloaded" border="0">
                                                 <div class="songInfo">
                                                     <span class="artist">@(item.AlbumId==null?string.Join(" ft ",item.ArtistMusics.Select(p=>p.Artist.FullName).ToList()):string.Join(" ft ",item.Album.ArtistAlbums.Select(p=>p.Artist.FullName).ToList()))</span>

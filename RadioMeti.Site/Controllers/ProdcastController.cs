@@ -27,5 +27,19 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+
+        [HttpGet("/prodcast/{id}")]
+        public async Task<IActionResult> ShowProdcast(long id)
+        {
+            var prodcast = await _prodcastService.GetProdcastForSiteBy(id);
+            if (prodcast == null) return NotFound();
+            await _prodcastService.AddPlaysProdcast(prodcast);
+            var model = new ShowProdcastPageDto
+            {
+                Prodcast = prodcast,
+                RelatedProdcasts = await _prodcastService.GetRelatedProdcast(prodcast.DjId),
+            };
+            return View(model);
+        }
     }
 }

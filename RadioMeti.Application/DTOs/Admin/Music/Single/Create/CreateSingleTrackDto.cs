@@ -12,7 +12,6 @@ namespace RadioMeti.Application.DTOs.Admin.Music.Single.Create
         [MaxLength(200)]
         public string? Poet { get; set; }
         [Display]
-        [MaxLength(200)]
         public string? Lyrics { get; set; }
         [Display]
         [MaxLength(200)]

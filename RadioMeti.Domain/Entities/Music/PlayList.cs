@@ -22,6 +22,7 @@ namespace RadioMeti.Domain.Entities.Music
         [MaxLength(200)]
         public string? Creator { get; set; }
         public string? UserId { get; set; }
+        public bool IsFeatured { get; set; }
         #endregion
         #region rel
         public IdentityUser? User{ get; set; }
