@@ -1,0 +1,211 @@
+﻿@using RadioMeti.Application.DTOs.Search
+@using RadioMeti.Application.Utilities.Utils
+@model SearchPageDto
+@{
+    ViewData["Title"] = ViewBag.Query;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="mainContent">
+    <div id="search_results">
+        <h3 style="border-bottom:2px solid rgba(255,255,255,.2);width:100%;padding:.5rem 1rem;" id="no_image_artist_name">@ViewBag.Query</h3>
+        @if (Model.Musics != null && Model.Musics.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Musics</h2>
+                    @*<a href="/search?query=g&amp;type=mp3" class="viewMore button primaryButton">View More</a>*@
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.Musics)
+                    {
+                        bool IsAlbum = item.AlbumId != null;
+                        string artists = !IsAlbum ? string.Join(" ft ", item.ArtistMusics.Select(p => p.Artist.FullName).ToList()) : string.Join(" ft ", item.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList());
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(IsAlbum?PathExtension.CoverAlbumMusicThumbPath+item.Cover:PathExtension.CoverSingleTrackThumbPath+item.Cover)">
+                            <div class="song_info">
+                                <span class="artist_name">@artists</span>
+                                <span class="song_name">  @item.Title</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.Albums != null && Model.Albums.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Albums</h2>
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.Albums)
+                    {
+                        string artists = string.Join(" ft ", item.ArtistAlbums.Select(p => p.Artist.FullName).ToList());
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Music" asp-action="ShowAlbum" asp-route-albumId=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.CoverAlbumThumbPath+item.Cover)">
+                            <div class="song_info">
+                                 <span class="artist_name">@artists</span>
+                                 <span class="song_name">  @item.Title</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.Artists != null && Model.Artists.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Artists</h2>
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.Artists)
+                    {
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Music" asp-action="ShowArtist" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.ArtistAvatarThumbPath+item.Avatar)">
+                            <div class="song_info">
+                                <span class="artist_name">@item.FullName</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.PlayLists != null && Model.PlayLists.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Playlists</h2>
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.PlayLists)
+                    {
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Playlist" asp-action="ShowPlayList" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.CoverPlaylistThumbPath+item.Cover)">
+                            <div class="song_info">
+                                <span class="song_name">@item.Title</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.Djs != null && Model.Djs.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Djs</h2>
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.Djs)
+                    {
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Prodcast" asp-action="ShowDj" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.DjAvatarThumbPath+item.Avatar)">
+                            <div class="song_info">
+                                <span class="artist_name">@item.FullName</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.Prodcasts != null && Model.Prodcasts.Any())
+        {
+            <div class="category">
+                <div class="sectionTitle">
+                    <h2 class="title">Prodcasts</h2>
+                </div>
+                <div class="grid">
+                    @foreach (var item in Model.Prodcasts)
+                    {
+                        <div class="itemContainer">
+                            <a asp-area="" asp-controller="Prodcast" asp-action="ShowProdcast" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.CoverProdcastThumbPath+item.Cover)">
+                            <div class="song_info">
+                                <span class="artist_name">@item.Title</span>
+                                <span class="song_name">  @item.Dj.FullName</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>}
+        @if (Model.Videos!=null&&Model.Videos.Any())
+        {
+             <div class="category">
+            <div class="sectionTitle">
+                <h2 class="title">Videos</h2>
+            </div>
+            <div class="grid">
+                @foreach (var item in Model.Videos)
+                {
+                     string artists=string.Join(" ft ",item.ArtistVideos.Select(p=>p.Artist.FullName).ToList());
+                    <div class="itemContainer">
+                        <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id=@item.Id>
+                            <img border="0" alt="" src="@(PathExtension.CoverVideoThumbPath+item.Cover)">
+                            <div class="song_info">
+                                <span class="artist_name">@item.Title</span>
+                                <span class="song_name">  @artists</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add " mp3id="93496">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>
+        }
+    </div>
+</div>

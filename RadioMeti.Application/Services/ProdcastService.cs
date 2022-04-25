@@ -249,6 +249,21 @@ namespace RadioMeti.Application.Services
         {
             return await _prodcastRepository.GetQuery().Include(p => p.Dj).OrderByDescending(p=>p.CreateDate).ToListAsync();
         }
+
+        public async Task<List<Dj>> GetDjs(string query, int take)
+        {
+            return await _djRepository.GetQuery().Where(p => p.FullName.Contains(query)).Take(take).ToListAsync();
+        }
+
+        public async Task<List<Prodcast>> GetProdcasts(string query, int take)
+        {
+            return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.Title.Contains(query)).Take(take).ToListAsync();
+        }
+
+        public async Task<Dj> GetDjForSiteBy(long id)
+        {
+            return await _djRepository.GetQuery().Include(p=>p.Prodcasts).FirstOrDefaultAsync(p=>p.Id==id);
+        }
         #endregion
     }
 }

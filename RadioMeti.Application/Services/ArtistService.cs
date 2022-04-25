@@ -107,9 +107,21 @@ namespace RadioMeti.Application.Services
            return await _artistRepository.GetEntityById(id);
         }
 
+        public async Task<Artist> GetArtistForSiteBy(long id)
+        {
+            return await _artistRepository.GetQuery().Include(p => p.ArtistMusics).ThenInclude(p => p.Music).
+                Include(p => p.ArtistVideos).ThenInclude(p => p.Video).
+                Include(p => p.ArtistAlbums).ThenInclude(p => p.Album).FirstOrDefaultAsync(p=>p.Id==id);
+        }
+
         public async Task<List<Artist>> GetArtists()
         {
             return await _artistRepository.GetQuery().ToListAsync();
+        }
+
+        public async Task<List<Artist>> GetArtists(string query, int take)
+        {
+            return await _artistRepository.GetQuery().Where(p => p.FullName.Contains(query)).Take(take).ToListAsync();
         }
     }
 }

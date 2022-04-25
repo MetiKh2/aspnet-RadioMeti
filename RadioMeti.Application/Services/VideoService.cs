@@ -189,6 +189,10 @@ namespace RadioMeti.Application.Services
             return await _videoRepository.GetQuery().Include(p => p.ArtistVideos).ThenInclude(p => p.Artist).FirstOrDefaultAsync(p=>p.Id==id);
         }
 
+        public async Task<List<Video>> GetVideos(string query, int take)
+        {
+            return await _videoRepository.GetQuery().Include(p=>p.ArtistVideos).ThenInclude(p=>p.Artist).Where(p => p.Title.Contains(query)).Take(take).ToListAsync();
+        }
 
         public async Task<List<Video>> GetVideosByStartDate(int beforeDays, int take)
         {

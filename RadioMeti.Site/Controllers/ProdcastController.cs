@@ -41,6 +41,13 @@ namespace RadioMeti.Site.Controllers
             };
             return View(model);
         }
+        [HttpGet("/dj/{id}")]
+        public async Task<IActionResult> ShowDj(long id)
+        {
+            var dj = await _prodcastService.GetDjForSiteBy(id);
+            if (dj == null) return NotFound();
+            return View(dj);
+        }
         [HttpGet("/prodcast/all")]
         public async Task<IActionResult> ShowAllProdcast()
         {

@@ -1,0 +1,104 @@
+﻿@using RadioMeti.Application.Utilities.Utils
+@using RadioMeti.Domain.Entities.Music
+@model Artist
+@{
+    ViewData["Title"] = @Model.FullName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="mainContent">
+    <div class="" id="artist_search_results" style="margin-bottom: 50px">
+        <div class="leftColumn" style="width: 100%;">
+                    <div class="artwork" style="width: 100%;text-align: center;">
+                        <img class="" src="@(PathExtension.ArtistImageThumbPath+Model.Image)" style="width: 50%;">
+                        <div class="songInfo">
+                                   <h4 style="width:100%" id="no_image_artist_nyame" class="show-for-smyall-only">@Model.FullName</h4>
+                          <span class="song"> @Model.ArtistMusics.Select(p=>p.Music.PlaysCount).Sum().ToString("n0") Plays</span>
+                        </div>
+                    </div>
+                    
+                </div>
+        <div class="" id="category_container" style="margin-top: 0px;">
+            @if (Model.ArtistAlbums != null && Model.ArtistAlbums.Any())
+            {
+                <div class="category">
+                    <div class="sectionTitle">
+                    <h2 class="title" id="artist_ablums">Albums</h2>
+                </div>
+                                           <div class="grid">
+                    @foreach (var item in Model.ArtistAlbums)
+                    {
+                        string artists = string.Join(" ft ", item.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList());
+                         <div class="itemContainer">
+                    <a asp-area="" asp-controller="Music" asp-action="ShowAlbum" asp-route-albumId="@item.AlbumId">
+                        <img border="0" src="@(PathExtension.CoverAlbumThumbPath+item.Album.Cover)">
+                        <div class="songInfo">
+                            <span class="artist" title="@artists">@artists</span>
+                            <span class="song" title="@item.Album.Title">@item.Album.Title</span>
+                        </div>
+                    </a>
+                    </div>
+                    }
+                </div>
+                 
+            </div>}
+             @if (Model.ArtistMusics != null && Model.ArtistMusics.Any())
+            {
+                <div class="category" style="">
+                    <div class="sectionTitle">
+                    <h2 class="title" id="artist_mp3s">Signle Tracks</h2>
+                   
+                </div>
+              <div class="grid">
+                        @foreach (var item in Model.ArtistMusics)
+                        {
+                             bool IsAlbum = item.Music.AlbumId != null;
+                        string artists = !IsAlbum ? string.Join(" ft ", item.Music.ArtistMusics.Select(p => p.Artist.FullName).ToList()) : string.Join(" ft ", item.Music.Album.ArtistAlbums.Select(p => p.Artist.FullName).ToList());
+                       
+                             <div class="itemContainer">
+                        <a asp-area="" asp-controller="Music" asp-action="ShowMusic" asp-route-id=@item.MusicId>
+                            <img border="0" alt="" src="@(IsAlbum?PathExtension.CoverAlbumMusicThumbPath+item.Music.Cover:PathExtension.CoverSingleTrackThumbPath+item.Music.Cover)">
+                            <div class="songInfo">
+                                <span class="artist" title="@artists">@artists</span>
+                                <span class="song" title="@item.Music.Title">@item.Music.Title</span>
+                            </div>
+                        </a>
+
+                        <button class="button textButton light mp3_playlist_add add_playlist " mp3id="78430">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" class="addSognIcon icon">
+                                <path d="M13,11 L21.0081969,11 C21.5446944,11 22,11.4477153 22,12 C22,12.5561352 21.5559546,13 21.0081969,13 L13,13 L13,21.0081969 C13,21.5446944 12.5522847,22 12,22 C11.4438648,22 11,21.5559546 11,21.0081969 L11,13 L2.99180311,13 C2.45530558,13 2,12.5522847 2,12 C2,11.4438648 2.44404538,11 2.99180311,11 L11,11 L11,2.99180311 C11,2.45530558 11.4477153,2 12,2 C12.5561352,2 13,2.44404538 13,2.99180311 L13,11 Z" id="path-1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                        }
+                       
+                </div>
+            </div>
+            }
+              @if (Model.ArtistMusics != null && Model.ArtistMusics.Any())
+            {
+
+                <div class="category videos" style="border-bottom:none">
+                    <div class="sectionTitle">
+                    <h2 class="title" id="artist_videos">Videos</h2>
+                </div>
+                <div class="grid">
+                        @foreach (var item in Model.ArtistVideos)
+                        {
+                              string artists = string.Join(" ft ", item.Video.ArtistVideos.Select(p => p.Artist.FullName).ToList());
+                             <a asp-area="" asp-controller="Video" asp-action="ShowVideo" asp-route-id="@item.VideoId">
+                        <img border="0" alt="Mojan YZ &amp; Saman PI - Chalim 2 (Ft Ho3ein)" src="@(PathExtension.CoverVideoThumbPath+item.Video.Cover)">
+                        <div class="songInfo">
+                            <span class="song" title="@item.Video.Title">@item.Video.Title</span>
+                            <span class="artist" title="@artists">@artists</span>
+                        </div>
+                    </a>
+                        }
+                       
+                     
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

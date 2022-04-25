@@ -30,6 +30,8 @@ namespace RadioMeti.Application.Interfaces
         Task<PlayList> GetPlayListForSiteBy(long id);
         Task<List<PlayList>> GetFeaturedPlayLists();
         Task<List<PlayList>> GetPlaylistsByCategory(long categoryId);
+        Task<List<PlayList>> GetPlayLists(string query, int take);
+
         #endregion
         #region Playlist selected categories
         Task CreatePlaylistSelectedCategories(long playlistId, List<long> selectedCategories);

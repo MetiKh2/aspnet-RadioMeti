@@ -20,6 +20,7 @@ namespace RadioMeti.Application.Interfaces
         Task<Dj> GetDjBy(long id);
         Task<bool> ExistDj(long id);
         Task<DeleteDjResult> DeleteDj(long id);
+        Task<List<Dj>> GetDjs(string query, int take);
         #endregion
 
         #region Prodcast
@@ -36,6 +37,9 @@ namespace RadioMeti.Application.Interfaces
         Task AddPlaysProdcast(Prodcast prodcast);
         Task<List<Prodcast>> GetProdcastsByStartDate(int beforeDays, int take);
         Task<List<Prodcast>> GetRelatedProdcast(long djId);
+        Task<List<Prodcast>> GetProdcasts(string query, int take);
+        Task<Dj> GetDjForSiteBy(long id);
+
         #endregion
     }
 }

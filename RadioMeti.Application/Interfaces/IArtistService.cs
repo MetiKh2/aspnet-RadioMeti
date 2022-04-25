@@ -19,5 +19,7 @@ namespace RadioMeti.Application.Interfaces
         Task<FilterArtistsDto> FilterArtists(FilterArtistsDto filter);
         Task<Artist> GetArtistBy(long id);
         Task<List<Artist>> GetArtists();
+        Task<List<Artist>> GetArtists(string query, int take);
+        Task<Artist> GetArtistForSiteBy(long id);
     }
 }

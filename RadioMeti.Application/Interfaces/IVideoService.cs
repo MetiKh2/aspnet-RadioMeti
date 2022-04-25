@@ -26,5 +26,6 @@ namespace RadioMeti.Application.Interfaces
         Task AddPlaysVideo(Video video);
         Task<List<Video>> GetRelatedVideos(Video video);
         Task<List<Video>> GetAllVideosForSite();
+        Task<List<Video>> GetVideos(string query,int take);
     }
 }

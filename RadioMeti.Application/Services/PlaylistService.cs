@@ -277,6 +277,11 @@ namespace RadioMeti.Application.Services
                 .FirstOrDefaultAsync(p=>p.Id==id);
         }
 
+        public async Task<List<PlayList>> GetPlayLists(string query, int take)
+        {
+            return await _playlistRepository.GetQuery().Where(p=>p.Title.Contains(query)).Take(take).ToListAsync();
+        }
+
         #endregion
     }
 }

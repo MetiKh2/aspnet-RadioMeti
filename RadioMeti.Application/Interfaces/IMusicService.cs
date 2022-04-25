@@ -28,6 +28,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<Music>> GetRelatedMusics(Music music);
         Task<List<Music>> GetAllMusicsForSite();
         Task AddPlaysMusic(Music music);
+        Task<List<Music>> GetMusics(string query,int take);
         #endregion
         #region Single
         Task<Tuple<CreateSingleTrackResult, long>> CreateSingleTrack(CreateSingleTrackDto createSingleTrack);
@@ -45,12 +46,14 @@ namespace RadioMeti.Application.Interfaces
         Task<DeleteAlbumResult> DeleteAlbum(long id);
         Task<List<Album>> GetAllAlbumsForSite();
         Task<List<Album>> GetLastAlbums(int take);
+        Task<List<Album>> GetAlbums (string query, int take);
         #endregion
 
         #region AlbumMusic
         Task<Tuple<CreateAlbumMusicResult, long>> CreateAlbumMusic(CreateAlbumMusicDto  createAlbumMusic);
         Task<DeleteMusicResult> DeleteAlbumMusic(long id);
         Task<List<Music>> GetAlbumMusics(long albumId);
+       
         #endregion
         Task<FilterMusicsDto> FilterMusics(FilterMusicsDto filter);
         Task<Music> GetMusicBy(long id);

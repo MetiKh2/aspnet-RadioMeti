@@ -41,10 +41,12 @@
                         </svg>
                     </a>
                 </div>
-                <div class="" id="search_container">
-                    @*<i class="fa fa-search bi bi-person"></i>*@
-                    <div id="search">
-                        <input placeholder="Search" type="text" />
+                <div class="" id="search_cdontainer">
+                    @*<i class="fa fa-search bi bi-person"r></i>*@
+                    <div id="searcch">
+                       <form asp-area="" asp-controller="Home" asp-action="Search" method="get">
+                            <input placeholder="Search" name="query" class="autocompletew" type="text" />
+                       </form>
                     </div>
                 </div>
             </div>
@@ -85,3 +87,27 @@
             </div>
         </nav>
     </header>
+
+ @*   <script>
+    var options = {
+    url: function (phrase) {
+        return 'http://easyautocomplete.com/api/countrySearch.php';
+    },
+    
+    getValue: function (element) {
+        return element.title;
+    },
+    list: {
+        match: {
+            enabled: true
+        },
+        onSelectItemEvent: function () {
+            //$('.autocomplete').val()
+
+        }
+    },
+    theme: "square"
+};
+
+$(".autocomplete").easyAutocomplete(options);
+</script>*@

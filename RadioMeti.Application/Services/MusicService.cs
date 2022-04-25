@@ -37,6 +37,10 @@ namespace RadioMeti.Application.Services
         }
 
         #region Album
+        public async Task<List<Album>> GetAlbums(string query, int take)
+        {
+            return await _albumRepository.GetQuery().Include(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).Where(p => p.Title.Contains(query)).Take(take).ToListAsync();
+        }
         public async Task<Album> GetAlbumForSiteBy(long id)
         {
             return await _albumRepository.GetQuery().Include(p=>p.Musics).Include(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).FirstOrDefaultAsync(p=>p.Id==id);
@@ -380,11 +384,14 @@ namespace RadioMeti.Application.Services
 
         public async Task<List<Music>> GetRelatedMusics(Music music)
         {
-            List<long> artistsId=music.ArtistMusics.Select(p=>p.ArtistId).ToList();
+            if(music.AlbumId!=null)
+                return await _musicRepository.GetQuery().Where(p => p.AlbumId == music.AlbumId).ToListAsync();
+            List<long> artistsId = music.ArtistMusics.Select(p=>p.ArtistId).ToList();
             var relatedMusics = new List<Music>();
             foreach (var artistId in artistsId)
             {
-                var musicsId = await _artistMusicRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.MusicId).ToListAsync();
+                var musicsId = new List<long>();
+                 musicsId= await _artistMusicRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.MusicId).ToListAsync();
                 foreach (var musicId in musicsId)
                 {
                     var relMusic = await GetMusicForSiteBy(musicId);
@@ -407,10 +414,12 @@ namespace RadioMeti.Application.Services
             return await _musicRepository.GetQuery().Include(p => p.Album.ArtistAlbums).ThenInclude(p => p.Artist).Include(p => p.ArtistMusics).ThenInclude(p => p.Artist).Where(p=>!string.IsNullOrEmpty(p.Cover)).ToListAsync();
         }
 
-       
+        public async Task<List<Music>> GetMusics(string query, int take)
+        {
+            return await _musicRepository.GetQuery().Include(p=>p.ArtistMusics).ThenInclude(p=>p.Artist).Include(p=>p.Album).ThenInclude(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).Where(p=>p.Title.Contains(query)).Take(take).ToListAsync();
+        }
 
-
-
+        
 
         #endregion
     }

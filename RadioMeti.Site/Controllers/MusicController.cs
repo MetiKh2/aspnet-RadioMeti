@@ -7,10 +7,11 @@ namespace RadioMeti.Site.Controllers
     public class MusicController : SiteBaseController
     {
         private readonly IMusicService _musicService;
-
-        public MusicController(IMusicService musicService)
+        private readonly IArtistService _artistService;
+        public MusicController(IMusicService musicService, IArtistService artistService)
         {
             _musicService = musicService;
+            _artistService = artistService;
         }
 
         [HttpGet("/musics")]
@@ -41,22 +42,29 @@ namespace RadioMeti.Site.Controllers
             return View(model);
         }
         [HttpGet("/album/{albumId}")]
-        public async Task<IActionResult> ShowAlbum(long albumId,long itemId)
+        public async Task<IActionResult> ShowAlbum(long albumId, long itemId)
         {
-            var album=await _musicService.GetAlbumForSiteBy(albumId);
-            if(album==null) return NotFound();
+            var album = await _musicService.GetAlbumForSiteBy(albumId);
+            if (album == null) return NotFound();
             var music = await _musicService.GetMusicForSiteBy(itemId);
             if (music == null)
             {
-                return View(new ShowAlbumPageDto { Album=album});
+                return View(new ShowAlbumPageDto { Album = album });
             }
             await _musicService.AddPlaysMusic(music);
             var model = new ShowAlbumPageDto
             {
                 Music = music,
-                Album =album
+                Album = album
             };
             return View(model);
+        }
+        [HttpGet("/artist/{id}")]
+        public async Task<IActionResult> ShowArtist(long id)
+        {
+            var artist = await _artistService.GetArtistForSiteBy(id);
+            if (artist== null) return NotFound();
+            return View(artist);
         }
         [HttpGet("/music/all")]
         public async Task<IActionResult> ShowAllMusics()
