@@ -21,7 +21,7 @@ namespace RadioMeti.Application.Services
 
                 var credentials = new NetworkCredential()
                 {
-                    UserName = "mahdikhodarahimi0", // without @gmail.com
+                    UserName = "metimamadkh", // without @gmail.com
                     Password = EmailSecurity.EmailPassword
                 };
 
@@ -29,11 +29,10 @@ namespace RadioMeti.Application.Services
                 client.Host = "smtp.gmail.com";
                 client.Port = 587;
                 client.EnableSsl = true;
-
                 using var emailMessage = new MailMessage()
                 {
                     To = { new MailAddress(email) },
-                    From = new MailAddress("mahdikhodarahimi0@gmail.com"), // with @gmail.com
+                    From = new MailAddress("metimamadkh@gmail.com"), // with @gmail.com
                     Subject = title,
                     Body = text,
                     IsBodyHtml = isHTML

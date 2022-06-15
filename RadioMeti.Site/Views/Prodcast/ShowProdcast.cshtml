@@ -37,7 +37,7 @@
                     </div>
                     <div class="ratingContianer">
                         <div id="mp3_rating_container">
-                            <button id="mp3_likes" class="number_of_likes button textButton">
+                            <button id="mp3_likes" class="number_of_likes button textButton"  onclick="AddProdcastLike(@Model.Prodcast.Id)">
                                 <i class="fa fa-heart "></i>
 
                                 <span class="rating">@Prodcast.LikesCount.ToString("n0") likes</span>

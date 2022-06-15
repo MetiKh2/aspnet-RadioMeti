@@ -26,14 +26,17 @@ namespace RadioMeti.Persistance.context
         public DbSet<PlayListCategory> PlayListCategories { get; set; }
         public DbSet<PlaylistMusic> PlaylistMusics { get; set; }
         public DbSet<PlayListSelectedCategory> PlayListSelectedCategories { get; set; }
+        public DbSet<UserMusicLike> UserMusicLikes{ get; set; }
         #endregion
         #region Video
         public DbSet<Video> Videos { get; set; }
         public DbSet<ArtistVideo> ArtistVideos { get; set; }
+        public DbSet<UserVideoLike> UserVideoLikes{ get; set; }
         #endregion
         #region Prodcast
         public DbSet<Dj> Djs { get; set; }
         public DbSet<Prodcast> Prodcasts { get; set; }
+        public DbSet<UserProdcastLike> UserProdcastLikes{ get; set; }
         #endregion
         #region Event
         public DbSet<Event> Events{ get; set; }

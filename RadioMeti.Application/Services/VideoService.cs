@@ -17,11 +17,36 @@ namespace RadioMeti.Application.Services
     {
         private readonly IGenericRepository<Video> _videoRepository;
         private readonly IGenericRepository<ArtistVideo> _artistVideoRepository;
+        private readonly IGenericRepository<UserVideoLike> _userVideoLikeRepository;
 
-        public VideoService(IGenericRepository<ArtistVideo> artistVideoRepository, IGenericRepository<Video> videoRepository)
+        public VideoService(IGenericRepository<ArtistVideo> artistVideoRepository, IGenericRepository<Video> videoRepository, IGenericRepository<UserVideoLike> userVideoLikeRepository)
         {
             _artistVideoRepository = artistVideoRepository;
             _videoRepository = videoRepository;
+            _userVideoLikeRepository = userVideoLikeRepository;
+        }
+
+        public async Task<bool> AddLikeVideo(int id, string userId)
+        {
+            try
+            {
+                if (_userVideoLikeRepository.GetQuery().Any(p => p.UserId == userId && p.VideoId == id)) return false;
+                var video = await GetVideoBy(id);
+                if (video == null) return false;
+                video.LikesCount++;
+                _videoRepository.EditEntity(video);
+                await _userVideoLikeRepository.AddEntity(new UserVideoLike
+                {
+                    VideoId = id,
+                    UserId = userId
+                });
+                await _videoRepository.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task AddPlaysVideo(Video video)
@@ -164,14 +189,17 @@ namespace RadioMeti.Application.Services
         public async Task<List<Video>> GetRelatedVideos(Video video)
         {
            var artistsId= video.ArtistVideos.Select(p => p.ArtistId).ToList();
-            var videos = new List<Video>();
+            var relatedVideos = new List<Video>();
             foreach (var artistId in artistsId)
             {
                 var videosId = await _artistVideoRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.VideoId).ToListAsync();
                 foreach (var videoId in videosId)
-                   videos.Add(await GetVideoForSiteBy(videoId));
+                {
+                    if(!relatedVideos.Any(p=>p.Id== video.Id))
+                        relatedVideos.Add(await GetVideoForSiteBy(videoId));
+                }
             }
-            return videos;
+            return relatedVideos;
         }
 
         public async Task<List<long>> GetVideoArtists(long videoId)

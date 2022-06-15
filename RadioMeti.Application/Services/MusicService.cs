@@ -25,8 +25,9 @@ namespace RadioMeti.Application.Services
         private readonly IGenericRepository<Artist> _artistRepository;
         private readonly IGenericRepository<Album> _albumRepository;
         private readonly IGenericRepository<ArtistAlbum> _artistAlbumRepository;
+        private readonly IGenericRepository<UserMusicLike> _userMusicLikeRepository;
         private readonly IMapper _mapper;
-        public MusicService(IGenericRepository<Music> musicRepository, IMapper mapper, IGenericRepository<ArtistMusic> artistMusicRepository, IGenericRepository<Artist> artistRepository, IGenericRepository<Album> albumRepository, IGenericRepository<ArtistAlbum> artistAlbumRepository)
+        public MusicService(IGenericRepository<Music> musicRepository, IMapper mapper, IGenericRepository<ArtistMusic> artistMusicRepository, IGenericRepository<Artist> artistRepository, IGenericRepository<Album> albumRepository, IGenericRepository<ArtistAlbum> artistAlbumRepository, IGenericRepository<UserMusicLike> userMusicLikeRepository)
         {
             _musicRepository = musicRepository;
             _mapper = mapper;
@@ -34,6 +35,7 @@ namespace RadioMeti.Application.Services
             _artistRepository = artistRepository;
             _albumRepository = albumRepository;
             _artistAlbumRepository = artistAlbumRepository;
+            _userMusicLikeRepository = userMusicLikeRepository;
         }
 
         #region Album
@@ -391,11 +393,11 @@ namespace RadioMeti.Application.Services
             foreach (var artistId in artistsId)
             {
                 var musicsId = new List<long>();
-                 musicsId= await _artistMusicRepository.GetQuery().Where(p => p.ArtistId == artistId).Select(p => p.MusicId).ToListAsync();
+                 musicsId= await _artistMusicRepository.GetQuery().Where(p => p.ArtistId == artistId&&p.MusicId!=music.Id).Select(p => p.MusicId).ToListAsync();
                 foreach (var musicId in musicsId)
                 {
                     var relMusic = await GetMusicForSiteBy(musicId);
-                    if(relMusic!=null)
+                    if(relMusic!=null&&!relatedMusics.Any(p=>p.Id==relMusic.Id))
                     relatedMusics.Add(relMusic);
                 }
             }
@@ -419,7 +421,29 @@ namespace RadioMeti.Application.Services
             return await _musicRepository.GetQuery().Include(p=>p.ArtistMusics).ThenInclude(p=>p.Artist).Include(p=>p.Album).ThenInclude(p=>p.ArtistAlbums).ThenInclude(p=>p.Artist).Where(p=>p.Title.Contains(query)).Take(take).ToListAsync();
         }
 
-        
+        public async Task<bool> AddLikeMusic(int id,string userId)
+        {
+            try
+            {
+                if (_userMusicLikeRepository.GetQuery().Any(p => p.UserId == userId && p.MusicId == id)) return false;
+               var music= await GetMusicBy(id);
+                if (music == null) return false;
+                music.LikesCount++;
+                _musicRepository.EditEntity(music);
+               await _userMusicLikeRepository.AddEntity(new UserMusicLike { 
+               MusicId = id,
+               UserId=userId
+               });
+                await _musicRepository.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
 
         #endregion
     }

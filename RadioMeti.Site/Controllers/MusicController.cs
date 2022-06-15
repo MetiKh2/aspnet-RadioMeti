@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RadioMeti.Application.DTOs.Music;
 using RadioMeti.Application.Interfaces;
+using RadioMeti.Site.Utilities.Identity;
 
 namespace RadioMeti.Site.Controllers
 {
@@ -8,10 +10,12 @@ namespace RadioMeti.Site.Controllers
     {
         private readonly IMusicService _musicService;
         private readonly IArtistService _artistService;
-        public MusicController(IMusicService musicService, IArtistService artistService)
+        private UserManager<IdentityUser> _userManager;
+        public MusicController(IMusicService musicService, IArtistService artistService, UserManager<IdentityUser>userManager)
         {
             _musicService = musicService;
             _artistService = artistService;
+            _userManager = userManager;
         }
 
         [HttpGet("/musics")]
@@ -75,6 +79,12 @@ namespace RadioMeti.Site.Controllers
         public async Task<IActionResult> ShowAllAlbums()
         {
             return View(await _musicService.GetAllAlbumsForSite());
+        }
+        [HttpPost("/AddMovieLike/{id}")]
+        public async Task<IActionResult> AddMusicLike(int id)
+        {
+            if (await _musicService.AddLikeMusic(id,_userManager.GetUserId(User))) return Json(true);
+            else return Json(false);
         }
 
     }

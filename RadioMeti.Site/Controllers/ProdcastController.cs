@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RadioMeti.Application.DTOs.Prodcast;
 using RadioMeti.Application.Interfaces;
 
@@ -7,10 +8,11 @@ namespace RadioMeti.Site.Controllers
     public class ProdcastController : SiteBaseController
     {
         private readonly IProdcastService _prodcastService;
-
-        public ProdcastController(IProdcastService prodcastService)
+        private readonly UserManager<IdentityUser> _userManager;
+        public ProdcastController(IProdcastService prodcastService, UserManager<IdentityUser> userManager)
         {
             _prodcastService = prodcastService;
+            _userManager = userManager;
         }
 
         [HttpGet("/prodcasts")]
@@ -37,7 +39,7 @@ namespace RadioMeti.Site.Controllers
             var model = new ShowProdcastPageDto
             {
                 Prodcast = prodcast,
-                RelatedProdcasts = await _prodcastService.GetRelatedProdcast(prodcast.DjId),
+                RelatedProdcasts = await _prodcastService.GetRelatedProdcast(prodcast.DjId,id),
             };
             return View(model);
         }
@@ -53,5 +55,12 @@ namespace RadioMeti.Site.Controllers
         {
             return View(await _prodcastService.GetAllProdcastForSite());
         }
+        [HttpPost("/AddProdcastLike/{id}")]
+        public async Task<IActionResult> AddProdcastLike(int id)
+        {
+            if (await _prodcastService.AddLikeProdcast(id, _userManager.GetUserId(User))) return Json(true);
+            else return Json(false);
+        }
+
     }
 }

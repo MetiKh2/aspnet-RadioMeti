@@ -156,8 +156,9 @@ public class AccountController : SiteBaseController
             var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
             var resetPasswordEmail = Url.Action("ResetPassword"
                 , "Account", new { email = user.Email, token = resetPasswordToken }, Request.Scheme);
-            await _messageSender.SendEmailAsync(user.Email, "Reset Password", resetPasswordEmail);
-            return RedirectToAction("Login","Account");
+            //await _messageSender.SendEmailAsync(user.Email, "Reset Password", resetPasswordEmail);
+            //return RedirectToAction("Login", "Account",new{test=resetPasswordEmail });
+            return Redirect(resetPasswordEmail);
         }
         return View(forgot);
     }

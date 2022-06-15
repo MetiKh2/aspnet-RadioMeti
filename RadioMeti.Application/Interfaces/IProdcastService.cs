@@ -36,8 +36,9 @@ namespace RadioMeti.Application.Interfaces
         Task<List<Prodcast>> GetPopularProdcasts(int take);
         Task AddPlaysProdcast(Prodcast prodcast);
         Task<List<Prodcast>> GetProdcastsByStartDate(int beforeDays, int take);
-        Task<List<Prodcast>> GetRelatedProdcast(long djId);
+        Task<List<Prodcast>> GetRelatedProdcast(long djId, long prodcastId);
         Task<List<Prodcast>> GetProdcasts(string query, int take);
+        Task<bool> AddLikeProdcast(int id,string userId);
         Task<Dj> GetDjForSiteBy(long id);
 
         #endregion

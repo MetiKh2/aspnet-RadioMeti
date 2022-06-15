@@ -24,7 +24,7 @@ namespace RadioMeti.Site.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index","Music");
         }
         [HttpGet("search")]
         public async Task<IActionResult> Search(string query)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadioMeti.Persistance.context;
 
@@ -11,9 +12,10 @@ using RadioMeti.Persistance.context;
 namespace RadioMeti.Persistance.Migrations
 {
     [DbContext(typeof(RadioMetiDbContext))]
-    partial class RadioMetiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220615065137_add-userlikes")]
+    partial class adduserlikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

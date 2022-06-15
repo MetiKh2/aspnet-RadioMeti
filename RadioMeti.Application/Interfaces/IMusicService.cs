@@ -28,6 +28,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<Music>> GetRelatedMusics(Music music);
         Task<List<Music>> GetAllMusicsForSite();
         Task AddPlaysMusic(Music music);
+        Task<bool> AddLikeMusic(int id,string userId);
         Task<List<Music>> GetMusics(string query,int take);
         #endregion
         #region Single

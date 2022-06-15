@@ -22,13 +22,15 @@ namespace RadioMeti.Application.Services
     {
         private readonly IGenericRepository<Dj> _djRepository;
         private readonly IGenericRepository<Prodcast> _prodcastRepository;
+        private readonly IGenericRepository<UserProdcastLike> _userProdcastLikeRepository;
         private readonly IMapper _mapper;
 
-        public ProdcastService(IGenericRepository<Dj> djRepository, IGenericRepository<Prodcast> prodcastRepository, IMapper mapper)
+        public ProdcastService(IGenericRepository<Dj> djRepository, IGenericRepository<Prodcast> prodcastRepository, IMapper mapper, IGenericRepository<UserProdcastLike> userProdcastLikeRepository)
         {
             _djRepository = djRepository;
             _prodcastRepository = prodcastRepository;
             _mapper = mapper;
+            _userProdcastLikeRepository = userProdcastLikeRepository;
         }
 
         #region dj
@@ -240,9 +242,9 @@ namespace RadioMeti.Application.Services
             await _prodcastRepository.SaveChangesAsync();
         }
 
-        public async Task<List<Prodcast>> GetRelatedProdcast(long djId)
+        public async Task<List<Prodcast>> GetRelatedProdcast(long djId,long prodcastId)
         {
-            return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.DjId == djId).ToListAsync();
+            return await _prodcastRepository.GetQuery().Include(p=>p.Dj).Where(p => p.DjId == djId&&p.Id!=prodcastId).ToListAsync();
         }
 
         public async Task<List<Prodcast>> GetAllProdcastForSite()
@@ -263,6 +265,29 @@ namespace RadioMeti.Application.Services
         public async Task<Dj> GetDjForSiteBy(long id)
         {
             return await _djRepository.GetQuery().Include(p=>p.Prodcasts).FirstOrDefaultAsync(p=>p.Id==id);
+        }
+
+        public async Task<bool> AddLikeProdcast(int id, string userId)
+        {
+            try
+            {
+                if (_userProdcastLikeRepository.GetQuery().Any(p => p.UserId == userId && p.ProdcastId == id)) return false;
+                var prodcast = await GetProdcastBy(id);
+                if (prodcast == null) return false;
+                prodcast.LikesCount++;
+                _prodcastRepository.EditEntity(prodcast);
+                await _userProdcastLikeRepository.AddEntity(new UserProdcastLike
+                {
+                   ProdcastId= id,
+                    UserId = userId
+                });
+                await _prodcastRepository.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
     }

@@ -21,6 +21,7 @@ namespace RadioMeti.Application.Interfaces
         Task<List<SiteSliderDto>> GetInSliderVideos();
         Task<List<Video>> GetNewestVideos(int take);
         Task<List<Video>> GetPopularVideos(int take);
+        Task<bool> AddLikeVideo(int id,string userId);
         Task<List<Video>> GetVideosByStartDate(int beforeDays, int take);
         Task<Video> GetVideoForSiteBy(long id);
         Task AddPlaysVideo(Video video);

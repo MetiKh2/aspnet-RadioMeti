@@ -23,4 +23,12 @@
     <ProjectReference Include="..\RadioMeti.Site\RadioMeti.Site.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Artist\" />
+    <Folder Include="Services\Event\" />
+    <Folder Include="Services\Video\" />
+    <Folder Include="Services\Prodcast\" />
+    <Folder Include="Services\Playlist\" />
+  </ItemGroup>
+
 </Project>

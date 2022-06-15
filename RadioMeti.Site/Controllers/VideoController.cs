@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RadioMeti.Application.DTOs.Video;
 using RadioMeti.Application.Interfaces;
 
@@ -7,10 +8,11 @@ namespace RadioMeti.Site.Controllers
     public class VideoController : Controller
     {
         private readonly IVideoService _videoService;
-
-        public VideoController(IVideoService videoService)
+        private readonly UserManager<IdentityUser> _userManager;
+        public VideoController(IVideoService videoService, UserManager<IdentityUser> userManager)
         {
             _videoService = videoService;
+            _userManager = userManager;
         }
 
         [HttpGet("/videos")]
@@ -45,6 +47,12 @@ namespace RadioMeti.Site.Controllers
         public async Task<IActionResult> ShowAllVideos()
         {
             return View(await _videoService.GetAllVideosForSite());
+        }
+        [HttpPost("/AddVideoLike/{id}")]
+        public async Task<IActionResult> AddProdcastLike(int id)
+        {
+            if (await _videoService.AddLikeVideo(id, _userManager.GetUserId(User))) return Json(true);
+            else return Json(false);
         }
     }
 }
